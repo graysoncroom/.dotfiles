@@ -6,7 +6,7 @@
 	default = simple
 [core]
 	editor = vim
-	excludesfile = /home/tankywoo/.gitignore
+	excludesfile = /home/gcroom/.gitignore
 	quotepath = false
 	pager = less -RS
 [diff]
