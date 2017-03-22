@@ -1,1 +1,1 @@
-
+alias vi="vim"
