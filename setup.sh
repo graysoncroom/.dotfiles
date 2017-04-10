@@ -1,4 +1,3 @@
-# Source: http://wingsquare.com/blog/swift-script-syntax-highlighting-and-indentation-for-vim-text-editor/
 
 echo "--- Installing and configuring Pathogen.."
 mkdir -p ~/.vim/autoload ~/.vim/bundle
