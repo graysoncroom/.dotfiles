@@ -1,0 +1,36 @@
+execute pathogen#infect() 
+
+filetype plugin indent on
+"
+syntax enable "enable syntax highlighting
+
+let mapleader=" " "changing <Leader> to a space (default is \)
+
+set nocompatible "vim doesn't have to act like vi
+set copyindent
+set preserveindent
+
+set shiftwidth=4 "affects how automatic indentation works as well as the >>, << or ==
+set tabstop=4 "number of visual spaces per <Tab>
+set smarttab
+
+set number "show line numbers
+set relativenumber "show number of lines away each line is from current line
+set autoindent "enable automatic indentation
+
+"turn on special characters
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:< 
+set list
+
+"boilerpate for java
+nnoremap <Leader>java :read $HOME/.vim/boilerplates/java<CR>kdd<CR>
+
+"boilerpate for html
+nnoremap <Leader>html :read $HOME/.vim/boilerplates/html<CR>kdd<CR>/title<CR>:nohl<CR>f>a
+
+"boilerplate for c
+nnoremap <Leader>c :read $HOME/.vim/boilerplates/c<CR>kdd<CR>/{<CR>:nohl<CR>o
+
+"boilerplate for class comments
+nnoremap <Leader>comment :read $HOME/.vim/boilerplates/comment<CR>kdd<CR>
+
