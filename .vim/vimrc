@@ -1,45 +1,52 @@
 execute pathogen#infect()
-filetype plugin indent on
 
-syntax enable "enable syntax highlighting
+set nocompatible          " vim doesn't have to act like vi
+set copyindent            " use same pattern as the rest of file when autoindenting
+set preserveindent        " use same pattern as the rest of file when shifting current line over ( >> , << , == )
+set shiftwidth=4          " affects how automatic indentation works as well as indent shifting ( >> , << , == )
+set tabstop=4             " number of visual spaces per <Tab>
+set smarttab              " use hard tabs for indenting and spaces for alignment
+set number                " show line numbers
+set relativenumber        " show number of lines away each line is from current line
+set autoindent            " enable automatic indentation
+set t_Co=256              " enable 256-color mode
+set nolist                " disable the listing of invisible characters (personal preference)
+set wildmenu              " will display menu of completions in command mode when <tab> is clicked
+set viewoptions-=options  " views will not save keymappings ( only preserve buffer folds )
+let mapleader=" "         " changing <leader> to space
+let localleader=" "       " change <localleader> to space
+syntax enable             " enable syntax highlighting
+filetype plugin indent on " enable filetype detection
 
-set background=dark "dark colorscheme
+" force user to not navigate via the arrow keys while in normal mode
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
 
-let mapleader=" " "changing <Leader> to a space (default is \)
+" force user to not navigate via the arrow keys while in insert mode
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
 
-set nocompatible "vim doesn't have to act like vi
-set copyindent
-set preserveindent
+" allows for easy navigation through long wraped lines
+nnoremap j gj
+nnoremap k gk
 
-"Tab Settings
-set shiftwidth=4 "affects how automatic indentation works as well as the >>, << or ==
-set tabstop=4 "number of visual spaces per <Tab>
-set smarttab
+" class comment template
+nnoremap <leader>// :read $HOME/.vim/boilerplates/comment<cr>kdd<cr>
 
-set number "show line numbers
-set relativenumber "show number of lines away each line is from current line
-
-set autoindent "enable automatic indentation
-
-"turn on special characters
-set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
-set list
-
-"boilerplate for class comments using the ( // Mark: - Comment here ) format
-nnoremap <leader>comment :read $HOME/.vim/boilerplates/comment<cr>kdd<cr>
-
-"allows for quick vimrc editing/reloading of vimrc
+" allows for quick editing/reloading of vimrc
 nnoremap <leader>en :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-"tp means 'TemPlate'. The following are boilerplates for a couple of languages.
+" tp stands for 'template'
+" the following are templates for a couple of languages
 autocmd FileType java nnoremap <leader>tp :read $HOME/.vim/boilerplates/java<cr>kdd<cr>/{<cr>:nohl<cr>o
 autocmd FileType html nnoremap <leader>tp :read $HOME/.vim/boilerplates/html<cr>kkd<cr>/title<cr>:nohl<cr>f>a
 autocmd FileType c    nnoremap <leader>tp :read $HOME/.vim/boilerplates/c<cr>kdd<cr>/{<cr>:nohl<cr>o
 
-"preserve folding in files
-autocmd BufWinLeave * mkview!
-autocmd BufWinEnter * silent loadview
-
-"jk in insert mode will map to <esc>
-inoremap jk <esc>
+" loads and saves folds apon starting and closing, respectively ( if the
+autocmd BufWinLeave * if expand("%") != "" | mkview | endif
+autocmd BufWinEnter * if expand("%") != "" | loadview | endif
