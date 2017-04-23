@@ -18,6 +18,20 @@ let localleader=" "       " change <localleader> to space
 syntax enable             " enable syntax highlighting
 filetype plugin indent on " enable filetype detection
 
+" setting the encrypt method to be the strongest the machine has available
+" when writing to encrypted file the following tags indicate the cryptmethod
+" being used:
+" [crypted]   == zip method
+" [blowfish]  == blowfish method
+" [blowfish2] == blowfish2 method
+if v:version > 704 || (v:version == 704 && has('patch401'))
+	set cryptmethod=blowfish2 "medium-strong
+elseif v:version >=703
+	set cryptmethod=blowfish  "medium with flaws
+else
+	set cryptmethod=zip       "weak with backwards compatiblity
+endif
+
 " force user to not navigate via the arrow keys while in normal mode
 nnoremap <up> <nop>
 nnoremap <down> <nop>
