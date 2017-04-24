@@ -46,8 +46,8 @@ inoremap <right> <nop>
 
 " allows for easy navigation through long wraped lines
 " this is make relativenumber display incorrect line numbers in some cases
-nnoremap j gj
-nnoremap k gk
+""nnoremap j gj
+""nnoremap k gk
 
 " class comment template
 nnoremap <leader>// :read $HOME/.vim/boilerplates/comment<cr>kdd<cr>
@@ -62,18 +62,20 @@ autocmd FileType java nnoremap <leader>tp :read $HOME/.vim/boilerplates/java<cr>
 autocmd FileType html nnoremap <leader>tp :read $HOME/.vim/boilerplates/html<cr>kkd<cr>/title<cr>:nohl<cr>f>a
 autocmd FileType c    nnoremap <leader>tp :read $HOME/.vim/boilerplates/c<cr>kdd<cr>/{<cr>:nohl<cr>o
 
-" loads and saves folds apon starting and closing, respectively ( if the
+" loads and saves folds apon starting and closing, respectively
 autocmd BufWinLeave * if expand("%") != "" | mkview | endif
 autocmd BufWinEnter * if expand("%") != "" | loadview | endif
 
+" compile code in a couple compiled languages
+autocmd FileType java nnoremap <leader>c :execute "!clear;javac " . expand("%")<cr>
+autocmd FileType c    nnoremap <leader>c :execute "!clear;gcc -o " . expand("%:r") . " " . expand("%")<cr>
 
-" compile code in a couple languages
-autocmd FileType java nnoremap <leader>c :execute "!javac " . expand("%")<cr>
-autocmd FileType c    nnoremap <leader>c :execute "!gcc -o " . expand("%:r") . " " . expand("%")<cr>
+" run code in a couple compiled languages
+autocmd FileType java nnoremap <leader>r :execute "!clear;java " . expand("%:r")<cr>
+autocmd FileType c    nnoremap <leader>r :execute "!clear;./" . expand("%:r")<cr>
 
-" run code in a couple languages
-autocmd FileType java nnoremap <leader>r :execute "!java " . expand("%:r")<cr>
-autocmd FileType c    nnoremap <leader>r :execute "!./" . expand("%:r")<cr>
+" run code in scripting languages
+autocmd FileType sh,bash nnoremap <leader>r :execute "clear;!./" .expand("%")<cr>
 
 " git add the current file
 nnoremap <leader>ga :execute "!clear;git add " . expand("%")<cr>

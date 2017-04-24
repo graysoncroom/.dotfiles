@@ -1,8 +1,8 @@
 import java.util.Scanner;
 import java.io.File;
-import java.io.FileNotFoundException
+import java.io.FileNotFoundException;
 import Java.io.BufferedReader;
-import java.io.StreamReader
+import java.io.StreamReader;
 
 public class NAME
 {
