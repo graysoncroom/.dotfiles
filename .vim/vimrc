@@ -45,6 +45,7 @@ inoremap <left> <nop>
 inoremap <right> <nop>
 
 " allows for easy navigation through long wraped lines
+" this is make relativenumber display incorrect line numbers in some cases
 nnoremap j gj
 nnoremap k gk
 
@@ -73,3 +74,15 @@ autocmd FileType c    nnoremap <leader>c :execute "!gcc -o " . expand("%:r") . "
 " run code in a couple languages
 autocmd FileType java nnoremap <leader>r :execute "!java " . expand("%:r")<cr>
 autocmd FileType c    nnoremap <leader>r :execute "!./" . expand("%:r")<cr>
+
+" git add the current file
+nnoremap <leader>ga :execute "!clear;git add " . expand("%")<cr>
+
+" git commit the added files ( will prompt for commit message )
+nnoremap <leader>gc :execute "!clear;git commit"<cr>
+
+" git push the commited files
+nnoremap <leader>gp :execute "!clear;git push"<cr>
+
+" git status
+nnoremap <leader>gs :execute "!clear;git status"<cr>
