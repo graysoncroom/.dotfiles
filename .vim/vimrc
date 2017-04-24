@@ -64,3 +64,12 @@ autocmd FileType c    nnoremap <leader>tp :read $HOME/.vim/boilerplates/c<cr>kdd
 " loads and saves folds apon starting and closing, respectively ( if the
 autocmd BufWinLeave * if expand("%") != "" | mkview | endif
 autocmd BufWinEnter * if expand("%") != "" | loadview | endif
+
+
+" compile code in a couple languages
+autocmd FileType java nnoremap <leader>c :execute "!javac " . expand("%")<cr>
+autocmd FileType c    nnoremap <leader>c :execute "!gcc -o " . expand("%:r") . " " . expand("%")<cr>
+
+" run code in a couple languages
+autocmd FileType java nnoremap <leader>r :execute "!java " . expand("%:r")<cr>
+autocmd FileType c    nnoremap <leader>r :execute "!./" . expand("%:r")<cr>
