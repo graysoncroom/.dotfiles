@@ -4,12 +4,12 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # Load bash aliases from file: bash_aliases
-if [ -f ~/.bash_aliases ] then
+if [ -f ~/.bash_aliases ]; then
 	. ~/.bash_aliases
 fi
 
 # Load private information
-if [ -f ~/.localrc ] then
+if [ -f ~/.localrc ]; then
 	. ~/.localrc
 fi
 
