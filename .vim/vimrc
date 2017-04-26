@@ -67,8 +67,9 @@ autocmd BufWinLeave * if expand("%") != "" | mkview | endif
 autocmd BufWinEnter * if expand("%") != "" | loadview | endif
 
 " compile code in a couple compiled languages
-autocmd FileType java nnoremap <leader>c :execute "!clear;javac " . expand("%")<cr>
-autocmd FileType c    nnoremap <leader>c :execute "!clear;gcc -o " . expand("%:r") . " " . expand("%")<cr>
+autocmd FileType java  nnoremap <leader>c :execute "!clear;javac " . expand("%")<cr>
+autocmd FileType c     nnoremap <leader>c :execute "!clear;gcc -o " . expand("%:r") . " " . expand("%")<cr>
+autocmd FileType swift nnoremap <leader>c :execute "!clear;cd ..;xcodebuild;cd -"<cr>
 
 " run code in a couple compiled languages
 autocmd FileType java nnoremap <leader>r :execute "!clear;java " . expand("%:r")<cr>
@@ -95,5 +96,6 @@ if has("unix")
 		let g:xcode_default_simulator = 'iPhone 5'
 		set secure " don't let external configs do scary shit
 		set exrc   " load local vimrc if found
+
 	endif
 endif
