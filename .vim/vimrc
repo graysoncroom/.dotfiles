@@ -22,7 +22,6 @@ filetype plugin indent on " ( required by vundle )
 " |------ End of Vim Plugin List ------|
 " ======================================
 
-set nocompatible         " vim doesn't have to act like vi
 set copyindent           " use same pattern as the rest of file when autoindenting
 set preserveindent       " use same pattern as the rest of file when shifting current line over ( >> , << , == )
 set shiftwidth=4         " affects how automatic indentation works as well as indent shifting ( >> , << , == )
@@ -88,8 +87,9 @@ autocmd BufWinLeave * if expand("%") != "" | mkview | endif
 autocmd BufWinEnter * if expand("%") != "" | loadview | endif
 
 " compile code in a couple compiled languages
-autocmd FileType java nnoremap <leader>c :execute "!clear;javac " . expand("%")<cr>
-autocmd FileType c    nnoremap <leader>c :execute "!clear;gcc -o " . expand("%:r") . " " . expand("%")<cr>
+autocmd FileType java  nnoremap <leader>c :execute "!clear;javac " . expand("%")<cr>
+autocmd FileType c     nnoremap <leader>c :execute "!clear;gcc -o " . expand("%:r") . " " . expand("%")<cr>
+autocmd FileType swift nnoremap <leader>c :execute "!clear;cd ..;xcodebuild;cd -"<cr>
 
 " run code in a couple compiled languages
 autocmd FileType java nnoremap <leader>r :execute "!clear;java " . expand("%:r")<cr>
@@ -115,3 +115,13 @@ nnoremap <leader>" mabi"<esc>ea"<esc>`a
 
 " surround word with a double quote
 nnoremap <leader>' mabi'<esc>ea'<esc>`a
+
+if has("unix")
+	let s:uname = system("uname -s")
+	if s:uname == "Darwin"
+		let g:xcode_default_simulator = 'iPhone 5'
+		set secure " don't let external configs do scary shit
+		set exrc   " load local vimrc if found
+
+	endif
+endif

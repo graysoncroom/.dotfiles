@@ -22,20 +22,11 @@ set -o vi
 
 # Function to send an email using $gmailuser / $gmailpassword
 sendemail() {
-	Sender += $gmailuser
-	User += $gmailuser;
-	User += ":";
-	User += $gamilpassword;
 	echo "Recpient";
 	read Recpient; 
 	echo "Absolute Path of Message: ";
 	read Message;
-	curl --url "smtps://smtp.gmail.com:465" --ssl-reqd 
-	                                        --mail-from $Sender
-	                                        --mail-rcpt $Recpient
-	                                        --upload-file $Message
-	                                        --user $User 
-	                                        --insecure; 
+	curl --url "smtps://smtp.gmail.com:465" --ssl-reqd --mail-from $gmailuser --mail-rcpt $Recpient --upload-file $Message --user "$gmailuser:$gmailpass" --insecure; 
 	echo "Email Sent";
 }
 
