@@ -1,22 +1,43 @@
-execute pathogen#infect()
+set nocompatible " vim doesn't have to act like vi
 
-set nocompatible          " vim doesn't have to act like vi
-set copyindent            " use same pattern as the rest of file when autoindenting
-set preserveindent        " use same pattern as the rest of file when shifting current line over ( >> , << , == )
-set shiftwidth=4          " affects how automatic indentation works as well as indent shifting ( >> , << , == )
-set tabstop=4             " number of visual spaces per <Tab>
-set smarttab              " use hard tabs for indenting and spaces for alignment
-set number                " show line numbers
-set relativenumber        " show number of lines away each line is from current line
-set autoindent            " enable automatic indentation
-set t_Co=256              " enable 256-color mode
-set nolist                " disable the listing of invisible characters (personal preference)
-set wildmenu              " will display menu of completions in command mode when <tab> is clicked
-set viewoptions-=options  " views will not save keymappings ( only preserve buffer folds )
-let mapleader=" "         " changing <leader> to space
-let localleader=" "       " change <localleader> to space
-syntax enable             " enable syntax highlighting
-filetype plugin indent on " enable filetype detection
+" ====================================== 
+" |----- Start of Vim Plugin List -----|
+" ======================================
+filetype off                      " ( required by vundle )
+set rtp+=~/.vim/bundle/Vundle.vim " ( required by vundle )
+call vundle#begin()
+
+" let vundle manage itself
+Plugin 'VundleVim/Vundle.vim'
+
+" syntax coloring and indention for Swift
+Plugin 'keith/swift.vim'
+
+" linter
+Plugin 'vim-syntastic/syntastic'
+
+call vundle#end()
+filetype plugin indent on " ( required by vundle )
+" ======================================
+" |------ End of Vim Plugin List ------|
+" ======================================
+
+set nocompatible         " vim doesn't have to act like vi
+set copyindent           " use same pattern as the rest of file when autoindenting
+set preserveindent       " use same pattern as the rest of file when shifting current line over ( >> , << , == )
+set shiftwidth=4         " affects how automatic indentation works as well as indent shifting ( >> , << , == )
+set tabstop=4            " number of visual spaces per <Tab>
+set smarttab             " use hard tabs for indenting and spaces for alignment
+set number               " show line numbers
+set relativenumber       " show number of lines away each line is from current line
+set autoindent           " enable automatic indentation
+set t_Co=256             " enable 256-color mode
+set nolist               " disable the listing of invisible characters (personal preference)
+set wildmenu             " will display menu of completions in command mode when <tab> is clicked
+set viewoptions-=options " views will not save keymappings ( only preserve buffer folds )
+let mapleader=" "        " changing <leader> to space
+let localleader=" "      " change <localleader> to space
+syntax enable            " enable syntax highlighting
 
 " setting the encrypt method to be the strongest the machine has available
 " when writing to encrypted file the following tags indicate the cryptmethod
@@ -88,3 +109,9 @@ nnoremap <leader>gp :execute "!clear;git push"<cr>
 
 " git status
 nnoremap <leader>gs :execute "!clear;git status"<cr>
+
+" surround word with double quote command
+nnoremap <leader>" mabi"<esc>ea"<esc>`a
+
+" surround word with a double quote
+nnoremap <leader>' mabi'<esc>ea'<esc>`a
