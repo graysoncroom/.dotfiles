@@ -16,12 +16,16 @@ Plugin 'keith/swift.vim'
 " linter
 Plugin 'vim-syntastic/syntastic'
 
+" nerdtree
+Plugin 'scrooloose/nerdtree.git'
+
 call vundle#end()
 filetype plugin indent on " ( required by vundle )
 " ======================================
 " |------ End of Vim Plugin List ------|
 " ======================================
 
+set incsearch            " search for patterns as you type them in
 set copyindent           " use same pattern as the rest of file when autoindenting
 set preserveindent       " use same pattern as the rest of file when shifting current line over ( >> , << , == )
 set shiftwidth=4         " affects how automatic indentation works as well as indent shifting ( >> , << , == )
@@ -97,7 +101,7 @@ autocmd FileType c    nnoremap <leader>r :execute "!clear;./" . expand("%:r")<cr
 
 " run code in scripting languages
 autocmd FileType sh,bash nnoremap <leader>r :execute "clear;!./" .expand("%")<cr>
-
+autocmd FileType js      nnoremap <leader>r :execute "clear;!./" .expand("%")<cr>
 " git add the current file
 nnoremap <leader>ga :execute "!clear;git add " . expand("%")<cr>
 
