@@ -102,6 +102,7 @@ autocmd FileType c    nnoremap <leader>r :execute "!clear;./" . expand("%:r")<cr
 " run code in scripting languages
 autocmd FileType sh,bash nnoremap <leader>r :execute "clear;!./" .expand("%")<cr>
 autocmd FileType js      nnoremap <leader>r :execute "clear;!./" .expand("%")<cr>
+
 " git add the current file
 nnoremap <leader>ga :execute "!clear;git add " . expand("%")<cr>
 
@@ -120,12 +121,13 @@ nnoremap <leader>" mabi"<esc>ea"<esc>`a
 " surround word with a double quote
 nnoremap <leader>' mabi'<esc>ea'<esc>`a
 
+" open nerdtree with ease
+nnoremap <leader>t :NERDTreeToggle<cr>
 if has("unix")
 	let s:uname = system("uname -s")
 	if s:uname == "Darwin"
 		let g:xcode_default_simulator = 'iPhone 5'
 		set secure " don't let external configs do scary shit
 		set exrc   " load local vimrc if found
-
 	endif
 endif
