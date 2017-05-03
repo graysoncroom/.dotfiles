@@ -19,6 +19,9 @@ Plugin 'vim-syntastic/syntastic'
 " nerdtree
 Plugin 'scrooloose/nerdtree.git'
 
+" imports in java
+Plugin 'rustushki/JavaImp.vim'
+
 call vundle#end()
 filetype plugin indent on " ( required by vundle )
 " ======================================
@@ -74,11 +77,14 @@ inoremap <right> <nop>
 ""nnoremap k gk
 
 " class comment template
-nnoremap <leader>// :read $HOME/.vim/boilerplates/comment<cr>kdd<cr>
+"" nnoremap <leader>// :read $HOME/.vim/boilerplates/comment<cr>kdd<cr>
 
 " allows for quick editing/reloading of vimrc
 nnoremap <leader>en :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" bind jk to <esc>
+inoremap jk <esc>
 
 " tp stands for 'template'
 " the following are templates for a couple of languages
@@ -121,8 +127,16 @@ nnoremap <leader>" mabi"<esc>ea"<esc>`a
 " surround word with a double quote
 nnoremap <leader>' mabi'<esc>ea'<esc>`a
 
-" open nerdtree with ease
-nnoremap <leader>t :NERDTreeToggle<cr>
+" comment out current line
+autocmd FileType java nnoremap <leader>/ maI//<esc>`a
+
+" import the library/object under cursor
+" at the moment this will only work in java
+autocmd FileType java nnoremap <leader>i :JI<cr>
+
+" open nerdtree
+nnoremap <leader>tt :NERDTreeToggle<cr>
+
 if has("unix")
 	let s:uname = system("uname -s")
 	if s:uname == "Darwin"
@@ -131,3 +145,6 @@ if has("unix")
 		set exrc   " load local vimrc if found
 	endif
 endif
+
+let g:JavaImpPaths   = $HOME . "/.vim/jdk-source/"
+let g:JavaImpDataDir = $HOME . "/.vim/JavaImp"
