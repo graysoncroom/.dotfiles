@@ -86,6 +86,9 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 " bind jk to <esc>
 inoremap jk <esc>
 
+" force user not to use to <esc> key (use jk)
+inoremap <esc> <nop>
+
 " tp stands for 'template'
 " the following are templates for a couple of languages
 autocmd FileType java nnoremap <leader>tp :read $HOME/.vim/boilerplates/java<cr>kdd<cr>/{<cr>:nohl<cr>o
