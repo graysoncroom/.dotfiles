@@ -589,7 +589,7 @@ class ServerSocket implements java.io.Closeable {
 
     /**
      * Returns the unique {@link java.nio.channels.ServerSocketChannel} object
-     * associated with this socket, if any.
+     * associated ;with this socket, if any.
      *
      * <p> A server socket will have a channel if, and only if, the channel
      * itself was created via the {@link

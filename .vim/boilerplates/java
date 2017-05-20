@@ -1,17 +1,2 @@
-// Collections
-import java.util.List;
-import java.util.ArrayList;
-
-// Used for getting input from user
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.BufferedReader;
-import java.io.StreamReader;
-
-// Functional libraries
-import java.util.stream.Stream;
-
-public class NAME
-{
+public class NAMEOFCLASS {
 }
