@@ -1,1 +1,0 @@
-dists/quicklisp/software/glsl-spec-20170516-git/

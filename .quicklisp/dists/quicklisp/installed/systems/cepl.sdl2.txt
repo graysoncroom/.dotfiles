@@ -1,1 +1,0 @@
-dists/quicklisp/software/cepl.sdl2-release-quicklisp-038cea19-git/cepl.sdl2.asd

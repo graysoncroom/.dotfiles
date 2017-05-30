@@ -1,1 +1,0 @@
-dists/quicklisp/software/documentation-utils-20170516-git/documentation-utils.asd
