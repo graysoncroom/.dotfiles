@@ -1,0 +1,1 @@
+dists/quicklisp/software/varjo-release-quicklisp-84fd7639-git/

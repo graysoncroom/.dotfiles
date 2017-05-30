@@ -1,0 +1,78 @@
+<!DOCTYPE html> <html xmlns="http://www.w3.org/1999/xhtml"> <head> <meta charset="utf-8"/> <title>Trivial-Indent</title> <meta name="viewport" content="width=device-width"/> <meta name="description" content="A very simple library to allow indentation hints for SWANK."/> <meta name="author" content="Nicolas Hafner &lt;shinmera@tymoon.eu&gt;"/> <style type="text/css"> body{
+          max-width: 1024px;
+          margin: 0 auto 0 auto;
+          font-family: sans-serif;
+          color: #333333;
+          font-size: 14pt;
+          padding: 5px;
+      }
+      body>header{
+          display:flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          max-width: 100%;
+          text-align: center;
+      }
+      body>header img{
+          max-width: 50%;
+      }
+      img{
+          max-width: 100%;
+          max-height: 100%;
+      }
+      code{
+          font-family: Consolas, Inconsolata, monospace;
+      }
+      a{
+          text-decoration: none;
+          color: #0055AA;
+      }
+      a img{
+          border: none;
+      }
+      #documentation{
+          text-align: justify;
+      }
+      #documentation pre{
+          margin-left: 20px;
+          overflow: auto;
+      }
+      #documentation img{
+          margin: 5px;
+      }
+      #symbol-index>ul{
+          list-style: none;
+          padding: 0;
+      }
+      #symbol-index .package>ul{
+          list-style: none;
+          padding: 0 0 0 10px;
+      }
+      #symbol-index .package .nicknames{
+          font-weight: normal;
+      }
+      #symbol-index .package h4{
+          display: inline-block;
+          margin: 0;
+      }
+      #symbol-index .package article{
+          margin: 0 0 15px 0;
+      }
+      #symbol-index .package article header{
+          font-size: 1.2em;
+          font-weight: normal;
+      }
+      #symbol-index .package .name{
+          margin-right: 5px;
+      }
+      #symbol-index .package .docstring{
+          margin: 0 0 0 15px;
+          white-space: pre-wrap;
+          font-size: 12pt;
+      }
+      @media (max-width: 800px){
+          body{font-size: 12pt;}
+      } </style> </head> <body> <header> <h1>trivial-indent</h1> <span class="version">1.0.0</span> <p class="description">A very simple library to allow indentation hints for SWANK.</p> </header> <main> <article id="documentation">  <div><h2>About Trivial-Indent</h2> <p>This allows you to define custom indentation hints for your macros if the one recognised by Slime automatically produces unwanted results.</p> <h2>How To</h2> <p>The only feature of this that you will really need to use is <code>DEFINE-INDENTATION</code>.</p> <pre><code>(define-indentation defmacro (4 &amp;lambda &amp;body))
+(define-indentation something-more-complex (4 &amp;rest (<a href="http://l1sp.org/cl/&amp;whole">&amp;whole</a> 2 0 4 &amp;body)))</code></pre> <p>For more information on how the indentation rule forms work, please refer to the Slime source and documentation.
+Otherwise just faffing about until it produces the indentation you need works well too.</p> </div>  </article> <article id="copyright">  <h2>Copyright</h2> <span>trivial-indent</span> is licensed under the <span><a href="https://tldrlegal.com/search?q=Artistic">Artistic</a></span> license.  © <span>Nicolas Hafner &lt;shinmera@tymoon.eu&gt;</span> .    </article>  </main> </body> </html> 

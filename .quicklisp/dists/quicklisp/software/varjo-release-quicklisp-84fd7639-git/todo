@@ -1,0 +1,39 @@
+* make into functions:
+  aref, make-array, vector, uint
+
+* check which places actually need primary-type
+
+* enforce type . named-types layout to type-sets
+  assert type is never :void
+
+* unify type & multi-vals in code objects
+
+* make-user-function-obj in make-function.lisp has a daft way of storing the
+  return types, we should make it follow the return-set approach. Currently
+  I think this is where the return-sets of void are coming from
+
+* make context restriction work with special functions
+
+------------------------------------------------------------
+
+* why use def-v-type-class for v-user-function? Switch to defclass?
+
+* low-hanging-fruit: unify labels/flet/labels-no-implicit implementations
+
+* need an across vector loop thing. We can then unroll these loops.
+* also add all the arithmatic operators for non number datatypes
+* add aref, make-array and array constructors
+
+* add-function to global should remove functiosn that are totally blocked, so match
+  on (cons func-name (v-args func)) as only the newsest one will be selected and it slows
+  down processing
+* merge-compiled needs a new name
+* Write tour guide
+
+* read up on setting variables as invariant
+* find out what centroid means
+* add preprocessor extensions to translate function
+* check out _line_ _file_ and _version_ macros from glsl, are they
+  used?
+* add lisp macros wrappers for this functionality
+* how do we handle ARBs?
