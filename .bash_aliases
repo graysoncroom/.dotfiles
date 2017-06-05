@@ -1,9 +1,7 @@
-alias vi="vim"
-alias archey="archey3"
-alias la='ls -a'
-alias ll='ls -l'
-alias BitchX='BitchX -n $IamGoD_77 irc.freenode.com'
-alias win32gcc='i686-w64-mingw32-gcc' # C compiler for windows on linux machine.
+alias vi='vim'
+alias archey='archey3'
+alias bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E "state|to\ full|percentage"'
+alias ..='cd ..'
 
 # default PS1
 export PS1='[\W]\$ '

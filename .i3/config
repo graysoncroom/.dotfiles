@@ -1,8 +1,10 @@
 set $mod Mod1
 set $term termite
 
-exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/star-wars.jpeg
+#exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/star-wars.jpeg
 #exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/hot-light.jpeg
+exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/forest-stairs.jpeg
+
 exec compton -b
 exec xbanish &
 
@@ -12,21 +14,26 @@ bindsym $mod+Shift+n gaps inner current minus 5
 bindsym $mod+m       gaps outer current plus 5
 bindsym $mod+Shift+m gaps outer current minus 5
 
-bindsym $mod+Delete exec i3lock -f -b -i ~/Pictures/wallpapers/arch-dark-meme.png
+#bindsym $mod+Delete exec i3lock -f -b -i ~/Pictures/wallpapers/arch-dark-meme.png
+#bindsym $mod+Delete exec lock ~/Pictures/wallpapers/lock.png
+bindsym $mod+Shift+Delete exec lock lock-red.png
+bindsym $mod+Delete exec i3lock -u -f -b -i ~/Pictures/wallpapers/arch-dark-meme.png
 
-bindsym $mod+Shift+y resize shrink width 10 px or 10 ppt
+bindsym $mod+Shift+y resize grow width 10 px or 10 ppt
 bindsym $mod+Shift+u resize shrink height 10 px or 10 ppt
-bindsym $mod+Shift+i resize grow width 10 px or 10 ppt
-bindsym $mod+Shift+o resize grow height 10 px or 10 ppt
+bindsym $mod+Shift+i resize grow height 10 px or 10 ppt
+bindsym $mod+Shift+o resize shrink width 10 px or 10 ppt
 
 bindsym $mod+p exec $term -e htop
 bindsym $mod+b exec firefox
+#bindsym $mod+q exec qutebrowser
+bindsym $mod+Control+c exec compton -b
 
 # default window gap settings
-hide_edge_borders both
-for_window [class="^.*"] border pixel 1
-gaps inner 15
-gaps outer 15
+#hide_edge_borders both
+for_window [class="^.*"] border pixel 2
+#gaps inner 15
+#gaps outer 15
 
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+Return exec $term -e tmux
