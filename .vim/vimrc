@@ -1,5 +1,5 @@
 set nocompatible " vim doesn't have to act like vi
-
+"
 " ====================================== 
 " |----- Start of Vim Plugin List -----|
 " ======================================
@@ -7,17 +7,27 @@ filetype off                      " ( required by vundle )
 set rtp+=~/.vim/bundle/Vundle.vim " ( required by vundle )
 call vundle#begin()
 
+" i3 config syntax highlighting
+Plugin 'PotatoesMaster/i3-vim-syntax'
 " let vundle manage itself
 Plugin 'VundleVim/Vundle.vim'
-
 " syntax coloring and indention for Swift
 Plugin 'keith/swift.vim'
-
 " linter
 Plugin 'vim-syntastic/syntastic'
-
 " nerdtree
 Plugin 'scrooloose/nerdtree.git'
+" imports in java
+Plugin 'rustushki/JavaImp.vim'
+" auto-pairs (will remain unused until I can disable the autoclosing ' for
+" lisp development)
+""Plugin 'jiangmiao/auto-pairs'
+" vim slime for lisp
+" used for sending lines over to a REPL
+Plugin 'jpalardy/vim-slime'
+" slimv by Tamas Kovacs
+" used for it's function auto-completion ( it is a bit bloated but who cares )
+Plugin 'kovisoft/slimv'
 
 call vundle#end()
 filetype plugin indent on " ( required by vundle )
@@ -25,22 +35,38 @@ filetype plugin indent on " ( required by vundle )
 " |------ End of Vim Plugin List ------|
 " ======================================
 
-set incsearch            " search for patterns as you type them in
-set copyindent           " use same pattern as the rest of file when autoindenting
-set preserveindent       " use same pattern as the rest of file when shifting current line over ( >> , << , == )
-set shiftwidth=4         " affects how automatic indentation works as well as indent shifting ( >> , << , == )
-set tabstop=4            " number of visual spaces per <Tab>
-set smarttab             " use hard tabs for indenting and spaces for alignment
-set number               " show line numbers
-set relativenumber       " show number of lines away each line is from current line
-set autoindent           " enable automatic indentation
-set t_Co=256             " enable 256-color mode
-set nolist               " disable the listing of invisible characters (personal preference)
-set wildmenu             " will display menu of completions in command mode when <tab> is clicked
-set viewoptions-=options " views will not save keymappings ( only preserve buffer folds )
-let mapleader=" "        " changing <leader> to space
-let localleader=" "      " change <localleader> to space
-syntax enable            " enable syntax highlighting
+" syntastic errors apear in seperate window at bottom of current window
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+set bg=light              " with a black terminal light syntax looks much better
+set splitbelow            " more natural split opening ( open split down when applicable )
+set splitright            " more natural split opening ( open split to the right when applicable )
+set listchars=tab:>.      " visual representation of certain characters when list is set
+set incsearch             " search for patterns as you type them in
+set nohlsearch            " do not hightlight patterns after enter key is pressed on search
+set copyindent            " use same pattern as the rest of file when autoindenting
+set preserveindent        " use same pattern as the rest of file when shifting current line over
+set shiftwidth=2          " affects how automatic indentation works as well as indent shifting
+set tabstop=2             " number of visual spaces per <Tab>
+set expandtab             " on pressing tab, insert 4 spaces :( 
+set number                " show line numbers
+set relativenumber        " show number of lines away each line is from current line
+set autoindent            " enable automatic indentation
+set t_Co=256              " enable 256-color mode
+set nolist                " disable the listing of invisible characters (personal preference)
+set wildmenu              " will display menu of completions in command mode when <tab> is clicked
+set viewoptions-=options  " views will not save keymappings ( only preserve buffer folds )
+syntax enable             " enable syntax highlighting
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let mapleader=" "         " changing <leader> to space
+let localleader=" "       " change <localleader> to space
+let g:slime_target="tmux" " defaults to tmux for pushing text to next window ( <C-c> <C-c> )
 
 " setting the encrypt method to be the strongest the machine has available
 " when writing to encrypted file the following tags indicate the cryptmethod
@@ -56,52 +82,54 @@ else
 	set cryptmethod=zip       "weak with backwards compatiblity
 endif
 
-" force user to not navigate via the arrow keys while in normal mode
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-
-" force user to not navigate via the arrow keys while in insert mode
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
+" easier to switch between vim windows
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " allows for easy navigation through long wraped lines
 " this is make relativenumber display incorrect line numbers in some cases
-""nnoremap j gj
-""nnoremap k gk
+" html tends to become a single elongated line
+autocmd FileType html nnoremap j gj
+autocmd FileType html nnoremap k gk
 
 " class comment template
-nnoremap <leader>// :read $HOME/.vim/boilerplates/comment<cr>kdd<cr>
+"" nnoremap <leader>// :read $HOME/.vim/boilerplates/comment<cr>kdd<cr>
 
 " allows for quick editing/reloading of vimrc
 nnoremap <leader>en :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+" bind jk to <esc>
+inoremap jk <esc>
+
+" force user not to use to <esc> key (use jk)
+inoremap <esc> <nop>
+
 " tp stands for 'template'
 " the following are templates for a couple of languages
-autocmd FileType java nnoremap <leader>tp :read $HOME/.vim/boilerplates/java<cr>kdd<cr>/{<cr>:nohl<cr>o
+autocmd FileType java nnoremap <leader>tp :read $HOME/.vim/boilerplates/java<cr>kdd<cr>/{<cr>:nohl<cr>jk0fNciw<c-r>=expand("%:t:r")<cr><esc>o
 autocmd FileType html nnoremap <leader>tp :read $HOME/.vim/boilerplates/html<cr>kkd<cr>/title<cr>:nohl<cr>f>a
 autocmd FileType c    nnoremap <leader>tp :read $HOME/.vim/boilerplates/c<cr>kdd<cr>/{<cr>:nohl<cr>o
 
-" loads and saves folds apon starting and closing, respectively
+" files will be loaded and saved folds apon opening and closing, respectively
 autocmd BufWinLeave * if expand("%") != "" | mkview | endif
 autocmd BufWinEnter * if expand("%") != "" | loadview | endif
 
 " compile code in a couple compiled languages
 autocmd FileType java  nnoremap <leader>c :execute "!clear;javac " . expand("%")<cr>
 autocmd FileType c     nnoremap <leader>c :execute "!clear;gcc -o " . expand("%:r") . " " . expand("%")<cr>
-autocmd FileType swift nnoremap <leader>c :execute "!clear;cd ..;xcodebuild;cd -"<cr>
+autocmd FileType swift nnoremap <leader>c :execute "!clear;cd ..;xcodebuild;cd -"<cr> 
 
 " run code in a couple compiled languages
 autocmd FileType java nnoremap <leader>r :execute "!clear;java " . expand("%:r")<cr>
 autocmd FileType c    nnoremap <leader>r :execute "!clear;./" . expand("%:r")<cr>
 
 " run code in scripting languages
-autocmd FileType sh,bash nnoremap <leader>r :execute "clear;!./" .expand("%")<cr>
-autocmd FileType js      nnoremap <leader>r :execute "clear;!./" .expand("%")<cr>
+autocmd FileType sh,bash    nnoremap <leader>r :execute "clear;./" .expand("%")<cr>
+autocmd FileType js         nnoremap <leader>r :execute "clear;./" .expand("%")<cr>
+autocmd FileType lisp,lsp,l nnoremap <leader>r :execute "!clear;clisp " .expand("%")<cr>
 
 " git add the current file
 nnoremap <leader>ga :execute "!clear;git add " . expand("%")<cr>
@@ -115,14 +143,28 @@ nnoremap <leader>gp :execute "!clear;git push"<cr>
 " git status
 nnoremap <leader>gs :execute "!clear;git status"<cr>
 
-" surround word with double quote command
-nnoremap <leader>" mabi"<esc>ea"<esc>`a
+" ex mode key binding -> ';'
+nnoremap ; :
 
-" surround word with a double quote
-nnoremap <leader>' mabi'<esc>ea'<esc>`a
+" next FfTt search binding -> ':'
+nnoremap : ;
 
-" open nerdtree with ease
-nnoremap <leader>t :NERDTreeToggle<cr>
+" faster save&quit
+""nnoremap <leader>w :wq<cr>
+
+" import the library/object under cursor
+" at the moment this will only work in java
+autocmd FileType java nnoremap <leader>i :JI<cr>
+
+" goto the library/object source code under cursor
+" at the moment this will only work in java
+autocmd FileType java nnoremap <leader>f :JIF<cr>
+
+autocmd FileType java iab psvm public static void main(String[] args)
+
+" open nerdtree
+nnoremap <leader>a :NERDTreeToggle<cr>
+
 if has("unix")
 	let s:uname = system("uname -s")
 	if s:uname == "Darwin"
@@ -131,3 +173,8 @@ if has("unix")
 		set exrc   " load local vimrc if found
 	endif
 endif
+
+let g:JavaImpPaths   = $HOME . "/.vim/jdk-source/"
+let g:JavaImpDataDir = $HOME . "/.vim/JavaImp"
+
+

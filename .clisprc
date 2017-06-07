@@ -1,0 +1,6 @@
+;;; Load Quicklisp when CLISP launches
+#-quicklisp
+(let ((quicklisp-init (merge-pathnames  "quicklisp/setup.lisp"
+                                        "/home/grayson/dotfiles/")))
+  (when (probe-file quicklisp-init)
+    (load quicklisp-init)))
