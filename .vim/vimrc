@@ -1,5 +1,4 @@
 set nocompatible " vim doesn't have to act like vi
-"
 " ====================================== 
 " |----- Start of Vim Plugin List -----|
 " ======================================
@@ -67,6 +66,23 @@ let g:syntastic_check_on_wq = 0
 let mapleader=" "         " changing <leader> to space
 let localleader=" "       " change <localleader> to space
 let g:slime_target="tmux" " defaults to tmux for pushing text to next window ( <C-c> <C-c> )
+
+set incsearch            " search for patterns as you type them in
+set copyindent           " use same pattern as the rest of file when autoindenting
+set preserveindent       " use same pattern as the rest of file when shifting current line over ( >> , << , == )
+set shiftwidth=4         " affects how automatic indentation works as well as indent shifting ( >> , << , == )
+set tabstop=4            " number of visual spaces per <Tab>
+set smarttab             " use hard tabs for indenting and spaces for alignment
+set number               " show line numbers
+set relativenumber       " show number of lines away each line is from current line
+set autoindent           " enable automatic indentation
+set t_Co=256             " enable 256-color mode
+set nolist               " disable the listing of invisible characters (personal preference)
+set wildmenu             " will display menu of completions in command mode when <tab> is clicked
+set viewoptions-=options " views will not save keymappings ( only preserve buffer folds )
+let mapleader=" "        " changing <leader> to space
+let localleader=" "      " change <localleader> to space
+syntax enable            " enable syntax highlighting
 
 " setting the encrypt method to be the strongest the machine has available
 " when writing to encrypted file the following tags indicate the cryptmethod
