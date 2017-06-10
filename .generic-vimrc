@@ -1,0 +1,100 @@
+" syntastic errors apear in seperate window at bottom of current window
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+set bg=light              " with a black terminal light syntax looks much better
+set encoding=utf-8        " unicode support ( just to make sure )
+set splitbelow            " more natural split opening ( open split down when applicable )
+set splitright            " more natural split opening ( open split to the right when applicable )
+set listchars=tab:>.      " visual representation of certain characters when list is set
+set incsearch             " search for patterns as you type them in
+set nohlsearch            " do not hightlight patterns after enter key is pressed on search
+set copyindent            " use same pattern as the rest of file when autoindenting
+set preserveindent        " use same pattern as the rest of file when shifting current line over
+set shiftwidth=2          " affects how automatic indentation works as well as indent shifting
+set tabstop=2             " number of visual spaces per <Tab>
+set expandtab             " on pressing tab, insert 4 spaces :( 
+set number                " show line numbers
+set relativenumber        " show number of lines away each line is from current line
+set autoindent            " enable automatic indentation
+set t_Co=256              " enable 256-color mode
+set nolist                " disable the listing of invisible characters (personal preference)
+set wildmenu              " will display menu of completions in command mode when <tab> is clicked
+set viewoptions-=options  " views will not save keymappings ( only preserve buffer folds )
+syntax enable             " enable syntax highlighting
+
+let g:JavaImpPaths   = $HOME . "/.generic-vim-javaImp/jdk-source/"
+let g:JavaImpDataDir = $HOME . "/.generic-vim-javaImp/JavaImp"
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let mapleader=" "         " changing <leader> to space
+let localleader=" "       " change <localleader> to space
+let g:slime_target="tmux" " defaults to tmux for pushing text to next window ( <C-c> <C-c> )
+
+" easier to switch between vim windows
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+autocmd FileType html nnoremap j gj
+autocmd FileType html nnoremap k gk
+
+inoremap jk <esc>
+inoremap <esc> <nop>
+
+" the following are templates for a couple of languages
+autocmd FileType java nnoremap <leader>tp :read $HOME/.vim/boilerplates/java<cr>kdd<cr>/{<cr>:nohl<cr>jk0fNciw<c-r>=expand("%:t:r")<cr><esc>o
+autocmd FileType html nnoremap <leader>tp :read $HOME/.vim/boilerplates/html<cr>kkd<cr>/title<cr>:nohl<cr>f>a
+autocmd FileType c nnoremap <leader>tp :read $HOME/.vim/boilerplates/c<cr>kdd<cr>/{<cr>:nohl<cr>o
+
+" files will be loaded and saved folds apon opening and closing, respectively
+autocmd BufWinLeave * if expand("%") != "" | mkview | endif
+autocmd BufWinEnter * if expand("%") != "" | loadview | endif
+
+" compile code in a couple compiled languages
+autocmd FileType java nnoremap <leader>c :execute "!clear;javac " . expand("%")<cr>
+autocmd FileType c nnoremap <leader>c :execute "!clear;gcc -o " . expand("%:r") . " " . expand("%")<cr>
+autocmd FileType swift nnoremap <leader>c :execute "!clear;cd ..;xcodebuild;cd -"<cr> 
+
+" run code in a couple compiled languages
+autocmd FileType java nnoremap <leader>r :execute "!clear;java " . expand("%:r")<cr>
+autocmd FileType c nnoremap <leader>r :execute "!clear;./" . expand("%:r")<cr>
+
+" run code in scripting languages
+autocmd FileType sh,bash nnoremap <leader>r :execute "clear;./" .expand("%")<cr>
+autocmd FileType js nnoremap <leader>r :execute "clear;./" .expand("%")<cr>
+autocmd FileType lisp,lsp,l nnoremap <leader>r :execute "!clear;clisp " .expand("%")<cr>
+
+" git add 
+nnoremap <leader>ga :execute "!clear;git add " . expand("%")<cr>
+" git commit
+nnoremap <leader>gc :execute "!clear;git commit"<cr>
+" git push 
+nnoremap <leader>gp :execute "!clear;git push"<cr>
+" git status
+nnoremap <leader>gs :execute "!clear;git status"<cr>
+
+nnoremap ; :
+nnoremap : ;
+
+" import the library/object under cursor
+autocmd FileType java nnoremap <leader>i :JI<cr>
+
+" goto the library/object source code under cursor
+autocmd FileType java nnoremap <leader>f :JIF<cr>
+
+" open nerdtree
+nnoremap <leader>h :NERDTreeToggle<cr>
+
+if has("unix")
+	let s:uname = system("uname -s")
+	if s:uname == "Darwin"
+		let g:xcode_default_simulator = 'iPhone 5'
+		set secure " don't let external configs do scary shit
+		set exrc   " load local vimrc if found
+	endif
+endif
