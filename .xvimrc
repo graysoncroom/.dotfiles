@@ -1,0 +1,28 @@
+set number
+set relativenumber
+
+inoremap jk <ESC>
+
+nnoremap ; :
+nnoremap : ;
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+nnoremap <space>h :xccmd toggleNavigatorsVisibility<CR>
+nnoremap <space>j :xccmd toggleDebuggerVisibility<CR>
+nnoremap <space>k :xccmd toggleToolbarShown<CR>
+nnoremap <space>l :xccmd toggleUtilitiesVisibility<CR>
+
+nnoremap <space>f :xccmd goForwardInHistoryByCommand<CR>
+nnoremap <space>a :xccmd goBackwardInHistoryByCommand<CR>
+
+nnoremap zc :xccmd fold<CR>
+nnoremap zo :xccmd unfold<CR>
+
+nnoremap <space>b :xcmenucmd Build<CR>
+nnoremap <space>r :run<CR>
+
+nnoremap <space>s viw:xccmd findSelectedTextInWorkspace<CR>
