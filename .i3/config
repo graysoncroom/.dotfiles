@@ -1,9 +1,9 @@
 set $mod Mod1
 set $term termite
 
-#exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/star-wars.jpeg
+exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/star-wars.jpeg
 #exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/hot-light.jpeg
-exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/forest-stairs.jpeg
+#exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/forest-stairs.jpeg
 
 exec compton -b
 exec xbanish &
