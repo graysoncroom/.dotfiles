@@ -6,26 +6,13 @@ filetype off                      " ( required by vundle )
 set rtp+=~/.vim/bundle/Vundle.vim " ( required by vundle )
 call vundle#begin()
 
-" i3 config syntax highlighting
 Plugin 'PotatoesMaster/i3-vim-syntax'
-" let vundle manage itself
 Plugin 'VundleVim/Vundle.vim'
-" syntax coloring and indention for Swift
 Plugin 'keith/swift.vim'
-" linter
 Plugin 'vim-syntastic/syntastic'
-" nerdtree
 Plugin 'scrooloose/nerdtree.git'
-" imports in java
 Plugin 'rustushki/JavaImp.vim'
-" auto-pairs (will remain unused until I can disable the autoclosing ' for
-" lisp development)
-""Plugin 'jiangmiao/auto-pairs'
-" vim slime for lisp
-" used for sending lines over to a REPL
 Plugin 'jpalardy/vim-slime'
-" slimv by Tamas Kovacs
-" used for it's function auto-completion ( it is a bit bloated but who cares )
 Plugin 'kovisoft/slimv'
 
 call vundle#end()
