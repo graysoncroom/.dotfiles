@@ -34,6 +34,12 @@ let mapleader=" "         " changing <leader> to space
 let localleader=" "       " change <localleader> to space
 let g:slime_target="tmux" " defaults to tmux for pushing text to next window ( <C-c> <C-c> )
 
+" search for 'map' in :h [[
+"map [[ ?{<CR>w99[{
+"map ][ /}<CR>b99]}
+"map ]] j0[[%/{<CR>
+"map [] k$][%?}<CR>
+
 " easier to switch between vim windows
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -78,11 +84,16 @@ nnoremap <leader>gp :execute "!clear;git push"<cr>
 " git status
 nnoremap <leader>gs :execute "!clear;git status"<cr>
 
+" insert a character at current location, pushing character under cursor to
+" the right
+nnoremap <leader>i i_<Esc>r
+
+nnoremap K mpi<Cr><Esc>`p
 nnoremap ; :
 nnoremap : ;
 
 " import the library/object under cursor
-autocmd FileType java nnoremap <leader>i :JI<cr>
+autocmd FileType java nnoremap <leader>im :JI<cr>
 
 " goto the library/object source code under cursor
 autocmd FileType java nnoremap <leader>f :JIF<cr>
