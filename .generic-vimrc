@@ -52,6 +52,9 @@ autocmd FileType html nnoremap k gk
 inoremap jk <esc>
 inoremap <esc> <nop>
 
+map <F12> :set number!<bar>set number?<cr>
+map <F11> :set paste!<bar>set paste!<cr>
+
 " the following are templates for a couple of languages
 autocmd FileType java nnoremap <leader>tp :read $HOME/.vim/boilerplates/java<cr>kdd<cr>/{<cr>:nohl<cr>jk0fNciw<c-r>=expand("%:t:r")<cr><esc>o
 autocmd FileType html nnoremap <leader>tp :read $HOME/.vim/boilerplates/html<cr>kkd<cr>/title<cr>:nohl<cr>f>a
