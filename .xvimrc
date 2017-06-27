@@ -8,7 +8,6 @@ inoremap jk <ESC>
 nnoremap ; :
 nnoremap : ;
 
-nnoremap K i_<Esc>r
 
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -34,3 +33,4 @@ nnoremap <space>s viw:xccmd findSelectedTextInWorkspace<CR>
 nnoremap <leader>i i_<Esc>r
 
 nnoremap K mpi<Cr><Esc>`p
+nnoremap <space>I i_<Esc>r
