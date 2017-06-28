@@ -34,3 +34,6 @@ nnoremap <leader>i i_<Esc>r
 
 nnoremap K mpi<Cr><Esc>`p
 nnoremap <space>I i_<Esc>r
+
+nnoremap <space>/ mpI//<esc>`p 
+nnoremap <space>\ mp^/\/\/<cr>xx`p

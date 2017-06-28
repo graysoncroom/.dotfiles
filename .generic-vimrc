@@ -18,6 +18,8 @@ set expandtab             " on pressing tab, insert 4 spaces :(
 set number                " show line numbers
 set relativenumber        " show number of lines away each line is from current line
 set autoindent            " enable automatic indentation
+set smartindent           " enable c-style indentation ( not sure how this is any different from autoindent tbh )
+set nowrap                " no line wrapping ( personal preference )
 set t_Co=256              " enable 256-color mode
 set nolist                " disable the listing of invisible characters (personal preference)
 set wildmenu              " will display menu of completions in command mode when <tab> is clicked
