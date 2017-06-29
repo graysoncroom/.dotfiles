@@ -21,6 +21,7 @@ call neobundle#begin(expand('$HOME/.config/nvim/bundle'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
+NeoBundle 'tpope/vim-surround'
 NeoBundle 'PotatoesMaster/i3-vim-syntax'
 NeoBundle 'keith/swift.vim'
 NeoBundle 'vim-syntastic/syntastic'

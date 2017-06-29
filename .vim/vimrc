@@ -6,6 +6,7 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim 
 call vundle#begin()
 
+Plugin 'tpope/vim-surround'
 Plugin 'PotatoesMaster/i3-vim-syntax'
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'keith/swift.vim'
