@@ -3,6 +3,7 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+set laststatus=2          " status line is always at the bottom of the screen
 set bg=light              " with a black terminal light syntax looks much better
 set encoding=utf-8        " unicode support ( just to make sure )
 set splitbelow            " more natural split opening ( open split down when applicable )
