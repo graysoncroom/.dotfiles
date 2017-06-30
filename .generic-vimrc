@@ -3,6 +3,7 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+set backspace=indent,eol,start
 set bg=light              " with a black terminal light syntax looks much better
 set encoding=utf-8        " unicode support ( just to make sure )
 set splitbelow            " more natural split opening ( open split down when applicable )
@@ -12,9 +13,8 @@ set incsearch             " search for patterns as you type them in
 set nohlsearch            " do not hightlight patterns after enter key is pressed on search
 set copyindent            " use same pattern as the rest of file when autoindenting
 set preserveindent        " use same pattern as the rest of file when shifting current line over
-set shiftwidth=2          " affects how automatic indentation works as well as indent shifting
-set tabstop=2             " number of visual spaces per <Tab>
-set expandtab             " on pressing tab, insert 4 spaces :( 
+set shiftwidth=4          " affects how automatic indentation works as well as indent shifting
+set tabstop=4             " number of visual spaces per <Tab>
 set number                " show line numbers
 set relativenumber        " show number of lines away each line is from current line
 set autoindent            " enable automatic indentation
@@ -24,7 +24,7 @@ set wildmenu              " will display menu of completions in command mode whe
 set viewoptions-=options  " views will not save keymappings ( only preserve buffer folds )
 syntax enable             " enable syntax highlighting
 
-let g:JavaImpPaths   = $HOME . "/.generic-vim-javaImp/jdk-source/"
+let g:JavaImpPaths = $HOME . "/.generic-vim-javaImp/jdk-source/"
 let g:JavaImpDataDir = $HOME . "/.generic-vim-javaImp/JavaImp"
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -33,6 +33,13 @@ let g:syntastic_check_on_wq = 0
 let mapleader=" "         " changing <leader> to space
 let localleader=" "       " change <localleader> to space
 let g:slime_target="tmux" " defaults to tmux for pushing text to next window ( <C-c> <C-c> )
+
+autocmd FileType lisp set shiftwidth=2
+autocmd FileType lisp set tabstop=2
+autocmd FileType lisp set expandtab
+
+" for learning ncursesk
+autocmd FileType c nnoremap <leader>b :execute "!clear;gcc -o " . expand("%:r") . " -lncurses " . expand("%") . ";./" . expand("%:r")<cr>
 
 " easier to switch between vim windows
 nnoremap <C-J> <C-W><C-J>
@@ -44,7 +51,6 @@ autocmd FileType html nnoremap j gj
 autocmd FileType html nnoremap k gk
 
 inoremap jk <esc>
-inoremap <esc> <nop>
 
 " the following are templates for a couple of languages
 autocmd FileType java nnoremap <leader>tp :read $HOME/.vim/boilerplates/java<cr>kdd<cr>/{<cr>:nohl<cr>jk0fNciw<c-r>=expand("%:t:r")<cr><esc>o
@@ -57,7 +63,7 @@ autocmd BufWinEnter * if expand("%") != "" | loadview | endif
 
 " compile code in a couple compiled languages
 autocmd FileType java nnoremap <leader>c :execute "!clear;javac " . expand("%")<cr>
-autocmd FileType c nnoremap <leader>c :execute "!clear;gcc -o " . expand("%:r") . " " . expand("%")<cr>
+autocmd FileType c nnoremap <leader>c :execute "!clear;gcc -o " . expand("%:r") . " -lncurses " . expand("%")<cr>
 autocmd FileType swift nnoremap <leader>c :execute "!clear;cd ..;xcodebuild;cd -"<cr> 
 
 " run code in a couple compiled languages

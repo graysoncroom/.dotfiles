@@ -15,6 +15,7 @@ set -o vi
 
 export EDITOR="vim"
 export VISUAL="vim"
+
 # Color exports
 export COLOR_NC='\e[0m' # No Color
 export COLOR_WHITE='\e[1;37m'
