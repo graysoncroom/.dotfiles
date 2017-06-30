@@ -14,7 +14,7 @@ Plugin 'scrooloose/nerdtree.git'
 Plugin 'rustushki/JavaImp.vim'
 Plugin 'jpalardy/vim-slime'
 Plugin 'kovisoft/slimv'
-
+Plugin 'christoomey/vim-tmux-navigator'
 call vundle#end()
 filetype plugin indent on
 " ======================================
@@ -36,3 +36,13 @@ else
 endif
 
 source ~/dotfiles/.generic-vimrc
+
+" Neovim already has the different cursor shapes.
+" For VTE compatible terminals (urxvt, st, xterm, gnome-terminal 3.x and
+" others)
+let &t_SI = "\<Esc>[6 q" " Insert: IBeam
+let &t_SR = "\<Esc>[4 q" " Replace: Underline
+let &t_EI = "\<Esc>[2 q" " Normal: Block
+
+" Write all buffers before navigating from Vim to tmux pane
+let g:tmux_navigator_save_on_switch = 2
