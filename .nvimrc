@@ -20,7 +20,9 @@ endif
 call neobundle#begin(expand('$HOME/.config/nvim/bundle'))  
 
 NeoBundleFetch 'Shougo/neobundle.vim'
-
+" Note that not all of the same plugins will be available in neovim that are
+" in vim.
+NeoBundle 'tpope/vim-surround'
 NeoBundle 'PotatoesMaster/i3-vim-syntax'
 NeoBundle 'keith/swift.vim'
 NeoBundle 'vim-syntastic/syntastic'

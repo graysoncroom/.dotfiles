@@ -1,5 +1,9 @@
+" Replace this with a source to specific keybindings file if you ever get
+" around to abstracting the basic keys from your .generic-vimrc
+
 set number
 set relativenumber
+set nowrap
 
 inoremap jk <ESC>
 
@@ -26,3 +30,11 @@ nnoremap <space>b :xcmenucmd Build<CR>
 nnoremap <space>r :run<CR>
 
 nnoremap <space>s viw:xccmd findSelectedTextInWorkspace<CR>
+
+nnoremap <space>i i_<Esc>r
+
+nnoremap <space>J mpi<Cr><Esc>`p
+nnoremap <space>I i_<Esc>r
+
+nnoremap <space>/ mpI//<esc>`p 
+nnoremap <space>\ mp^/\/\/<cr>xx`p
