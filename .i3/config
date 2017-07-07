@@ -21,6 +21,8 @@ bindsym $mod+Shift+m gaps outer current minus 5
 bindsym $mod+Shift+Delete exec lock lock-red.png
 bindsym $mod+Delete exec i3lock -u -f -b -i ~/Pictures/wallpapers/arch-dark-meme.png
 
+bindsym $mod+Shift+p exec /home/grayson/bin/music/imperial-march.sh
+
 bindsym $mod+Shift+y resize grow width 10 px or 10 ppt
 bindsym $mod+Shift+u resize shrink height 10 px or 10 ppt
 bindsym $mod+Shift+i resize grow height 10 px or 10 ppt

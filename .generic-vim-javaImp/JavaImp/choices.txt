@@ -1,3 +1,10 @@
+Map java.util.Map javax.swing.text.html.Map 
+Throwable java.lang.Throwable 
+Exception java.lang.Exception 
+CloneNotSupportedException java.lang.CloneNotSupportedException 
+Object java.lang.Object org.omg.CORBA.Object 
+RandomAccess java.util.RandomAccess 
+AbstractList java.util.AbstractList 
 System java.lang.System 
 Applet java.applet.Applet 
 Graphics java.awt.Graphics 

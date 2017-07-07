@@ -70,4 +70,5 @@ wifi-connect() {
 }
 
 set-normal-ps1
+tmux 2>/dev/null
 #archey

@@ -30,8 +30,10 @@ set wildmenu                   " will display menu of completions in command mod
 syntax enable                  " enable syntax highlighting
 
 " PLUGIN: javaimp
-let g:javaimppaths = $HOME . "/.generic-vim-javaImp/jdk-source/"
-let g:javaimpdatadir = $HOME . "/.generic-vim-javaImp/JavaImp"
+let g:JavaImpPaths = $HOME . "/dotfiles/.generic-vim-javaImp/jdk-source/"
+let g:JavaImpDataDir = $HOME . "/dotfiles/.generic-vim-javaImp/JavaImp"
+autocmd filetype java nnoremap <leader><leader>ii :JIF
+autocmd filetype java nnoremap <leader><leader>is :JIFS
 
 " PLUGIN: syntastic
 let g:syntastic_always_populate_loc_list = 1
