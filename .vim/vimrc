@@ -61,8 +61,10 @@ let g:tmux_navigator_save_on_switch = 2
 " Neovim already has the different cursor shapes.
 " For VTE compatible terminals (urxvt, st, xterm, gnome-terminal 3.x and
 " others)
+" Does not work on ITerm2
 let &t_SI = "\<Esc>[6 q" " Insert: IBeam
 let &t_SR = "\<Esc>[4 q" " Replace: Underline
 let &t_EI = "\<Esc>[2 q" " Normal: Block
 
+" Source the main config file
 source ~/dotfiles/.generic-vimrc
