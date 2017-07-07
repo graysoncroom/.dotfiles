@@ -1,7 +1,34 @@
-" syntastic errors apear in seperate window at bottom of current window
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" Should work with vim and neovim.
+" Plans include either XVim configs or JetBrains vim emulator configs
+
+" STYLE GUIDE: Comments {{{
+" One double quote means comments about code.
+" Two double quotes mean code commented out.
+"
+" When possible keep comments on the same line as the code it refers to,
+" otherwise put the comment on its own line directly above the code it refers
+" to.
+"
+" When in doubt, comment the living fuck out of your config changes.
+" Do not expain how it works, explain what it does and why it is useful.
+" I want reasons behind configs.
+"
+" Every set and every let must have a comment explaining the importance of the
+" variable being changed. You can substitute an explaination for an external
+" reference. example: "see spell in vimdocs
+" }}}
+
+" OTHER: personal settings {{{
+let mapleader=" "   " changing <leader> to space
+let localleader=" " " change <localleader> to space
+
+nnoremap <c-j> <c-w><c-j>
+nnoremap <c-k> <c-w><c-k>
+nnoremap <c-l> <c-w><c-l>
+nnoremap <c-h> <c-w><c-h>
+nnoremap ; :
+nnoremap : ;
+inoremap jk <esc>
 
 set shell=bash                 "make sure the shell is bash on every system
 set backspace=indent,eol,start "vim backspace acts like a normal god damn editor should
@@ -10,80 +37,78 @@ set wildmode=longest,list      " Bash-style tab completion
 set viewoptions-=options       " views will not save keymappings ( only preserve buffer folds )
 ""set laststatus=2               " status line is always at the bottom of the screen ( only to be set when vim-airline plugin is on )
 set bg=light                   " with a black terminal light syntax looks much better
-set encoding=utf-8             " unicode support ( just to make sure )
+set encoding=utf-8             " Unicode support ( just to make sure )
 set splitbelow                 " more natural split opening ( open split down when applicable )
 set splitright                 " more natural split opening ( open split to the right when applicable )
 set incsearch                  " search for patterns as you type them in
-set nohlsearch                 " do not hightlight patterns after enter key is pressed on search
-set copyindent                 " use same pattern as the rest of file when autoindenting
+set nohlsearch                 " do not highlight patterns after enter key is pressed on search
+set copyindent                 " use same pattern as the rest of file when auto indenting
 set preserveindent             " use same pattern as the rest of file when shifting current line over
 set shiftwidth=4               " affects how automatic indentation works as well as indent shifting
 set tabstop=4                  " number of visual spaces per <Tab>
 set number                     " show line numbers
 set relativenumber             " show number of lines away each line is from current line
 set autoindent                 " enable automatic indentation
-set smartindent                " enable c-style indentation ( not sure how this is any different from autoindent tbh )
+set smartindent                " enable c-style indentation ( not sure how this is any different from auto indent tbh )
 set nowrap                     " no line wrapping ( personal preference )
 set t_co=256                   " enable 256-color mode
 set nolist                     " disable the listing of invisible characters (personal preference)
 set wildmenu                   " will display menu of completions in command mode when <tab> is clicked
 syntax enable                  " enable syntax highlighting
+" }}}
 
-" PLUGIN: javaimp
-let g:JavaImpPaths = $HOME . "/dotfiles/.generic-vim-javaImp/jdk-source/"
-let g:JavaImpDataDir = $HOME . "/dotfiles/.generic-vim-javaImp/JavaImp"
-autocmd filetype java nnoremap <leader><leader>ii :JIF
-autocmd filetype java nnoremap <leader><leader>is :JIFS
+" PLUGIN: javaimp {{{
+let g:javaimppaths = $HOME . "/dotfiles/.generic-vim-javaImp/jdk-source/"
+let g:javaimpdatadir = $HOME . "/dotfiles/.generic-vim-javaImp/JavaImp"
+" }}}
 
-" PLUGIN: syntastic
+" PLUGIN: syntastic {{{
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+" }}}
 
-" PLUGIN: vim-slime
+" PLUGIN: vim-slime {{{
 let g:slime_target="tmux" " defaults to tmux for pushing text to next window ( <C-c> <C-c> )
+" }}}
 
-let mapleader=" "   " changing <leader> to space
-let localleader=" " " change <localleader> to space
+" PLUGIN: nerdtree {{{
+nnoremap <leader>h :NERDTreeToggle<cr>
+" }}}
 
-" Lisp is a rare case where I prefer to use spaces over tabs.
-" I like to follow conventions in lisp due to the esoteric nature of differing
-" indentation styles
+" LANG: lisp {{{
 autocmd filetype lisp set shiftwidth=2
 autocmd filetype lisp set tabstop=2
 autocmd filetype lisp set expandtab
+" }}}
 
-" easier to switch between vim windows
-nnoremap <c-j> <c-w><c-j>
-nnoremap <c-k> <c-w><c-k>
-nnoremap <c-l> <c-w><c-l>
-nnoremap <c-h> <c-w><c-h>
-
+" LANG: html {{{
 autocmd filetype html nnoremap j gj
 autocmd filetype html nnoremap k gk
+" }}}
 
-" I am super lazy... no words needed.
-inoremap jk <esc>
+" LANG: java {{{
+autocmd filetype java nnoremap <leader><leader>ii :JIF
+autocmd filetype java nnoremap <leader><leader>is :JIFS
+" }}}
 
-" files will be loaded and saved folds apon opening and closing, respectively
+" files will be loaded and saved folds upon opening and closing, respectively
 autocmd bufwinleave * if expand("%") != "" | mkview | endif
 autocmd bufwinenter * if expand("%") != "" | loadview | endif
 
-" insert a character at current location, pushing character under cursor to
-" the right
+" Insert a single character between two characters
 nnoremap <leader>i i_<esc>r
 
-" the opposite of the j{oin} command
-" fuck you I was out of keys to map
+" Insert a newline at current position.
+" Intended to be the opposite of the j{oin] command.
 nnoremap <leader>j mpi<cr><Esc>`p
 
-" I use ex mode a lot more than the repeat command
-nnoremap ; :
-nnoremap : ;
-
-" opens nerdtree
-nnoremap <leader>h :NERDTreeToggle<cr>
+" toggle spelling
+nnoremap <leader><leader>ss :setlocal spell! spelllang=en_us<CR>
 
 if has("unix")
 	let s:uname = system("uname -s")
