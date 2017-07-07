@@ -3,92 +3,90 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-set laststatus=2          " status line is always at the bottom of the screen
-set bg=light              " with a black terminal light syntax looks much better
-set encoding=utf-8        " unicode support ( just to make sure )
-set splitbelow            " more natural split opening ( open split down when applicable )
-set splitright            " more natural split opening ( open split to the right when applicable )
-set listchars=tab:>.      " visual representation of certain characters when list is set
-set incsearch             " search for patterns as you type them in
-set nohlsearch            " do not hightlight patterns after enter key is pressed on search
-set copyindent            " use same pattern as the rest of file when autoindenting
-set preserveindent        " use same pattern as the rest of file when shifting current line over
-set shiftwidth=2          " affects how automatic indentation works as well as indent shifting
-set tabstop=2             " number of visual spaces per <Tab>
-set expandtab             " on pressing tab, insert 4 spaces :( 
-set number                " show line numbers
-set relativenumber        " show number of lines away each line is from current line
-set autoindent            " enable automatic indentation
-set smartindent           " enable c-style indentation ( not sure how this is any different from autoindent tbh )
-set nowrap                " no line wrapping ( personal preference )
-set t_Co=256              " enable 256-color mode
-set nolist                " disable the listing of invisible characters (personal preference)
-set wildmenu              " will display menu of completions in command mode when <tab> is clicked
-set viewoptions-=options  " views will not save keymappings ( only preserve buffer folds )
-syntax enable             " enable syntax highlighting
+set shell=bash                 "make sure the shell is bash on every system
+set backspace=indent,eol,start "vim backspace acts like a normal god damn editor should
+set listchars=tab:>.           " visual representation of certain characters when list is set
+set wildmode=longest,list      " Bash-style tab completion
+set viewoptions-=options       " views will not save keymappings ( only preserve buffer folds )
+""set laststatus=2               " status line is always at the bottom of the screen ( only to be set when vim-airline plugin is on )
+set bg=light                   " with a black terminal light syntax looks much better
+set encoding=utf-8             " unicode support ( just to make sure )
+set splitbelow                 " more natural split opening ( open split down when applicable )
+set splitright                 " more natural split opening ( open split to the right when applicable )
+set incsearch                  " search for patterns as you type them in
+set nohlsearch                 " do not hightlight patterns after enter key is pressed on search
+set copyindent                 " use same pattern as the rest of file when autoindenting
+set preserveindent             " use same pattern as the rest of file when shifting current line over
+set shiftwidth=4               " affects how automatic indentation works as well as indent shifting
+set tabstop=4                  " number of visual spaces per <Tab>
+set number                     " show line numbers
+set relativenumber             " show number of lines away each line is from current line
+set autoindent                 " enable automatic indentation
+set smartindent                " enable c-style indentation ( not sure how this is any different from autoindent tbh )
+set nowrap                     " no line wrapping ( personal preference )
+set t_co=256                   " enable 256-color mode
+set nolist                     " disable the listing of invisible characters (personal preference)
+set wildmenu                   " will display menu of completions in command mode when <tab> is clicked
+set spell spelllang=en_us      " switches on spell checking in vim for United States English
+syntax enable                  " enable syntax highlighting
 
-let g:JavaImpPaths = $HOME . "/.generic-vim-javaImp/jdk-source/"
-let g:JavaImpDataDir = $HOME . "/.generic-vim-javaImp/JavaImp"
+" PLUGIN: javaimp
+let g:javaimppaths = $HOME . "/dotfiles/.generic-vim-javaImp/jdk-source/"
+let g:javaimpdatadir = $HOME . "/dotfiles/.generic-vim-javaImp/JavaImp"
+
+" PLUGIN: syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let mapleader=" "         " changing <leader> to space
-let localleader=" "       " change <localleader> to space
+
+" PLUGIN: vim-slime
 let g:slime_target="tmux" " defaults to tmux for pushing text to next window ( <C-c> <C-c> )
 
-" search for 'map' in :h [[
-"map [[ ?{<CR>w99[{
-"map ][ /}<CR>b99]}
-"map ]] j0[[%/{<CR>
-"map [] k$][%?}<CR>
+let mapleader=" "   " changing <leader> to space
+let localleader=" " " change <localleader> to space
+
+" Lisp is a rare case where I prefer to use spaces over tabs.
+" I like to follow conventions in lisp due to the esoteric nature of differing
+" indentation styles
+autocmd filetype lisp set shiftwidth=2
+autocmd filetype lisp set tabstop=2
+autocmd filetype lisp set expandtab
 
 " easier to switch between vim windows
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+nnoremap <c-j> <c-w><c-j>
+nnoremap <c-k> <c-w><c-k>
+nnoremap <c-l> <c-w><c-l>
+nnoremap <c-h> <c-w><c-h>
 
-autocmd FileType html nnoremap j gj
-autocmd FileType html nnoremap k gk
+autocmd filetype html nnoremap j gj
+autocmd filetype html nnoremap k gk
 
+" I am super lazy... no words needed.
 inoremap jk <esc>
-inoremap <esc> <nop>
-
-map <F12> :set number!<bar>set number?<cr>
-map <F11> :set paste!<bar>set paste!<cr>
-
-" the following are templates for a couple of languages
-autocmd FileType java nnoremap <leader>tp :read $HOME/.vim/boilerplates/java<cr>kdd<cr>/{<cr>:nohl<cr>jk0fNciw<c-r>=expand("%:t:r")<cr><esc>o
-autocmd FileType html nnoremap <leader>tp :read $HOME/.vim/boilerplates/html<cr>kkd<cr>/title<cr>:nohl<cr>f>a
-autocmd FileType c nnoremap <leader>tp :read $HOME/.vim/boilerplates/c<cr>kdd<cr>/{<cr>:nohl<cr>o
 
 " files will be loaded and saved folds apon opening and closing, respectively
-autocmd BufWinLeave * if expand("%") != "" | mkview | endif
-autocmd BufWinEnter * if expand("%") != "" | loadview | endif
+autocmd bufwinleave * if expand("%") != "" | mkview | endif
+autocmd bufwinenter * if expand("%") != "" | loadview | endif
 
 " insert a character at current location, pushing character under cursor to
 " the right
-nnoremap <leader>i i_<Esc>r
+nnoremap <leader>i i_<esc>r
 
-nnoremap <leader>J mpi<Cr><Esc>`p
+" the opposite of the j{oin} command
+" fuck you I was out of keys to map
+nnoremap <leader>j mpi<cr><Esc>`p
 
 " I use ex mode a lot more than the repeat command
 nnoremap ; :
 nnoremap : ;
 
-" import the library/object under cursor
-autocmd FileType java nnoremap <leader>im :JI<cr>
-
-" goto the library/object source code under cursor
-autocmd FileType java nnoremap <leader>f :JIF<cr>
-
-" open nerdtree
+" opens nerdtree
 nnoremap <leader>h :NERDTreeToggle<cr>
 
 if has("unix")
 	let s:uname = system("uname -s")
-	if s:uname == "Darwin"
+	if s:uname == "darwin"
 		let g:xcode_default_simulator = 'iPhone 5'
 		set secure " don't let external configs do scary shit
 		set exrc   " load local vimrc if found

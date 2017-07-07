@@ -5,6 +5,8 @@ fi
 
 if [ -f ~/.bash_aliases ]; then
 	. ~/.bash_aliases
+elif [ -f ~/dotfiles/.bash_aliases ]; then
+	. ~/dotfiles/.bash_aliases
 fi
 
 if [ -f ~/.localrc ]; then
@@ -15,6 +17,7 @@ set -o vi
 
 export EDITOR="vim"
 export VISUAL="vim"
+
 # Color exports
 export COLOR_NC='\e[0m' # No Color
 export COLOR_WHITE='\e[1;37m'
@@ -66,6 +69,5 @@ wifi-connect() {
   fi
 }
 
-# Bash commands to run before User may interact with shell
 set-normal-ps1
 #archey

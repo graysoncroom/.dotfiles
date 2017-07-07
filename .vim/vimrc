@@ -7,20 +7,21 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim' " plugin manager
-Plugin 'easymotion/vim-easymotion'
-Plugin 'vim-gitgutter' " visual git diff ( displays + and - next to numbers )
-Plugin 'scrooloose/nerdcommenter' " comment things out much easier
-Plugin 'vim-airline/vim-airline' " aweseom statusline
-Plugin 'tpope/vim-fugitive' " git wrapper for vim
-Plugin 'tpope/vim-rhubarb' " enables :Gbrowse and :Git for the plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround' " extends vocabulary of vim
+""Plugin 'kovisoft/slimv' " lisp repl in vim split ( built in swank server )
+""Plugin 'tpope/vim-fugitive' " git wrapper for vim
+""Plugin 'tpope/vim-rhubarb' " enables :Gbrowse and :Git for the plugin 'tpope/vim-fugitive'
+""Plugin 'vim-airline/vim-airline' " awesome statusline
+""Plugin 'vim-gitgutter' " visual git diff ( displays + and - next to numbers )
 Plugin 'PotatoesMaster/i3-vim-syntax' " .i3/config file has syntax highlighting
-Plugin 'keith/swift.vim' " swift source code syntax highlighting
-Plugin 'vim-syntastic/syntastic' " checks and shows error messages for a lot of languages
-Plugin 'scrooloose/nerdtree.git' " file system browser for vim
-Plugin 'rustushki/JavaImp.vim' " import java classes a lot easier
+Plugin 'christoomey/vim-tmux-navigator' "this allows for the same key to be used to swap tmux panes and vim splits
+Plugin 'easymotion/vim-easymotion'
 Plugin 'jpalardy/vim-slime' " Send text to something like tmux, gnu screen, etc.
-Plugin 'kovisoft/slimv' " lisp repl in vim split ( built in swank server )
+Plugin 'keith/swift.vim' " swift source code syntax highlighting
+Plugin 'rustushki/JavaImp.vim' " import java classes a lot easier
+Plugin 'scrooloose/nerdcommenter' " comment things out much easier
+Plugin 'scrooloose/nerdtree.git' " file system browser for vim
+Plugin 'tpope/vim-surround' " extends vocabulary of vim
+Plugin 'vim-syntastic/syntastic' " checks and shows error messages for a lot of languages
 
 call vundle#end()
 filetype plugin indent on
@@ -43,7 +44,7 @@ else
 endif
 
 " PLUGIN: airline 
-let g:airline#extensions#tabline#enabled = 1
+""let g:airline#extensions#tabline#enabled = 1
 
 " PLUGIN: nerdcommenter
 let g:NERDSpaceDelims = 1
@@ -51,8 +52,17 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 
 " PLUGIN: vim-gitgutter
-" TODO: Set the gui equivenlant for the ctermbg below
-let g:gitgutter_override_sign_column_highlight = 0
-highlight SignColumn ctermbg=000 
+"let g:gitgutter_override_sign_column_highlight = 0
+"highlight SignColumn ctermbg=000 
+
+" PLUGIN: vim-tmux-navigator
+let g:tmux_navigator_save_on_switch = 2
+
+" Neovim already has the different cursor shapes.
+" For VTE compatible terminals (urxvt, st, xterm, gnome-terminal 3.x and
+" others)
+let &t_SI = "\<Esc>[6 q" " Insert: IBeam
+let &t_SR = "\<Esc>[4 q" " Replace: Underline
+let &t_EI = "\<Esc>[2 q" " Normal: Block
 
 source ~/dotfiles/.generic-vimrc

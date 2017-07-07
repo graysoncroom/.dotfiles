@@ -31,6 +31,7 @@ NeoBundle 'rustushki/JavaImp.vim'
 NeoBundle 'jpalardy/vim-slime'
 NeoBundle 'kovisoft/slimv'
 NeoBundle 'adolenc/cl-neovim'
+NeoBundle 'christoomey/vim-tmux-navigator'
 
 call neobundle#end()  
 filetype plugin indent on
