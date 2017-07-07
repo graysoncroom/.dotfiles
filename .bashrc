@@ -5,6 +5,8 @@ fi
 
 if [ -f ~/.bash_aliases ]; then
 	. ~/.bash_aliases
+elif [ -f ~/dotfiles/.bash_aliases ]; then
+	. ~/dotfiles/.bash_aliases
 fi
 
 if [ -f ~/.localrc ]; then
@@ -67,6 +69,5 @@ wifi-connect() {
   fi
 }
 
-# Bash commands to run before User may interact with shell
 set-normal-ps1
 #archey
