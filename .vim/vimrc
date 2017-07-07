@@ -51,7 +51,8 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 
 " PLUGIN: vim-gitgutter
+" TODO: Set the gui equivenlant for the ctermbg below
 let g:gitgutter_override_sign_column_highlight = 0
-highlight SignColumn ctermbg=000
+highlight SignColumn ctermbg=000 
 
 source ~/dotfiles/.generic-vimrc

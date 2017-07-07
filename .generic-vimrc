@@ -27,7 +27,7 @@ set wildmenu              " will display menu of completions in command mode whe
 set viewoptions-=options  " views will not save keymappings ( only preserve buffer folds )
 syntax enable             " enable syntax highlighting
 
-let g:JavaImpPaths   = $HOME . "/.generic-vim-javaImp/jdk-source/"
+let g:JavaImpPaths = $HOME . "/.generic-vim-javaImp/jdk-source/"
 let g:JavaImpDataDir = $HOME . "/.generic-vim-javaImp/JavaImp"
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1

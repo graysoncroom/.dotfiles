@@ -5,10 +5,10 @@ cmd + alt + ctrl - r : khd -e "reload"
 cmd - return : open -na /Applications/Kitty.app
 
 # focus window
-ctrl - h : chunkc window --focus west
-ctrl - j : chunkc window --focus south
-ctrl - k : chunkc window --focus north
-ctrl - l : chunkc window --focus east
+cmd - h : chunkc window --focus west
+cmd - j : chunkc window --focus south
+cmd - k : chunkc window --focus north
+cmd - l : chunkc window --focus east
 
 # equalize size of windows
 shift + alt - 0 : chunkc desktop --equalize
