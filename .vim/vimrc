@@ -22,6 +22,7 @@ Plugin 'scrooloose/nerdcommenter' " comment things out much easier
 Plugin 'scrooloose/nerdtree.git' " file system browser for vim
 Plugin 'tpope/vim-surround' " extends vocabulary of vim
 Plugin 'vim-syntastic/syntastic' " checks and shows error messages for a lot of languages
+Plugin 'xuhdev/vim-latex-live-preview' " provides live preview of the output pdf of a latex file
 
 call vundle#end()
 filetype plugin indent on
@@ -60,6 +61,12 @@ let g:NERDTrimTrailingWhitespace = 1
 
 " PLUGIN: vim-tmux-navigator {{{
 let g:tmux_navigator_save_on_switch = 2
+" }}}
+
+" PLUGIN: vim-latex-live-preview {{{
+let g:livepreview_previewer = 'zathura'
+autocmd Filetype tex setl updatetime=1000
+autocmd Filetype tex nnoremap <leader><leader>T :LLPStartPreview<CR>
 " }}}
 
 " Neovim already has the different cursor shapes.

@@ -89,6 +89,15 @@ autocmd filetype lisp set expandtab
 " LANG: html {{{
 autocmd filetype html nnoremap j gj
 autocmd filetype html nnoremap k gk
+autocmd filetype html nnoremap gj j
+autocmd filetype html nnoremap gk k
+" }}}
+
+" LANG: tex {{{
+autocmd filetype tex nnoremap j gj
+autocmd filetype tex nnoremap k gk
+autocmd filetype tex nnoremap gj j
+autocmd filetype tex nnoremap gk k
 " }}}
 
 " LANG: java {{{
