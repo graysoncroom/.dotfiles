@@ -65,8 +65,10 @@ let g:tmux_navigator_save_on_switch = 2
 
 " PLUGIN: vim-latex-live-preview {{{
 let g:livepreview_previewer = 'zathura'
-autocmd Filetype tex setl updatetime=1000
-autocmd Filetype tex nnoremap <leader><leader>T :LLPStartPreview<CR>
+	"LANG: tex {{{
+	autocmd Filetype tex setl updatetime=1000
+	autocmd Filetype tex nnoremap <leader><leader>T :LLPStartPreview<CR>
+	" }}}
 " }}}
 
 " Neovim already has the different cursor shapes.

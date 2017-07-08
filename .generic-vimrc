@@ -12,10 +12,6 @@
 " When in doubt, comment the living fuck out of your config changes.
 " Do not expain how it works, explain what it does and why it is useful.
 " I want reasons behind configs.
-"
-" Every set and every let must have a comment explaining the importance of the
-" variable being changed. You can substitute an explaination for an external
-" reference. example: "see spell in vimdocs
 " }}}
 
 " OTHER: personal settings {{{
@@ -87,6 +83,7 @@ autocmd filetype lisp set expandtab
 " }}}
 
 " LANG: html {{{
+autocmd filetype html set wrap
 autocmd filetype html nnoremap j gj
 autocmd filetype html nnoremap k gk
 autocmd filetype html nnoremap gj j
@@ -94,10 +91,12 @@ autocmd filetype html nnoremap gk k
 " }}}
 
 " LANG: tex {{{
+autocmd filetype tex set wrap
 autocmd filetype tex nnoremap j gj
 autocmd filetype tex nnoremap k gk
 autocmd filetype tex nnoremap gj j
 autocmd filetype tex nnoremap gk k
+autocmd filetype tex nnoremap <leader>tp :r ~/dotfiles/.vim/boilerplates/tex<CR>ggdd
 " }}}
 
 " LANG: java {{{
