@@ -1,5 +1,6 @@
 URxvt*scrollBar: false
-URxvt.intensityStyles: false
+URxvt*urlLauncher: /bin/firefox
+URxvt*transparent: false
 ! Solarized color scheme for the X Window System
 !
 ! http://ethanschoonover.com/solarized

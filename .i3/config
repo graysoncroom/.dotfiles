@@ -5,20 +5,20 @@ set $term urxvt
 #exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/star-wars.jpeg
 #exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/hot-light.jpeg
 #exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/forest-stairs.jpeg
+#exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/black-simple-arch.png
+exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/solar-ocean.jpg
 
 #exec compton -b
 exec xbanish &
 
-bindsym $mod+n       gaps inner current plus 5
+bindsym $mod+n gaps inner current plus 5
 bindsym $mod+Shift+n gaps inner current minus 5
 
-bindsym $mod+m       gaps outer current plus 5
+bindsym $mod+m gaps outer current plus 5
 bindsym $mod+Shift+m gaps outer current minus 5
 
 bindsym $mod+Shift+Delete exec lock lock-red.png
 bindsym $mod+Delete exec i3lock -u -f -b -i ~/Pictures/wallpapers/arch-dark-meme.png
-
-bindsym $mod+Shift+p exec /home/grayson/bin/music/imperial-march.sh
 
 bindsym $mod+Shift+y resize grow width 10 px or 10 ppt
 bindsym $mod+Shift+u resize shrink height 10 px or 10 ppt
@@ -32,7 +32,7 @@ bindsym $mod+Control+c exec compton -b
 # default window gap settings
 hide_edge_borders both
 for_window [class="^.*"] border pixel 0
-#gaps inner 15
+gaps inner 15
 #gaps outer 15
 
 bindsym $mod+Return exec $term -e tmux
@@ -181,8 +181,15 @@ mode "resize" {
 }
 
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-#bar {
-  #status_command i3status
-#} 
+bar {
+  status_command i3blocks
+  colors {
+    separator #859900
+    background #002b36
+    statusline #268bd2
+    focused_workspace #fdf6e3 #859900 #fdf6e3
+    active_workspace #fdf6e3 #6c71c4 #fdf6e3
+    inactive_workspace #586e75 #93a1a1 #002b36
+    urgent_workspace #d33682 #d33682 #fdf6e3
+  }
+}
