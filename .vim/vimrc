@@ -1,51 +1,127 @@
-set nocompatible 
-" ====================================== 
-" |----- Start of Vim Plugin List -----|
-" ======================================
-filetype off                      
-set rtp+=~/.vim/bundle/Vundle.vim 
-call vundle#begin()
+" STYLE GUIDE: Comments {{{
+" One double quote means comments about code.
+" Two double quotes mean code commented out.
+"
+" When possible keep comments on the same line as the code it refers to,
+" otherwise put the comment on its own line directly above the code it refers
+" to.
+"
+" Do not expain how a keybinding/function works, explain what it does and why it is useful.
+" }}}
 
-Plugin 'VundleVim/Vundle.vim' " plugin manager ( required )
-""Plugin 'kovisoft/slimv' " lisp repl in vim split ( built in swank server )
-""Plugin 'tpope/vim-fugitive' " git wrapper for vim
-""Plugin 'tpope/vim-rhubarb' " enables :Gbrowse and :Git for the plugin 'tpope/vim-fugitive'
-""Plugin 'vim-airline/vim-airline' " awesome statusline
-""Plugin 'vim-gitgutter' " visual git diff ( displays + and - next to numbers )
-Plugin 'PotatoesMaster/i3-vim-syntax' " .i3/config file has syntax highlighting
-Plugin 'christoomey/vim-tmux-navigator' "this allows for the same key to be used to swap tmux panes and vim splits
-Plugin 'easymotion/vim-easymotion'
-Plugin 'jpalardy/vim-slime' " Send text to something like tmux, gnu screen, etc.
-Plugin 'keith/swift.vim' " swift source code syntax highlighting
-Plugin 'rustushki/JavaImp.vim' " import java classes a lot easier
-Plugin 'scrooloose/nerdcommenter' " comment things out much easier
-Plugin 'scrooloose/nerdtree.git' " file system browser for vim
-Plugin 'tpope/vim-surround' " extends vocabulary of vim
-Plugin 'vim-syntastic/syntastic' " checks and shows error messages for a lot of languages
-Plugin 'xuhdev/vim-latex-live-preview' " provides live preview of the output pdf of a latex file
-
-call vundle#end()
-filetype plugin indent on
-" ======================================
-" |------ End of Vim Plugin List ------|
-" ======================================
-
-" setting the encrypt method to be the strongest the machine has available
-" when writing to encrypted file the following tags indicate the cryptmethod
-" being used:
-" [crypted]   == zip method
-" [blowfish]  == blowfish method
-" [blowfish2] == blowfish2 method
-if v:version > 704 || (v:version == 704 && has('patch401'))
-	set cryptmethod=blowfish2 "medium-strong
-elseif v:version >=703
-	set cryptmethod=blowfish  "medium with flaws
-else
-	set cryptmethod=zip       "weak with backwards compatiblity
+" PLUGIN: vim-plug plugin list {{{
+" This is install the plugin manager if it is not already installed.
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+
+call plug#begin('~/.vim/plugged')
+Plug 'PotatoesMaster/i3-vim-syntax' " .i3/config file has syntax highlighting
+Plug 'christoomey/vim-tmux-navigator' "this allows for the same key to be used to swap tmux panes and vim splits
+Plug 'easymotion/vim-easymotion' " allows for Vimperator style navigation
+Plug 'jpalardy/vim-slime' " Send text to something like tmux, gnu screen, etc.
+Plug 'keith/swift.vim' " swift source code syntax highlighting
+Plug 'rustushki/JavaImp.vim' " import java classes a lot easier
+Plug 'scrooloose/nerdcommenter' " comment things out much easier
+Plug 'scrooloose/nerdtree' " file system browser for vim
+Plug 'tpope/vim-surround' " extends vocabulary of vim
+Plug 'vim-syntastic/syntastic' " checks and shows error messages for a lot of languages
+Plug 'xuhdev/vim-latex-live-preview' " provides live preview of the output pdf of a latex file
+Plug 'tommcdo/vim-exchange' " Easy word swapping
+call plug#end()
+" }}}
+
+" OTHER: general settings {{{
+set nocompatible 
+
+let mapleader="\<Space>"
+let localleader="\<Space>"
+
+nnoremap <c-j> <c-w><c-j>
+nnoremap <c-k> <c-w><c-k>
+nnoremap <c-l> <c-w><c-l>
+nnoremap <c-h> <c-w><c-h>
+nnoremap ; :
+nnoremap : ;
+inoremap jk <esc>
+
+set shell=bash                 " Make sure the shell is bash on every system.
+set backspace=indent,eol,start " Vim backspace acts like a normal text editor's backspace.
+set listchars=tab:>.           " Visual representation of certain characters when list is set.
+set wildmode=longest,list      " Bash-style tab completion
+set viewoptions-=options       " views will not save keymappings (only preserve buffer folds)
+set textwidth=100              " Break line at the 100th column.
+set ruler                      " Extra file information at the bottom of the screen.
+set showmatch                  " Show matching bracket/parenthesis/brace
+set undolevels=1000            " 1000 undo levels.
+set undofile                   " Persistent undo tree
+set bg=light                   " Light syntax looks much better in a dark theme terminal.
+set encoding=utf-8             " Unicode support (just to make sure)
+set splitbelow                 " More natural split opening (open split down when applicable)
+set splitright                 " More natural split opening (open split to the right when applicable)
+set incsearch                  " Search for patterns as you type them in
+set nohlsearch                 " Do not highlight patterns after enter key is pressed on search
+set copyindent                 " Use same pattern as the rest of file when auto indenting
+set preserveindent             " Use same pattern as the rest of file when shifting current line over
+set shiftwidth=4               " Affects how automatic indentation works as well as indent shifting
+set tabstop=4                  " Number of visual spaces per <Tab>
+set number                     " Show line numbers (when relativenumber is also set it willshow the current line's real line number.
+set relativenumber             " Show line numbers relative to current line.
+set autoindent                 " Enable automatic indentation.
+set smartindent                " Enable c-style indentation (not sure how this is any different from auto indent).
+set t_co=256                   " Enable 256-color mode.
+set nolist                     " Disable the listing of invisible characters (personal preference).
+set wildmenu                   " Will display menu of completions in command mode when <tab> is clicked.
+
+" files will be loaded and saved folds upon opening and closing
+autocmd bufwinleave * if expand("%") != "" | mkview | endif
+autocmd bufwinenter * if expand("%") != "" | loadview | endif
+
+" spell check toggle
+nnoremap <leader><leader>ss :setlocal spell! spelllang=en_us<CR>
+
+" Sets the cryptmethod to be the strongest encryption supported by the local machine's vim version.
+if v:version > 704 || (v:version == 704 && has('patch401'))
+	set cryptmethod=blowfish2 
+elseif v:version >=703
+	set cryptmethod=blowfish
+else
+	set cryptmethod=zip
+endif
+" }}}
+
+" PLUGIN: javaimp {{{
+let g:javaimppaths = $HOME . "/.java-source/"
+let g:javaimpdatadir = $HOME . "/.vim/JavaImp"
+" }}}
+
+" PLUGIN: syntastic {{{
+""let g:syntastic_always_populate_loc_list = 1
+""let g:syntastic_auto_loc_list = 1
+""let g:syntastic_check_on_open = 1
+""let g:syntastic_check_on_wq = 0
+""set statusline+=%#warningmsg#
+""set statusline+=%{SyntasticStatuslineFlag()}
+""set statusline+=%*
+" }}}
 
 " PLUGIN: airline {{{
 ""let g:airline#extensions#tabline#enabled = 1
+" }}}
+
+" PLUGIN: vim-gitgutter {{{
+""let g:gitgutter_override_sign_column_highlight = 0
+""highlight SignColumn ctermbg=000
+" }}}
+
+" PLUGIN: vim-slime {{{
+let g:slime_target="tmux" " defaults to tmux for pushing text to next window ( <C-c> <C-c> )
+" }}}
+
+" PLUGIN: nerdtree {{{
+nnoremap <leader>h :NERDTreeToggle<cr>
 " }}}
 
 " PLUGIN: nerdcommenter {{{
@@ -54,30 +130,41 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 " }}}
 
-" PLUGIN: vim-gitgutter {{{
-""let g:gitgutter_override_sign_column_highlight = 0
-""highlight SignColumn ctermbg=000 
-" }}}
-
 " PLUGIN: vim-tmux-navigator {{{
 let g:tmux_navigator_save_on_switch = 2
 " }}}
 
 " PLUGIN: vim-latex-live-preview {{{
 let g:livepreview_previewer = 'zathura'
-	"LANG: tex {{{
+	" LANG: tex {{{
 	autocmd Filetype tex setl updatetime=1000
 	autocmd Filetype tex nnoremap <leader><leader>T :LLPStartPreview<CR>
 	" }}}
 " }}}
 
-" Neovim already has the different cursor shapes.
-" For VTE compatible terminals (urxvt, st, xterm, gnome-terminal 3.x and
-" others)
-" Does not work on ITerm2
-let &t_SI = "\<Esc>[6 q" " Insert: IBeam
-let &t_SR = "\<Esc>[4 q" " Replace: Underline
-let &t_EI = "\<Esc>[2 q" " Normal: Block
+" LANG: lisp {{{
+autocmd filetype lisp set shiftwidth=2
+autocmd filetype lisp set tabstop=2
+autocmd filetype lisp set expandtab
+" }}}
 
-" Source the main config file
-source ~/dotfiles/.generic-vimrc
+" LANG: html {{{
+autocmd filetype html set wrap
+autocmd filetype html nnoremap j gj
+autocmd filetype html nnoremap k gk
+autocmd filetype html nnoremap gj j
+autocmd filetype html nnoremap gk k
+" }}}
+
+" LANG: tex {{{
+autocmd filetype tex set wrap
+autocmd filetype tex nnoremap j gj
+autocmd filetype tex nnoremap k gk
+autocmd filetype tex nnoremap gj j
+autocmd filetype tex nnoremap gk k
+" }}}
+
+" LANG: java {{{
+autocmd filetype java nnoremap <leader><leader>ii :JIF
+autocmd filetype java nnoremap <leader><leader>is :JIFS
+" }}}

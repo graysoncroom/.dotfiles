@@ -39,8 +39,7 @@ for_window [class="^.*"] border pixel 2
 #gaps inner 15
 #gaps outer 15
 
-bindsym $mod+Return exec $term
-bindsym $mod+Shift+Return exec $term -e tmux
+bindsym $mod+Return exec $term -e tmux\ -2
 bindsym $mod+r exec $term -e ranger
 
 # Pulse Audio controls
