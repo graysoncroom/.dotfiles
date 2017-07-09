@@ -9,7 +9,13 @@
 " Do not expain how a keybinding/function works, explain what it does and why it is useful.
 " }}}
 
-" PLUGIN: vim-plug plugin list {{{
+" SETUP: first things to run {{{
+set nocompatible 
+
+" files will be loaded and saved folds upon opening and closing
+autocmd bufwinleave * if expand("%") != "" | mkview | endif
+autocmd bufwinenter * if expand("%") != "" | loadview | endif
+
 " This is install the plugin manager if it is not already installed.
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -17,25 +23,34 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" Sets the cryptmethod to be the strongest encryption supported by the local machine's vim version.
+if v:version > 704 || (v:version == 704 && has('patch401'))
+	set cryptmethod=blowfish2 
+elseif v:version >=703
+	set cryptmethod=blowfish
+else
+	set cryptmethod=zip
+endif
+" }}}
+
+" PLUGIN: vim-plug plugin list {{{
 call plug#begin('~/.vim/plugged')
-Plug 'PotatoesMaster/i3-vim-syntax' " .i3/config file has syntax highlighting
-Plug 'christoomey/vim-tmux-navigator' "this allows for the same key to be used to swap tmux panes and vim splits
-Plug 'easymotion/vim-easymotion' " allows for Vimperator style navigation
-Plug 'jpalardy/vim-slime' " Send text to something like tmux, gnu screen, etc.
-Plug 'keith/swift.vim' " swift source code syntax highlighting
-Plug 'rustushki/JavaImp.vim' " import java classes a lot easier
-Plug 'scrooloose/nerdcommenter' " comment things out much easier
-Plug 'scrooloose/nerdtree' " file system browser for vim
-Plug 'tpope/vim-surround' " extends vocabulary of vim
-Plug 'vim-syntastic/syntastic' " checks and shows error messages for a lot of languages
-Plug 'xuhdev/vim-latex-live-preview' " provides live preview of the output pdf of a latex file
-Plug 'tommcdo/vim-exchange' " Easy word swapping
+Plug 'PotatoesMaster/i3-vim-syntax'   " .i3/config file has syntax highlighting
+Plug 'christoomey/vim-tmux-navigator' " allows for tmux panes and vim splits to work together
+Plug 'easymotion/vim-easymotion'      " allows for Vimperator style navigation
+Plug 'jpalardy/vim-slime'             " Send text to something like tmux, gnu screen, etc.
+Plug 'keith/swift.vim'                " swift source code syntax highlighting
+Plug 'rustushki/JavaImp.vim'          " import java classes a lot easier
+Plug 'scrooloose/nerdcommenter'       " comment things out much easier
+Plug 'scrooloose/nerdtree'            " file system browser
+Plug 'tpope/vim-surround'             " extends vocabulary of vim
+Plug 'vim-syntastic/syntastic'        " checks and shows error messages for a lot of languages
+Plug 'xuhdev/vim-latex-live-preview'  " provides live preview of the output pdf of a latex file
+Plug 'tommcdo/vim-exchange'           " Easy word swapping
 call plug#end()
 " }}}
 
 " OTHER: general settings {{{
-set nocompatible 
-
 let mapleader="\<Space>"
 let localleader="\<Space>"
 
@@ -67,29 +82,17 @@ set copyindent                 " Use same pattern as the rest of file when auto 
 set preserveindent             " Use same pattern as the rest of file when shifting current line over
 set shiftwidth=4               " Affects how automatic indentation works as well as indent shifting
 set tabstop=4                  " Number of visual spaces per <Tab>
-set number                     " Show line numbers (when relativenumber is also set it willshow the current line's real line number.
-set relativenumber             " Show line numbers relative to current line.
+set number                     " Show line numbers in the gutter
+set relativenumber             " Show line number relative to current line in the gutter.
 set autoindent                 " Enable automatic indentation.
 set smartindent                " Enable c-style indentation (not sure how this is any different from auto indent).
 set t_co=256                   " Enable 256-color mode.
 set nolist                     " Disable the listing of invisible characters (personal preference).
 set wildmenu                   " Will display menu of completions in command mode when <tab> is clicked.
 
-" files will be loaded and saved folds upon opening and closing
-autocmd bufwinleave * if expand("%") != "" | mkview | endif
-autocmd bufwinenter * if expand("%") != "" | loadview | endif
-
 " spell check toggle
 nnoremap <leader><leader>ss :setlocal spell! spelllang=en_us<CR>
 
-" Sets the cryptmethod to be the strongest encryption supported by the local machine's vim version.
-if v:version > 704 || (v:version == 704 && has('patch401'))
-	set cryptmethod=blowfish2 
-elseif v:version >=703
-	set cryptmethod=blowfish
-else
-	set cryptmethod=zip
-endif
 " }}}
 
 " PLUGIN: javaimp {{{
@@ -136,10 +139,12 @@ let g:tmux_navigator_save_on_switch = 2
 
 " PLUGIN: vim-latex-live-preview {{{
 let g:livepreview_previewer = 'zathura'
+
 	" LANG: tex {{{
 	autocmd Filetype tex setl updatetime=1000
 	autocmd Filetype tex nnoremap <leader><leader>T :LLPStartPreview<CR>
 	" }}}
+
 " }}}
 
 " LANG: lisp {{{
