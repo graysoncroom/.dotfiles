@@ -1,7 +1,7 @@
 # Mod1 == alt key
 set $mod Mod1
 #set $mod Control
-set $term termite
+set $term uxterm
 
 #exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/star-wars.jpeg
 #exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/hot-light.jpeg
@@ -16,8 +16,6 @@ bindsym $mod+Shift+n gaps inner current minus 5
 bindsym $mod+m       gaps outer current plus 5
 bindsym $mod+Shift+m gaps outer current minus 5
 
-#bindsym $mod+Delete exec i3lock -f -b -i ~/Pictures/wallpapers/arch-dark-meme.png
-#bindsym $mod+Delete exec lock ~/Pictures/wallpapers/lock.png
 bindsym $mod+Shift+Delete exec lock lock-red.png
 bindsym $mod+Delete exec i3lock -u -f -b -i ~/Pictures/wallpapers/arch-dark-meme.png
 
@@ -34,8 +32,8 @@ bindsym $mod+b exec firefox
 bindsym $mod+Control+c exec compton -b
 
 # default window gap settings
-#hide_edge_borders both
-for_window [class="^.*"] border pixel 2
+hide_edge_borders both
+for_window [class="^.*"] border pixel 0
 #gaps inner 15
 #gaps outer 15
 

@@ -47,12 +47,15 @@ Plug 'tpope/vim-surround'             " extends vocabulary of vim
 Plug 'vim-syntastic/syntastic'        " checks and shows error messages for a lot of languages
 Plug 'xuhdev/vim-latex-live-preview'  " provides live preview of the output pdf of a latex file
 Plug 'tommcdo/vim-exchange'           " Easy word swapping
+Plug 'flazz/vim-colorschemes'         " A large collection of colorschemes
 call plug#end()
 " }}}
 
-" OTHER: general settings {{{
+" GENERAL: personal settings {{{
 let mapleader="\<Space>"
 let localleader="\<Space>"
+
+colorscheme jellybeans
 
 nnoremap <c-j> <c-w><c-j>
 nnoremap <c-k> <c-w><c-k>
@@ -71,7 +74,7 @@ set textwidth=100              " Break line at the 100th column.
 set ruler                      " Extra file information at the bottom of the screen.
 set showmatch                  " Show matching bracket/parenthesis/brace
 set undolevels=1000            " 1000 undo levels.
-set undofile                   " Persistent undo tree
+""set undofile                   " Persistent undo tree
 set bg=light                   " Light syntax looks much better in a dark theme terminal.
 set encoding=utf-8             " Unicode support (just to make sure)
 set splitbelow                 " More natural split opening (open split down when applicable)
@@ -96,8 +99,19 @@ nnoremap <leader><leader>ss :setlocal spell! spelllang=en_us<CR>
 " }}}
 
 " PLUGIN: javaimp {{{
-let g:javaimppaths = $HOME . "/.java-source/"
-let g:javaimpdatadir = $HOME . "/.vim/JavaImp"
+let g:JavaImpPaths = $HOME . "/.java-source/"
+let g:JavaImpDataDir = $HOME . "/.vim/JavaImp"
+
+	" LANG: java {{{
+	" Import the Class under cursor.
+	autocmd filetype java nnoremap <leader><leader>ii :JavaImpSilent<CR>
+	" Open the java source code file in a new buffer, put the cursor on the first line of class
+	" definition, and move current line to the top of the screen.
+	autocmd filetype java nnoremap <leader><leader>iv :JavaImpFile<CR>gg/interface\ <C-r>=expand("%:t:r")<CR>\\|class\ <C-r>=expand("%:t:r")<CR><CR>zt
+	" Same as above only instead of opening a new buffer it opens a split.
+	autocmd filetype java nnoremap <leader><leader>is :JavaImpFileSplit<CR>gg/interface\ <C-r>=expand("%:t:r")<CR>\\|class\ <C-r>=expand("%:t:r")<CR><CR>zt
+	" }}}
+	
 " }}}
 
 " PLUGIN: syntastic {{{
@@ -167,9 +181,4 @@ autocmd filetype tex nnoremap j gj
 autocmd filetype tex nnoremap k gk
 autocmd filetype tex nnoremap gj j
 autocmd filetype tex nnoremap gk k
-" }}}
-
-" LANG: java {{{
-autocmd filetype java nnoremap <leader><leader>ii :JIF
-autocmd filetype java nnoremap <leader><leader>is :JIFS
 " }}}

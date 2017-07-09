@@ -5,7 +5,6 @@ alias grep='grep --color=auto'
 alias ls='ls --color=auto'
 alias swap_control_and_capslock='sudo loadkeys ~/dotfiles/.keys/swap_control_and_capslock.kmap'
 alias vimupdate='vim +PluginInstall +PluginClean +qall!'
-alias tmux='tmux -2'
 # default PS1
 export PS1='[\W]\$ '
 
