@@ -7,9 +7,6 @@ set nowrap
 
 inoremap jk <ESC>
 
-nnoremap ; :
-nnoremap : ;
-
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -30,11 +27,3 @@ nnoremap <space>b :xcmenucmd Build<CR>
 nnoremap <space>r :run<CR>
 
 nnoremap <space>s viw:xccmd findSelectedTextInWorkspace<CR>
-
-nnoremap <space>i i_<Esc>r
-
-nnoremap <space>J mpi<Cr><Esc>`p
-nnoremap <space>I i_<Esc>r
-
-nnoremap <space>/ mpI//<esc>`p 
-nnoremap <space>\ mp^/\/\/<cr>xx`p

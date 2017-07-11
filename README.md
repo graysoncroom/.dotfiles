@@ -1,8 +1,32 @@
 # dotfiles
-These are my dotfiles. There are many like them, but these ones are mine.
+Feel free to steal ideas or whatever from my configs! :D
 
-I will be implementing a dotfile auto installer whenever I get some free time. There are already scripts out there that do exactly this, but I am lazy and would rather write one than read someone else's documentation. Fight me.
+## Quick Info
+i3-gaps -> { i3bar i3blocks i3lock }
 
-The reason the proect is 98% java is because I have a source copy of the Java Api in my .generic-vim-javaImp directory. This is used for pulling imports in vim with the library javaIMP. Besides those files, there is no java being used.
+vim -> { See `vim/.vim/vimrc` }
 
-At the moment I just "ln -s dotfiles/file ." on all the config files when I install my configs to a new machine. 
+firefox -> { vimperator|vimfx }
+
+mutt
+
+ranger
+
+zathura
+
+much more...
+
+### Why are your dotfiles 99% Java?
+There is a copy of the jdk-1.8.0 library in the directory: vim/.java-source
+This will be replaced with a script that installs, decompresses, and extracts the latest java library into vim/.java-source.
+
+### What dotfile manager is used in this project?
+I use `Gnu stow`, but there is nothing about this project that prevents you from doing it another way.
+Stow is awesome and you should check it out!
+
+### Why do you have i3-gaps and chunkwm configs?
+I use i3-gaps on all my linux systems, but at work I use chunkwm 'my' mac.
+
+### i3 vs i3-gaps
+i3-gaps allows you to put space between windows that are tiled.
+Nice on a high resolution monitor when you only have a couple applications open.
