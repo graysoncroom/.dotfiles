@@ -17,7 +17,7 @@ zathura
 much more...
 
 ### Why are your dotfiles 99% Java?
-There is a copy of the jdk1.8.0 library in the directory: vim/.java-source
+There is a copy of the jdk-1.8.0 library in the directory: vim/.java-source
 This will be replaced with a script that installs, decompresses, and extracts the latest java library into vim/.java-source.
 
 ### What dotfile manager is used in this project?
