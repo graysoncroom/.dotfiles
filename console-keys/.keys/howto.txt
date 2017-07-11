@@ -1,0 +1,50 @@
+
+
+    Save your current keyboard layout:
+
+    $ dumpkeys > backup.kmap
+
+    In case something goes wrong you might be able restore your keymap using the command:
+
+    $ sudo loadkeys backup.kmap
+
+    If the keyboard is so messed up that you can't even do this then your only option not involving ancient kernel magic is to reboot.
+
+    Check which keycodes are assigned to your keys:
+
+    $ showkey
+
+    Now press the ESC key and the CAPSLOCK key. The keycodes should show up on the screen. Note the keycodes. On my system the ESC has the keycode 1 and CAPSLOCK has the keycode 58. showkey will terminate after 10 seconds of inactivity (at least it does on my ubuntu 10.04).
+
+    Note the names of the ESC and CAPSLOCK keys from dumpkeys:
+
+    $ dumpkeys | grep 1
+    ...
+    keycode   1 = Escape
+    ...
+    $ dumpkeys | grep 58
+    ...
+    keycode  58 = CtrlL_Lock
+    ...
+
+    Note the keymap line from dumpkeys:
+
+    $ dumpkeys | head -1
+    keymaps 0-127
+
+    Create a keymap file which switches ESC and CAPSLOCK:
+
+    keymaps 0-127
+    keycode   1 = CtrlL_Lock
+    keycode  58 = Escape
+
+    Load the keymap:
+
+    $ sudo loadkeys swap_esc_capslock.kmap
+
+    Test: Testing the CAPSLOCK key is obvious. Just press they CAPSLOCK key and check whether other keys come out capitalized. To test the ESC key you can use CTRL+V followed by ESC. It should print ^[. CTRL+V makes the shell print the next key verbatim instead of interpreting it.
+
+To have this modification load on every reboot, put the following line in your /etc/rc.local file:
+
+/usr/bin/loadkeys /path/to/swap_esc_capslock.kmap
+

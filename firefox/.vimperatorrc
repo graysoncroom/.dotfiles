@@ -1,0 +1,14 @@
+set! browser.startup.homepage=https://www.reddit.com
+
+let mapleader=" "
+let localleader=" "
+
+noremap j 3j
+noremap k 3k
+noremap : ;
+noremap ; :
+
+inoremap jk <esc>
+nnoremap <leader>w <leader>:wq
+
+set gui=none
