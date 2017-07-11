@@ -10,11 +10,12 @@
 " }}}
 
 " SETUP: first things to run {{{
-set nocompatible 
+set nocompatible " This has to be the first line of the file.
 
 " files will be loaded and saved folds upon opening and closing
-autocmd bufwinleave * if expand("%") != "" | mkview | endif
-autocmd bufwinenter * if expand("%") != "" | loadview | endif
+" keep even if not being used. They were anoying to find.
+""autocmd bufwinleave * if expand("%") != "" | mkview | endif
+""autocmd bufwinenter * if expand("%") != "" | loadview | endif
 
 " This is install the plugin manager if it is not already installed.
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -61,17 +62,14 @@ nnoremap <c-j> <c-w><c-j>
 nnoremap <c-k> <c-w><c-k>
 nnoremap <c-l> <c-w><c-l>
 nnoremap <c-h> <c-w><c-h>
-nnoremap ; :
-nnoremap : ;
 inoremap jk <esc>
 
 set shell=bash                 " Make sure the shell is bash on every system.
 set backspace=indent,eol,start " Vim backspace acts like a normal text editor's backspace.
 set listchars=tab:>.           " Visual representation of certain characters when list is set.
-set wildmode=longest,list      " Bash-style tab completion.
 set viewoptions-=options       " Views will not save keymappings (only preserve buffer folds).
 set textwidth=100              " Break line at the 100th column.
-set undolevels=1000            " 1000 undo levels.
+set undolevels=10000           " Set the number of undo levels vim will record.
 set bg=dark                    " Can either be dark or light.
 set encoding=utf-8             " Unicode support (just to make sure).
 set splitbelow                 " More natural split opening (open split down when applicable).
@@ -92,7 +90,7 @@ set wildmenu                   " Will display menu of completions in command mod
 set colorcolumn=+1
 
 " spell check toggle
-nnoremap <localleader><localleader>ss :setlocal spell! spelllang=en_us<CR>
+nnoremap <localleader><localleader>S :setlocal spell! spelllang=en_us<CR>
 " }}}
 
 " PLUGIN: javaimp {{{
