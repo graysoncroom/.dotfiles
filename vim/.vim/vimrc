@@ -1,15 +1,4 @@
-" STYLE GUIDE: Comments {{{
-" One double quote means comments about code.
-" Two double quotes mean code commented out.
-"
-" When possible keep comments on the same line as the code it refers to,
-" otherwise put the comment on its own line directly above the code it refers
-" to.
-"
-" Do not expain how a keybinding/function works, explain what it does and why it is useful.
-" }}}
-
-" SETUP: first things to run {{{
+" SETUP{{{
 set nocompatible " This has to be the first line of the file.
 
 " files will be loaded and saved folds upon opening and closing
@@ -32,9 +21,9 @@ elseif v:version >=703
 else
 	set cryptmethod=zip
 endif
-" }}}
+"}}}
 
-" PLUGIN: vim-plug plugin list {{{
+" PLUGIN LIST{{{
 call plug#begin('~/.vim/plugged')
 Plug 'PotatoesMaster/i3-vim-syntax'     " .i3/config file has syntax highlighting
 Plug 'christoomey/vim-tmux-navigator'   " allows for tmux panes and vim splits to work together
@@ -51,11 +40,11 @@ Plug 'tommcdo/vim-exchange'             " Easy word swapping
 Plug 'altercation/vim-colors-solarized' " A large collection of colorschemes
 Plug 'msanders/cocoa.vim'               " Make it easier to develop Cocoa/Objective-C applications.
 Plug 'eraserhd/vim-ios'                 " A plugin for IOS development with vim.
-Plug 'ctrlpvim/ctrlp.vim'                   " Full path fuzzy file, buffer, mru, and tags. Finder.
+Plug 'ctrlpvim/ctrlp.vim'               " Full path fuzzy file, buffer, mru, and tags. Finder.
 call plug#end()
-" }}}
+"}}}
 
-" GENERAL: personal settings {{{
+" GENERAL{{{
 let mapleader="\<Space>"
 let localleader="\<Space>"
 
@@ -96,25 +85,20 @@ set colorcolumn=+1
 
 " spell check toggle
 nnoremap <localleader><localleader>S :setlocal spell! spelllang=en_us<CR>
-" }}}
+"}}}
 
-" PLUGIN: javaimp {{{
+" PLUGIN: javaimp{{{
 let g:JavaImpPaths = $HOME . "/.java-source/"
 let g:JavaImpDataDir = $HOME . "/.vim/JavaImp"
-
-	" LANG: java {{{
-	" Import the Class under cursor.
-	autocmd filetype java nnoremap <leader><leader>ii :JavaImpSilent<CR>
-	" Open the java source code file in a new buffer, put the cursor on the first line of class
-	" definition, and move current line to the top of the screen.
-	autocmd filetype java nnoremap <leader><leader>iv :JavaImpFile<CR>gg/interface\ <C-r>=expand("%:t:r")<CR>\\|class\ <C-r>=expand("%:t:r")<CR><CR>zt
-	" Same as above only instead of opening a new buffer it opens a split.
-	autocmd filetype java nnoremap <leader><leader>is :JavaImpFileSplit<CR>gg/interface\ <C-r>=expand("%:t:r")<CR>\\|class\ <C-r>=expand("%:t:r")<CR><CR>zt
-	" }}}
-	
-" }}}
-
-" PLUGIN: syntastic {{{
+" Import the Class under cursor.
+autocmd filetype java nnoremap <leader><leader>ii :JavaImpSilent<CR>
+" Open the java source code file in a new buffer, put the cursor on the first line of class
+" definition, and move current line to the top of the screen.
+autocmd filetype java nnoremap <leader><leader>iv :JavaImpFile<CR>gg/interface\ <C-r>=expand("%:t:r")<CR>\\|class\ <C-r>=expand("%:t:r")<CR><CR>zt
+" Same as above only instead of opening a new buffer it opens a split.
+autocmd filetype java nnoremap <leader><leader>is :JavaImpFileSplit<CR>gg/interface\ <C-r>=expand("%:t:r")<CR>\\|class\ <C-r>=expand("%:t:r")<CR><CR>zt
+"}}}
+" PLUGIN: syntastic{{{
 ""let g:syntastic_always_populate_loc_list = 1
 ""let g:syntastic_auto_loc_list = 1
 ""let g:syntastic_check_on_open = 1
@@ -122,66 +106,53 @@ let g:JavaImpDataDir = $HOME . "/.vim/JavaImp"
 ""set statusline+=%#warningmsg#
 ""set statusline+=%{SyntasticStatuslineFlag()}
 ""set statusline+=%*
-" }}}
-
-" PLUGIN: airline {{{
+"}}}
+" PLUGIN: airline{{{
 ""let g:airline#extensions#tabline#enabled = 1
-" }}}
-
-" PLUGIN: vim-gitgutter {{{
+"}}}
+" PLUGIN: vim-gitgutter{{{
 ""let g:gitgutter_override_sign_column_highlight = 0
 ""highlight SignColumn ctermbg=000
-" }}}
-
-" PLUGIN: vim-slime {{{
+"}}}
+" PLUGIN: vim-slime{{{
 let g:slime_target="tmux" " defaults to tmux for pushing text to next window ( <C-c> <C-c> )
-" }}}
-
-" PLUGIN: nerdtree {{{
+"}}}
+" PLUGIN: nerdtree{{{
 let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '~'
-
 nnoremap <leader>h :NERDTreeToggle<cr>
-" }}}
-
-" PLUGIN: nerdcommenter {{{
+"}}}
+" PLUGIN: nerdcommenter{{{
 let g:NERDSpaceDelims = 1
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
-" }}}
-
-" PLUGIN: vim-tmux-navigator {{{
+"}}}
+" PLUGIN: vim-tmux-navigator{{{
 let g:tmux_navigator_save_on_switch = 2
-" }}}
-
-" PLUGIN: vim-latex-live-preview {{{
+"}}}
+" PLUGIN: vim-latex-live-preview{{{
 let g:livepreview_previewer = 'zathura'
 
-	" LANG: tex {{{
-	autocmd Filetype tex setl updatetime=1000
-	autocmd Filetype tex nnoremap <leader><leader>T :LLPStartPreview<CR>
-	" }}}
+autocmd Filetype tex setl updatetime=1000
+autocmd Filetype tex nnoremap <leader><leader>T :LLPStartPreview<CR>
+"}}}
 
-" }}}
-
-" LANG: lisp {{{
+" FILETYPE: lisp{{{
 autocmd filetype lisp set shiftwidth=2
 autocmd filetype lisp set tabstop=2
 autocmd filetype lisp set expandtab
-" }}}
-
-" LANG: html {{{
+"}}}
+" FILETYPE: lisp{{{
 autocmd filetype html set wrap
 autocmd filetype html nnoremap j gj
 autocmd filetype html nnoremap k gk
 autocmd filetype html nnoremap gj j
 autocmd filetype html nnoremap gk k
-" }}}
-
-" LANG: tex {{{
+"}}}
+" FILETYPE: tex{{{
 autocmd filetype tex set wrap
 autocmd filetype tex nnoremap j gj
 autocmd filetype tex nnoremap k gk
 autocmd filetype tex nnoremap gj j
 autocmd filetype tex nnoremap gk k
-" }}}
+"}}}
