@@ -2,7 +2,7 @@
 Feel free to steal ideas or whatever from my configs! :D
 
 ## Quick Info
-i3-gaps -> { i3bar i3blocks }
+i3-gaps -> { i3bar i3blocks i3lock }
 
 vim -> { See `vim/.vim/vimrc` }
 
