@@ -49,6 +49,9 @@ Plug 'vim-syntastic/syntastic'          " checks and shows error messages for a 
 Plug 'xuhdev/vim-latex-live-preview'    " provides live preview of the output pdf of a latex file
 Plug 'tommcdo/vim-exchange'             " Easy word swapping
 Plug 'altercation/vim-colors-solarized' " A large collection of colorschemes
+Plug 'msanders/cocoa.vim'               " Make it easier to develop Cocoa/Objective-C applications.
+Plug 'eraserhd/vim-ios'                 " A plugin for IOS development with vim.
+Plug 'ctrlpvim/ctrlp.vim'                   " Full path fuzzy file, buffer, mru, and tags. Finder.
 call plug#end()
 " }}}
 
@@ -68,6 +71,7 @@ set shell=bash                 " Make sure the shell is bash on every system.
 set backspace=indent,eol,start " Vim backspace acts like a normal text editor's backspace.
 set listchars=tab:>.           " Visual representation of certain characters when list is set.
 set viewoptions-=options       " Views will not save keymappings (only preserve buffer folds).
+set foldmethod=marker          " Enable folding triggered by markers
 set textwidth=100              " Break line at the 100th column.
 set undolevels=10000           " Set the number of undo levels vim will record.
 set bg=dark                    " Can either be dark or light.
@@ -84,6 +88,7 @@ set number                     " Show line numbers in the gutter.
 set relativenumber             " Show line number relative to current line in the gutter.
 set autoindent                 " Enable automatic indentation.
 set smartindent                " Enable c-style indentation (not sure how this is any different from auto indent).
+set expandtab                  " Replace tabs with spaces.
 set t_Co=256                   " Enable 256-color mode.
 set nolist                     " Disable the listing of invisible characters (personal preference).
 set wildmenu                   " Will display menu of completions in command mode when <tab> is clicked.
