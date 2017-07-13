@@ -36,6 +36,7 @@ It allows scripts to easily identify which directories are 'stowable'.
 
 Example: Stow all stowable directories not including the vim configs
 ```
+#!/bin/env bash
 cd ~/.dotfiles
 for stowable_file in $(ls | grep +); do
     if [ $stowable_file != "vim+" ]; then
