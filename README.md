@@ -4,7 +4,7 @@ Feel free to steal ideas or whatever from my configs! :D
 ## Quick Info
 i3-gaps -> { i3bar i3blocks i3lock }
 
-vim -> { See `vim/.vim/vimrc` }
+vim -> { See `vim+/.vim/vimrc` }
 
 firefox -> { vimperator|vimfx }
 
@@ -30,3 +30,14 @@ I use i3-gaps on all my linux systems, but at work I use chunkwm 'my' mac.
 ### i3 vs i3-gaps
 i3-gaps allows you to put space between windows that are tiled.
 Nice on a high resolution monitor when you only have a couple applications open.
+
+### Why is there a plus after many of the directory names?
+This allows scripts to identify which directories are 'stowable'. Maybe this is not the best way to do it, but it allows
+for anyone to easily make a script that interacts with all the directories at once.
+
+Example:
+```
+for stowable_file in $(ls | grep +); do
+    echo $stowable_file;
+done;
+```
