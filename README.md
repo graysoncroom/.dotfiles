@@ -32,12 +32,29 @@ i3-gaps allows you to put space between windows that are tiled.
 Nice on a high resolution monitor when you only have a couple applications open.
 
 ### Why is there a plus after many of the directory names?
-This allows scripts to identify which directories are 'stowable'. Maybe this is not the best way to do it, but it allows
-for anyone to easily make a script that interacts with all the directories at once.
+It allows scripts to easily identify which directories are 'stowable'.
 
-Example:
+Example: Stow all stowable directories not including the vim configs
 ```
+cd ~/.dotfiles
 for stowable_file in $(ls | grep +); do
-    echo $stowable_file;
-done;
+    if [ $stowable_file != "vim+" ]; then
+        stow $stowable_file
+    fi
+done
+cd -
 ```
+
+### How do I install all of your configs at once?
+You can run the following from a script if you do not have any conflicting dotfiles in your home directory.
+```
+#!/bin/env bash
+DIRECTORY_BEFORE_DOTFILE_INSTALL=$(pwd)
+cd ~
+git clone https://github.com/graysoncroom/.dotfiles.git
+cd .dotfiles
+for file in $(ls | grep +); do
+    stow $file
+done
+cd DIRECTORY_BEFORE_DOTFILE_INSTALL
+unset $DIRECTORY_BEFORE_DOTFILE_INSTALL
