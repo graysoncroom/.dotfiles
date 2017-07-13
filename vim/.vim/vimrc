@@ -129,8 +129,8 @@
     let g:slime_target="tmux" " defaults to tmux for pushing text to next window ( <C-c> <C-c> )
 "}}}
 " PLUGIN: nerdtree{{{
-    let g:NERDTreeDirArrowExpandable = '+'
-    let g:NERDTreeDirArrowCollapsible = '~'
+    ""let g:NERDTreeDirArrowExpandable = '+'
+    ""let g:NERDTreeDirArrowCollapsible = '~'
     nnoremap <localleader>h :NERDTreeToggle<cr>
 "}}}
 " PLUGIN: nerdcommenter{{{
