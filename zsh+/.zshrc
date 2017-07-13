@@ -92,3 +92,5 @@ alias archey='archey3'
 alias bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E "state|to\ full|percentage"'
 alias grep='grep --color=auto'
 alias swap_control_and_capslock='sudo loadkeys ~/dotfiles/.keys/swap_control_and_capslock.kmap'
+
+export voyager=~/Development/prologic_catalystnative/Catalyst/Catalyst
