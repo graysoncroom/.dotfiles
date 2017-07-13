@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # I am very new to shell scripting. All comments on what I should improve are welcome!
+# Code may be crap, but it works for now. I will continue to improve this script as I learn bash.
 
 # Start log for ease of debugging
 echo "Start of script log: $(date)" >> /tmp/dotfile-update.log

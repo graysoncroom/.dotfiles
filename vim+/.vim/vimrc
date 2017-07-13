@@ -76,16 +76,17 @@
     set t_Co=256                   " Enable 256-color mode.
     set colorcolumn=+1
 
-    set cursorline     " Highlight the current row (line) that the cursor is on.
-    set splitbelow     " More natural split opening (open split down when applicable).
-    set splitright     " More natural split opening (open split to the right when applicable).
-    set incsearch      " Search for patterns as you type them in
+    set cursorline     " Highlight the current cursor row (line).
+    set cursorcolumn   " Highlight the cursor current column
+    set splitbelow     " All horizontal splits will default to below current screen.
+    set splitright     " All vertical splits will default to the right of the current screen.
+    set incsearch      " Search for patterns as you type them in.
     set nohlsearch     " Do not highlight search patterns.
     set number         " Show line numbers in the gutter.
-    set relativenumber " Show line number relative to current line in the gutter.
+    set relativenumber " Show how many lines each line is away from the current line
     set autoindent     " Enable automatic indentation.
     set nolist         " Disable the listing of invisible characters (personal preference).
-    set wildmenu       " Will display menu of completions in command mode when <tab> is clicked.
+    set wildmenu       " Will display menu of completions in command mode upon user entering a tab.
 "}}}
 
 " TAB SETTINGS {{{
