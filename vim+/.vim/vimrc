@@ -59,7 +59,7 @@
     inoremap jk <esc>
 
     " Toggle search highlighting
-    nnoremap <localleader>/ :set hlsearch!
+    nnoremap <localleader>/ :set hlsearch!<CR>
 
     " spell check toggle
     nnoremap <localleader>ss :setlocal spell! spelllang=en_us<CR>
