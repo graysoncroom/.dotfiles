@@ -47,15 +47,8 @@ cd -
 ```
 
 ### How do I install all of your configs at once?
-You can run the following from a script if you do not have any conflicting dotfiles in your home directory.
-```
-#!/bin/env bash
-DIRECTORY_BEFORE_DOTFILE_INSTALL=$(pwd)
-cd ~
-git clone https://github.com/graysoncroom/.dotfiles.git
-cd .dotfiles
-for file in $(ls | grep +); do
-    stow $file
-done
-cd DIRECTORY_BEFORE_DOTFILE_INSTALL
-unset $DIRECTORY_BEFORE_DOTFILE_INSTALL
+You can use the script I provide to install them all. It is called: setup.sh
+Please make sure there are no dotfiles that will conflict with the ones in this repo. 
+If you don't, nothing will happend to your configs, but at the same time you won't get the ones from this project.
+Stow does not override files that are already there.
+The script logs to /tmp/dotfile-update.log. If there was an error stowing something you will see the error message there.
