@@ -15,7 +15,7 @@
 
     " To ensure we are always using the strongest possible encryption method available.
     if v:version > 704 || (v:version == 704 && has('patch401'))
-        set cryptmethod=blowfish2 
+        set cryptmethod=blowfish2
     elseif v:version >=703
         set cryptmethod=blowfish
     else
@@ -39,8 +39,7 @@
     Plug 'tommcdo/vim-exchange'             " Easy word swapping
     Plug 'altercation/vim-colors-solarized' " A large collection of colorschemes
     Plug 'ctrlpvim/ctrlp.vim'               " Full path fuzzy file, buffer, mru, and tags. Finder.
-    ""Plug 'msanders/cocoa.vim'               " Make it easier to develop Cocoa/Objective-C applications. (overrides foldmethod to = expr)
-    ""Plug 'eraserhd/vim-ios'                 " A plugin for IOS development with vim. (overrides foldmethod to = expr)
+    Plug 'godlygeek/tabular'                " Text filtering and alignment.
     call plug#end()
 "}}}
 
@@ -58,11 +57,16 @@
     nnoremap <c-h> <c-w><c-h>
     inoremap jk <esc>
 
+    " Remove all trailing whitespace
+    autocmd BufWritePre * %s/\s\+$//e
+
     " Toggle search highlighting
     nnoremap <localleader>/ :set hlsearch!<CR>
 
     " spell check toggle
     nnoremap <localleader>ss :setlocal spell! spelllang=en_us<CR>
+
+    nnoremap <localleader>* mp:r ~/.vim/boilerplates/comment<CR>'pdd
 
     set shell=bash                 " Make sure the shell is bash on every system.
     set backspace=indent,eol,start " Vim backspace acts like a normal text editor's backspace.
@@ -74,7 +78,7 @@
     set bg=dark                    " Background colors should be either light or dark
     set encoding=utf-8             " File encoding will be in unicode.
     set t_Co=256                   " Enable 256-color mode.
-    set colorcolumn=+1
+    set colorcolumn=+1             " Column is after the set text width.
 
     set cursorline     " Highlight the current cursor row (line).
     set cursorcolumn   " Highlight the cursor current column
@@ -99,25 +103,26 @@
 " PLUGIN: javaimp{{{
     let g:JavaImpPaths = $HOME . "/.java-source/"
     let g:JavaImpDataDir = $HOME . "/.vim/JavaImp"
-    
+
     " Import the Class under cursor.
     autocmd filetype java nnoremap <localleader>ii :JavaImpSilent<CR>
-   
+
     " Open the java source code file in a new buffer, put the cursor on the first line of class
     " definition, and move current line to the top of the screen.
     autocmd filetype java nnoremap <localleader>iv :JavaImpFile<CR>gg/interface\ <C-r>=expand("%:t:r")<CR>\\|class\ <C-r>=expand("%:t:r")<CR><CR>zt
- 
+
     " Same as above only instead of opening a new buffer it opens a split.
     autocmd filetype java nnoremap <localleader>is :JavaImpFileSplit<CR>gg/interface\ <C-r>=expand("%:t:r")<CR>\\|class\ <C-r>=expand("%:t:r")<CR><CR>zt
 "}}}
 " PLUGIN: syntastic{{{
-    ""let g:syntastic_always_populate_loc_list = 1
-    ""let g:syntastic_auto_loc_list = 1
-    ""let g:syntastic_check_on_open = 1
-    ""let g:syntastic_check_on_wq = 0
-    ""set statusline+=%#warningmsg#
-    ""set statusline+=%{SyntasticStatuslineFlag()}
-    ""set statusline+=%*
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
+    let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
 "}}}
 " PLUGIN: airline{{{
     ""let g:airline#extensions#tabline#enabled = 1
@@ -133,6 +138,7 @@
     ""let g:NERDTreeDirArrowExpandable = '+'
     ""let g:NERDTreeDirArrowCollapsible = '~'
     nnoremap <localleader>h :NERDTreeToggle<cr>
+    let NERDTreeIgnore = ['\.xib$', '\.gif$', '\.png$', '\.jpeg$', '\.jpg$']
 "}}}
 " PLUGIN: nerdcommenter{{{
     let g:NERDSpaceDelims = 1
@@ -146,12 +152,15 @@
     nnoremap <localleader>j :CtrlP<CR>
 "}}}
 
+" FILETYPE: swfit{{{
+    autocmd filetype swift nnoremap <localleader>, :.s/,\zs/\r/g<CR>
+" }}}
 " FILETYPE: lisp{{{
     autocmd filetype lisp set shiftwidth=2
     autocmd filetype lisp set tabstop=2
     autocmd filetype lisp set expandtab
 "}}}
-" FILETYPE: lisp{{{
+" FILETYPE: html{{{
     autocmd filetype html set wrap
     autocmd filetype html nnoremap j gj
     autocmd filetype html nnoremap k gk
