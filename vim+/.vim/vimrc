@@ -1,0 +1,176 @@
+" SETUP{{{
+    set nocompatible " This has to be the first line of the file.
+
+    " Use the .vim/views directory to store file folding and local keybinding information about a
+    " file.
+    ""autocmd bufwinleave * if expand("%") != "" | mkview | endif
+    ""autocmd bufwinenter * if expand("%") != "" | loadview | endif
+
+    " This is install the plugin manager if it is not already installed.
+    if empty(glob('~/.vim/autoload/plug.vim'))
+        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+            \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
+
+    " To ensure we are always using the strongest possible encryption method available.
+    if v:version > 704 || (v:version == 704 && has('patch401'))
+        set cryptmethod=blowfish2
+    elseif v:version >=703
+        set cryptmethod=blowfish
+    else
+        set cryptmethod=zip
+    endif
+"}}}
+
+" PLUGIN LIST{{{
+    call plug#begin('~/.vim/plugged')
+    Plug 'PotatoesMaster/i3-vim-syntax'     " .i3/config file has syntax highlighting
+    Plug 'christoomey/vim-tmux-navigator'   " allows for tmux panes and vim splits to work together
+    Plug 'easymotion/vim-easymotion'        " allows for Vimperator style navigation
+    Plug 'jpalardy/vim-slime'               " Send text to something like tmux, gnu screen, etc.
+    Plug 'keith/swift.vim'                  " swift source code syntax highlighting
+    Plug 'rustushki/JavaImp.vim'            " import java classes a lot easier
+    Plug 'scrooloose/nerdcommenter'         " comment things out much easier
+    Plug 'scrooloose/nerdtree'              " file system browser
+    Plug 'tpope/vim-surround'               " extends vocabulary of vim
+    Plug 'vim-syntastic/syntastic'          " checks and shows error messages for a lot of languages
+    Plug 'xuhdev/vim-latex-live-preview'    " provides live preview of the output pdf of a latex file
+    Plug 'tommcdo/vim-exchange'             " Easy word swapping
+    Plug 'altercation/vim-colors-solarized' " A large collection of colorschemes
+    Plug 'ctrlpvim/ctrlp.vim'               " Full path fuzzy file, buffer, mru, and tags. Finder.
+    Plug 'godlygeek/tabular'                " Text filtering and alignment.
+    call plug#end()
+"}}}
+
+" GENERAL{{{
+    let mapleader="\<Space>"
+    let maplocalleader="\<Space>"
+
+    colorscheme solarized
+
+    filetype plugin indent on
+
+    nnoremap <c-j> <c-w><c-j>
+    nnoremap <c-k> <c-w><c-k>
+    nnoremap <c-l> <c-w><c-l>
+    nnoremap <c-h> <c-w><c-h>
+    inoremap jk <esc>
+
+    " Remove all trailing whitespace
+    autocmd BufWritePre * %s/\s\+$//e
+
+    " Toggle search highlighting
+    nnoremap <localleader>/ :set hlsearch!<CR>
+
+    " spell check toggle
+    nnoremap <localleader>ss :setlocal spell! spelllang=en_us<CR>
+
+    nnoremap <localleader>* mp:r ~/.vim/boilerplates/comment<CR>'pdd
+
+    set shell=bash                 " Make sure the shell is bash on every system.
+    set backspace=indent,eol,start " Vim backspace acts like a normal text editor's backspace.
+    set listchars=tab:>.           " Visual representation of certain characters when list is set.
+    set viewoptions-=options       " Views will not save keymappings (only preserve buffer folds).
+    set foldmethod=marker          " Enable folding triggered by markers
+    set textwidth=100              " Break line at the 100th column.
+    set undolevels=10000           " Set the number of undo levels vim will record.
+    set bg=dark                    " Background colors should be either light or dark
+    set encoding=utf-8             " File encoding will be in unicode.
+    set t_Co=256                   " Enable 256-color mode.
+    set colorcolumn=+1             " Column is after the set text width.
+
+    set cursorline     " Highlight the current cursor row (line).
+    set cursorcolumn   " Highlight the cursor current column
+    set splitbelow     " All horizontal splits will default to below current screen.
+    set splitright     " All vertical splits will default to the right of the current screen.
+    set incsearch      " Search for patterns as you type them in.
+    set nohlsearch     " Do not highlight search patterns.
+    set number         " Show line numbers in the gutter.
+    set relativenumber " Show how many lines each line is away from the current line
+    set autoindent     " Enable automatic indentation.
+    set nolist         " Disable the listing of invisible characters (personal preference).
+    set wildmenu       " Will display menu of completions in command mode upon user entering a tab.
+"}}}
+
+" TAB SETTINGS {{{
+    set shiftwidth=4 " Used by >>, <<, and ==. Also affects how auto-indentation works.
+    set tabstop=4    " Changes the width of the tab character.
+
+    set expandtab " Replace tabs with spaces. Comment out to use hard tabs.
+"}}}
+
+" PLUGIN: javaimp{{{
+    let g:JavaImpPaths = $HOME . "/.java-source/"
+    let g:JavaImpDataDir = $HOME . "/.vim/JavaImp"
+
+    " Import the Class under cursor.
+    autocmd filetype java nnoremap <localleader>ii :JavaImpSilent<CR>
+
+    " Open the java source code file in a new buffer, put the cursor on the first line of class
+    " definition, and move current line to the top of the screen.
+    autocmd filetype java nnoremap <localleader>iv :JavaImpFile<CR>gg/interface\ <C-r>=expand("%:t:r")<CR>\\|class\ <C-r>=expand("%:t:r")<CR><CR>zt
+
+    " Same as above only instead of opening a new buffer it opens a split.
+    autocmd filetype java nnoremap <localleader>is :JavaImpFileSplit<CR>gg/interface\ <C-r>=expand("%:t:r")<CR>\\|class\ <C-r>=expand("%:t:r")<CR><CR>zt
+"}}}
+" PLUGIN: syntastic{{{
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
+    let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+"}}}
+" PLUGIN: airline{{{
+    ""let g:airline#extensions#tabline#enabled = 1
+"}}}
+" PLUGIN: vim-gitgutter{{{
+    ""let g:gitgutter_override_sign_column_highlight = 0
+    ""highlight SignColumn ctermbg=000
+"}}}
+" PLUGIN: vim-slime{{{
+    let g:slime_target="tmux" " defaults to tmux for pushing text to next window ( <C-c> <C-c> )
+"}}}
+" PLUGIN: nerdtree{{{
+    ""let g:NERDTreeDirArrowExpandable = '+'
+    ""let g:NERDTreeDirArrowCollapsible = '~'
+    nnoremap <localleader>h :NERDTreeToggle<cr>
+    let NERDTreeIgnore = ['\.xib$', '\.gif$', '\.png$', '\.jpeg$', '\.jpg$']
+"}}}
+" PLUGIN: nerdcommenter{{{
+    let g:NERDSpaceDelims = 1
+    let g:NERDCommentEmptyLines = 1
+    let g:NERDTrimTrailingWhitespace = 1
+"}}}
+" PLUGIN: vim-tmux-navigator{{{
+    let g:tmux_navigator_save_on_switch = 2
+"}}}
+" PLUGIN: ctrlp{{{
+    nnoremap <localleader>j :CtrlP<CR>
+"}}}
+
+" FILETYPE: swfit{{{
+    autocmd filetype swift nnoremap <localleader>, :.s/,\zs/\r/g<CR>
+" }}}
+" FILETYPE: lisp{{{
+    autocmd filetype lisp set shiftwidth=2
+    autocmd filetype lisp set tabstop=2
+    autocmd filetype lisp set expandtab
+"}}}
+" FILETYPE: html{{{
+    autocmd filetype html set wrap
+    autocmd filetype html nnoremap j gj
+    autocmd filetype html nnoremap k gk
+    autocmd filetype html nnoremap gj j
+    autocmd filetype html nnoremap gk k
+"}}}
+" FILETYPE: tex{{{
+    autocmd filetype tex set wrap
+    autocmd filetype tex nnoremap j gj
+    autocmd filetype tex nnoremap k gk
+    autocmd filetype tex nnoremap gj j
+    autocmd filetype tex nnoremap gk k
+"}}}

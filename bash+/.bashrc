@@ -1,17 +1,9 @@
 # Source global definitions
-if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
-fi
 
-if [ -f ~/.bash_aliases ]; then
-	. ~/.bash_aliases
-elif [ -f ~/dotfiles/.bash_aliases ]; then
-	. ~/dotfiles/.bash_aliases
-fi
-
-if [ -f ~/.localrc ]; then
-	. ~/.localrc
-fi
+[ -f /etc/bashrc ] && . /etc/bashrc
+[ -f ~/.bash_aliases ] && . ~/.bash_aliases
+[ -f ~/.localrc ] && . ~/.localrc
+#[ -f ~/.Xresources ] && xrdb ~/.Xresources
 
 set -o vi
 
