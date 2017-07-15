@@ -1,14 +1,9 @@
-set! browser.startup.homepage=https://www.reddit.com
+set! browser.startup.homepage=file:///home/grayson/.startpage/index.html
 
 let mapleader=" "
-let localleader=" "
+let maplocalleader=" "
 
 noremap j 3j
 noremap k 3k
-noremap : ;
-noremap ; :
-
-inoremap jk <esc>
-nnoremap <leader>w <leader>:wq
 
 set gui=none
