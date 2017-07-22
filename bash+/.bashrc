@@ -30,7 +30,7 @@ export COLOR_GRAY='\e[0;30m'
 export COLOR_LIGHT_GRAY='\e[0;37m'
 
 sendemail() {
-	curl --url "smtps://smtp.gmail.com:465" --ssl-reqd --mail-from $gmailuser --mail-rcpt $1 --upload-file $2 --user "$gmailuser:$gmailpass" --insecure; 
+	curl --url "smtps://smtp.gmail.com:465" --ssl-reqd --mail-from $gmailuser --mail-rcpt $1 --upload-file $2 --user "$gmailuser:$gmailpass" --insecure;
 }
 
 # {sending: true, quotaRemaining: 40, textId: 12345}
@@ -51,7 +51,7 @@ sendtext() {
 # the file it gets the password from.
 # follow the format of the other -PASSWORD files when you create new one
 wifi-connect() {
-  if [ $1 == '' ]; then
+  if [[ $1 == '' ]]; then
     echo "Enter name of network as specified by the command of 'nmcli connect'"
     echo "Usage: wifi-connect [name of network]"
   else
