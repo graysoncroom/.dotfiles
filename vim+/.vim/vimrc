@@ -57,6 +57,9 @@
     nnoremap <c-h> <c-w><c-h>
     inoremap jk <esc>
 
+    nnoremap + :bnext<cr>
+    nnoremap - :bprevious<cr>
+
     " Yank to the end of the line.
     nnoremap Y y$
 
