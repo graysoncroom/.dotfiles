@@ -41,8 +41,8 @@
 # General bindings{{{
     bindsym $mod+b            exec $browser
     bindsym $mod+Delete       exec $lock
-    bindsym $mod+Return       exec $menu
-    bindsym $mod+Shift+Return exec $terminal -e tmux
+    bindsym $mod+Shift+Return exec $menu
+    bindsym $mod+Return       exec $terminal -e tmux
     bindsym $mod+minus        scratchpad show
     bindsym $mod+Shift+minus  move scratchpad
     bindsym $mod+Shift+q      kill
