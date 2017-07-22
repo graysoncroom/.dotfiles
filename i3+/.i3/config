@@ -1,7 +1,7 @@
 # Required applications{{{
     # feh
     # xbanish
-    # urxvt
+    # uxterm
     # firefox
     # rofi (dmenu replacement)
     # tmux
@@ -28,7 +28,7 @@
     set $up k
     set $right l
 
-    set $terminal urxvt
+    set $terminal uxterm
     set $browser  firefox
     set $menu     rofi -show run
 
