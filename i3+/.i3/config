@@ -48,10 +48,11 @@
     bindsym $mod+Shift+q      kill
     bindsym $mod+Shift+c      reload
     bindsym $mod+Shift+r      restart
-    bindsym $mod+Shift+e      exit
+    bindsym Mod1+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
     bindsym $hyper+e          exec shutdown -h now
     bindsym $mod+Shift+space  floating toggle
     bindsym $mod+space        focus mode_toggle
+    bindsym $mod+f            toggle fullscreen
 #}}}
 # Movement bindings{{{
     # change focus
@@ -127,11 +128,19 @@
         bindsym Shift+l resize shrink right 10 px or 10 ppt
         bindsym l       resize grow right 10 px or 10 ppt
 
-        bindsym Shift+i gaps inner current plus 5
-        bindsym i       gaps inner current minus 5
+        bindsym i       gaps inner current plus 5
+        bindsym Shift+i gaps inner current minus 5
 
-        bindsym Shift+o gaps outer current plus 5
-        bindsym o       gaps outer current minus 5
+        bindsym o       gaps outer current plus 5
+        bindsym Shift+o gaps outer current minus 5
+
+        bindsym $mod+h split h
+        bindsym $mod+v split v
+
+        bindsym s layout stacking
+        bindsym t layout tabbed
+        bindsym p layout toggle split
+        bindsym d layout default
 
         bindsym Return mode "default"
         bindsym Escape mode "default"
@@ -158,4 +167,5 @@ exec xbanish &
 
 hide_edge_borders both
 for_window [class="^.*"] border pixel 1
+gaps inner 15
 #}}}
