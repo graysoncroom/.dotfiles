@@ -178,8 +178,8 @@
     xnoremap <localleader><tab>= :Tab/=<cr>
 " }}}
 " PLUGIN: easymotion{{{
-    let g:EasyMotion_do_mapping = 0 " Disable default easymotion mappings.
-    nnoremap <localleader> <plug>(easymotion-prefix)
+    ""let g:EasyMotion_do_mapping = 1 " Disable default easymotion mappings.
+    ""nnoremap <localleader> <plug>(easymotion-prefix)
 "}}}
 
 " FILETYPE: swfit{{{
