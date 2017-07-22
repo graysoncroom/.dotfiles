@@ -1,5 +1,5 @@
 " SETUP{{{
-    set nocompatible " This has to be the first line of the file.
+    set nocompatible " VI is dead. Long live vim (this needs to be the first line in vimrc).
 
     " Use the .vim/views directory to store file folding and local keybinding information about a
     " file.
@@ -57,16 +57,25 @@
     nnoremap <c-h> <c-w><c-h>
     inoremap jk <esc>
 
-    " Remove all trailing whitespace
+    " Yank to the end of the line.
+    nnoremap Y y$
+
+    " Remove all trailing whitespace before writing to file.
     autocmd BufWritePre * %s/\s\+$//e
 
+    " Toggle external paste mode.
+    nnoremap <F1> :set paste!<cr>
+
+    " Toggle spell checking
+    nnoremap <F2> :set spell! spelllang=en_us<cr>
+
+    " Toggle line wrapping.
+    nnoremap <F3> :set wrap!<cr>
+
     " Toggle search highlighting
-    nnoremap <localleader>/ :set hlsearch!<CR>
+    nnoremap <F4> :set hlsearch!<cr>
 
-    " spell check toggle
-    nnoremap <localleader>ss :setlocal spell! spelllang=en_us<CR>
-
-    nnoremap <localleader>* mp:r ~/.vim/boilerplates/comment<CR>'pdd
+    nnoremap <localleader>* mp:r ~/.vim/boilerplates/comment<cr>'pdd
 
     set shell=bash                 " Make sure the shell is bash on every system.
     set backspace=indent,eol,start " Vim backspace acts like a normal text editor's backspace.
@@ -81,6 +90,7 @@
     set colorcolumn=+1             " Column is after the set text width.
 
     set cursorline     " Highlight the current cursor row (line).
+    set ignorecase     " Ignore case of text you search for.
     set cursorcolumn   " Highlight the cursor current column
     set splitbelow     " All horizontal splits will default to below current screen.
     set splitright     " All vertical splits will default to the right of the current screen.
@@ -132,7 +142,9 @@
     ""highlight SignColumn ctermbg=000
 "}}}
 " PLUGIN: vim-slime{{{
-    let g:slime_target="tmux" " defaults to tmux for pushing text to next window ( <C-c> <C-c> )
+    let g:slime_target="tmux" " Use tmux instead of Gnu Screen.
+    xmap <localleader><cr> <Plug>SlimeRegionSend
+    nmap <localleader><cr> <Plug>SlimeParagraphSend
 "}}}
 " PLUGIN: nerdtree{{{
     ""let g:NERDTreeDirArrowExpandable = '+'
@@ -150,6 +162,24 @@
 "}}}
 " PLUGIN: ctrlp{{{
     nnoremap <localleader>j :CtrlP<CR>
+"}}}
+" PLUGIN: tabular{{{
+
+    nnoremap <localleader><tab><tab> :Tab<cr>
+    xnoremap <localleader><tab><tab> :Tab<cr>
+
+    nnoremap <localleader><tab><bar> :Tab/<bar><cr>
+    xnoremap <localleader><tab><bar> :Tab/<bar><cr>
+
+    nnoremap <localleader><tab>: :Tab/:<cr>
+    xnoremap <localleader><tab>: :Tab/:<cr>
+
+    nnoremap <localleader><tab>= :Tab/=<cr>
+    xnoremap <localleader><tab>= :Tab/=<cr>
+" }}}
+" PLUGIN: easymotion{{{
+    let g:EasyMotion_do_mapping = 0 " Disable default easymotion mappings.
+    nnoremap <localleader> <plug>(easymotion-prefix)
 "}}}
 
 " FILETYPE: swfit{{{
