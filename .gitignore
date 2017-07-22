@@ -3,4 +3,6 @@ vim+/.vim/JavaImp/
 vim+/.vim/autoload/
 vim+/.vim/view/
 vim+/.vim/plugged/
-firefox+/.vimperator/info/*
+firefox+/.vimperator/info/default/history-command
+firefox+/.vimperator/info/default/local-marks
+firefox+/.vimperator/info/default/macros
