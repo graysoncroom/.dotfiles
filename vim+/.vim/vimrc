@@ -78,6 +78,9 @@
     " Toggle search highlighting
     nnoremap <F4> :set hlsearch!<cr>
 
+    " Save to a read only file
+    nnoremap <F12> :w !sudo tee %<cr>
+
     nnoremap <localleader>* mp:r ~/.vim/boilerplates/comment<cr>'pdd
 
     set shell=bash                 " Make sure the shell is bash on every system.
@@ -110,7 +113,7 @@
     set shiftwidth=4 " Used by >>, <<, and ==. Also affects how auto-indentation works.
     set tabstop=4    " Changes the width of the tab character.
 
-    set expandtab " Replace tabs with spaces. Comment out to use hard tabs.
+    set expandtab " Replace tabs with spaces. Comment this line out to use hard tabs.
 "}}}
 
 " PLUGIN: javaimp{{{
