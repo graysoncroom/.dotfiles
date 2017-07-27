@@ -1,7 +1,7 @@
 # Required applications (subject to change){{{
     # feh
     # xbanish
-    # uxterm
+    # urxvt
     # firefox
     # rofi (dmenu replacement)
     # tmux
@@ -28,12 +28,12 @@
     set $up k
     set $right l
 
-    set $terminal uxterm
+    set $terminal urxvt
     set $browser  firefox
     set $menu     rofi -show run
 
     # Path to desktop wallpaper
-    set $wallpaper  ~/.i3/solar-ocean.jpg
+    set $wallpaper ~/.i3/solar-ocean.jpg
 
     # Path to screen locking script
     set $lock ~/.i3/lock
@@ -44,15 +44,15 @@
     bindsym $mod+Shift+Return exec $menu
     bindsym $mod+Return       exec $terminal -e tmux
     bindsym $mod+minus        scratchpad show
-    bindsym $mod+Shift+minux  move scratchpad
+    bindsym $mod+Shift+minus  move scratchpad
     bindsym $mod+Shift+q      kill
     bindsym $mod+Shift+c      reload
     bindsym $mod+Shift+r      restart
-    bindsym Mod1+Shift+e      exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+    bindsym $mod+Shift+e      exec i3-msg exit
     bindsym $hyper+e          exec shutdown -h now
     bindsym $mod+Shift+space  floating toggle
     bindsym $mod+space        focus mode_toggle
-    bindsym $window+f         fullscreen toggle
+    bindsym $mod+f         fullscreen toggle
     bindsym $window+bar       split h
     bindsym $window+minus     split v
 #}}}

@@ -36,10 +36,11 @@
     Plug 'tpope/vim-surround'               " extends vocabulary of vim
     Plug 'vim-syntastic/syntastic'          " checks and shows error messages for a lot of languages
     Plug 'xuhdev/vim-latex-live-preview'    " provides live preview of the output pdf of a latex file
-    Plug 'tommcdo/vim-exchange'             " Easy word swapping
-    Plug 'altercation/vim-colors-solarized' " A large collection of colorschemes
+    Plug 'tommcdo/vim-exchange'             " Easy word swapping.
+    Plug 'flazz/vim-colorschemes'           " Adds a bunch of colorschemes.
     Plug 'ctrlpvim/ctrlp.vim'               " Full path fuzzy file, buffer, mru, and tags. Finder.
     Plug 'godlygeek/tabular'                " Text filtering and alignment.
+    Plug 'vim-scripts/Conque-GDB'           " Adds Gdb debugging to vim.
     call plug#end()
 "}}}
 
@@ -77,6 +78,9 @@
 
     " Toggle search highlighting
     nnoremap <F4> :set hlsearch!<cr>
+
+    " Toggle syntastic error checking
+    nnoremap <F5> :set SyntasticToggleMode!<cr>
 
     " Save to a read only file
     nnoremap <F12> :w !sudo tee %<cr>

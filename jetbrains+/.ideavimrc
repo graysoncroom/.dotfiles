@@ -1,5 +1,9 @@
+" Plugins{{{
 set vim-surround
-
+"}}}
+" Gereral{{{
+set relativenumber
+set number
 " easier to switch between vim windows
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -7,14 +11,4 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 inoremap jk <esc>
-inoremap <esc> <nop>
-
-" insert a character at current location, pushing character under cursor to
-" the right
-nnoremap <leader>i i_<Esc>r
-
-nnoremap <leader>J mpi<Cr><Esc>`p
-
-" I use ex mode a lot more than the repeat command
-nnoremap ; :
-nnoremap : ;
+"}}}
