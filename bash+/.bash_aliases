@@ -3,7 +3,7 @@ alias archey='archey3'
 alias bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E "state|to\ full|percentage"'
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
-alias swap_control_and_capslock='sudo loadkeys ~/dotfiles/.keys/swap_control_and_capslock.kmap'
+alias swap_control_and_capslock='sudo loadkeys ~/.dotfiles/console-keys+/.keys/swap_control_and_capslock.kmap'
 alias pacman-orphan-remove='sudo pacman -Rns $(pacman -Qdtq)'
 
 # default PS1
