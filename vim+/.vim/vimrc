@@ -48,7 +48,7 @@
     let mapleader="\<Space>"
     let maplocalleader="\<Space>"
 
-    colorscheme solarized
+    colorscheme brogrammer
 
     filetype plugin indent on
 
@@ -190,6 +190,9 @@
 " PLUGIN: easymotion{{{
     ""let g:EasyMotion_do_mapping = 1 " Disable default easymotion mappings.
     ""nnoremap <localleader> <plug>(easymotion-prefix)
+"}}}
+" PLUGIN: vim-latex-live-preview{{{
+let g:livepreview_previewer = 'zathura'
 "}}}
 
 " FILETYPE: swfit{{{
