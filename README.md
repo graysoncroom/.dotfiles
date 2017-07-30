@@ -1,5 +1,7 @@
 # dotfiles
-Feel free to steal ideas or whatever from my configs! :D
+Feel free to steal ideas or whatever from my configs. 
+
+Please note that most of the configs are tightly coupled with one another. Pull requests for new abstractions/bug fixes are always welcome!
 
 ## Quick Info
 i3-gaps -> { i3bar i3blocks i3lock }
