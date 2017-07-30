@@ -50,6 +50,21 @@
 
     colorscheme brogrammer
 
+    " Custom highlight groups{{{
+        highlight Normal guibg=NONE ctermbg=NONE
+        highlight Folded guibg=NONE ctermbg=NONE
+        highlight LineNr guibg=NONE ctermbg=NONE
+        highlight SignColumn guibg=NONE ctermbg=NONE
+        highlight StatusLine guibg=NONE ctermbg=NONE
+        highlight StatusLineNC guibg=NONE ctermbg=NONE
+        highlight NonText guibg=NONE ctermbg=NONE
+        highlight TabLine guibg=NONE ctermbg=NONE
+        " Note that it is cterm/gui instead of ctermbg/guibg.
+        highlight TabLineFill gui=NONE cterm=NONE
+        highlight SpecialKey guibg=NONE ctermbg=NONE
+        highlight VertSplit guibg=NONE ctermbg=NONE
+    "}}}
+
     filetype plugin indent on
 
     nnoremap <c-j> <c-w><c-j>
@@ -80,7 +95,7 @@
     nnoremap <F4> :set hlsearch!<cr>
 
     " Toggle syntastic error checking
-    nnoremap <F5> :set SyntasticToggleMode!<cr>
+    nnoremap <F5> :SyntasticToggleMode<cr>
 
     " Save to a read only file
     nnoremap <F12> :w !sudo tee %<cr>
@@ -97,11 +112,12 @@
     set bg=dark                    " Background colors should be either light or dark
     set encoding=utf-8             " File encoding will be in unicode.
     set t_Co=256                   " Enable 256-color mode.
-    set colorcolumn=+1             " Column is after the set text width.
+    ""set colorcolumn=+1             " Column is after the set text width.
 
-    set cursorline     " Highlight the current cursor row (line).
+    set nowrap         " By default do not wrap text
+    set nocursorline   " Do not highlight the current cursor row (line).
     set ignorecase     " Ignore case of text you search for.
-    set cursorcolumn   " Highlight the cursor current column
+    set nocursorcolumn " Do not highlight the cursor current column
     set splitbelow     " All horizontal splits will default to below current screen.
     set splitright     " All vertical splits will default to the right of the current screen.
     set incsearch      " Search for patterns as you type them in.
