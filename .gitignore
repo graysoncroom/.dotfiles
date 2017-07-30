@@ -1,9 +1,9 @@
+firefox+/.vimperator/info/*
+firefox+/.vimperator/info/*
+firefox+/.vimperator/info/*
+firefox+/.vimperator/info/*
 vim+/.vim/.netrwhist
-vim+/.vim/JavaImp/
-vim+/.vim/autoload/
-vim+/.vim/view/
-vim+/.vim/plugged/
-firefox+/.vimperator/info/default/history-command
-firefox+/.vimperator/info/default/history-search
-firefox+/.vimperator/info/default/local-marks
-firefox+/.vimperator/info/default/macros
+vim+/.vim/JavaImp/*
+vim+/.vim/autoload/*
+vim+/.vim/view/*
+vim+/.vim/plugged/*
