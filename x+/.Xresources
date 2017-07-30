@@ -1,9 +1,21 @@
 URxvt*scrollBar: false
 URxvt*urlLauncher: /bin/firefox
-URxvt*transparent: false
-URxvt.keysym.Shift-Control-V: perl:clipboard:paste
-URxvt.iso14755: false
-URxvt.perl-ext-common: default,clipboard
+
+! run "fc-list" for a list of available fonts
+!URxvt*font: xft:Terminus:pixelsize=11
+URxvt*font: xft:bitstream vera sans mono:pixelsize=14:medium
+URxvt*boldFont: xft:bitstream vera sans mono:pixelsize=14:bold
+URxvt*letterSpace: -2
+URxvt*depth: 32
+URxvt*background: rgba:0000/0000/0200/c800
+URxvt*transparent: true
+URxvt*shading: 30
+
+URxvt.perl-ext-common:  ...,font-size
+URxvt.keysym.C-Up:     perl:font-size:increase
+URxvt.keysym.C-Down:   perl:font-size:decrease
+URxvt.keysym.C-S-Up:   perl:font-size:incglobal
+URxvt.keysym.C-S-Down: perl:font-size:decglobal
 ! Solarized Dark{{{
 !
 !! Common
@@ -159,4 +171,3 @@ URxvt.perl-ext-common: default,clipboard
 *color7  			: #cfd8dc
 *color15 			: #eceff1
 !}}}
-
