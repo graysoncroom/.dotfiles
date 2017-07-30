@@ -28,13 +28,14 @@
     set $up k
     set $right l
 
-    set $terminal urxvt
-    set $browser  firefox
-    set $menu     rofi -show run
+    set $terminal     urxvt
+    set $browser      firefox
+    set $menu         rofi -show run
+    set $file_browser ranger
 
     # Path to desktop wallpaper
-    set $wallpaper ~/.i3/solar-ocean.jpg
-
+    #set $wallpaper ~/.i3/solar-ocean.jpeg
+    set $wallpaper ~/.i3/polygon-mountian.jpeg
     # Path to screen locking script
     set $lock ~/.i3/lock
 #}}}
@@ -43,6 +44,7 @@
     bindsym $mod+Delete       exec $lock
     bindsym $mod+Shift+Return exec $menu
     bindsym $mod+Return       exec $terminal -e tmux
+    bindsym $mod+r            exec $terminal -e $file_browser
     bindsym $mod+minus        scratchpad show
     bindsym $mod+Shift+minus  move scratchpad
     bindsym $mod+Shift+q      kill
@@ -52,7 +54,7 @@
     bindsym $hyper+e          exec shutdown -h now
     bindsym $mod+Shift+space  floating toggle
     bindsym $mod+space        focus mode_toggle
-    bindsym $mod+f         fullscreen toggle
+    bindsym $mod+f            fullscreen toggle
     bindsym $window+bar       split h
     bindsym $window+minus     split v
 #}}}
@@ -114,7 +116,7 @@
     bindsym XF86AudioPrev  exec playerctl previous
 #}}}
 # Mode bindings{{{
-    bindsym $mod+r mode "resize"
+    bindsym $window+r mode "resize"
 #}}}
 # Mode definitions{{{
     mode "resize" {
@@ -166,5 +168,8 @@ exec xbanish &
 
 hide_edge_borders both
 for_window [class="^.*"] border pixel 1
-gaps inner 15
+gaps inner 20
+gaps outer 30
+smart_gaps on
+smart_borders on
 #}}}
