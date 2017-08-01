@@ -6,20 +6,22 @@
     ""autocmd bufwinleave * if expand("%") != "" | mkview | endif
     ""autocmd bufwinenter * if expand("%") != "" | loadview | endif
 
-    " This is install the plugin manager if it is not already installed.
+    " This will install the plugin manager if it is not already installed.
     if empty(glob('~/.vim/autoload/plug.vim'))
         silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
             \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
     endif
 
-    " To ensure we are always using the strongest possible encryption method available.
-    if v:version > 704 || (v:version == 704 && has('patch401'))
-        set cryptmethod=blowfish2
-    elseif v:version >=703
-        set cryptmethod=blowfish
-    else
-        set cryptmethod=zip
+    if !has('nvim')
+        " To ensure we are always using the strongest possible encryption method available.
+        if v:version > 704 || (v:version == 704 && has('patch401'))
+            set cryptmethod=blowfish2
+        elseif v:version >=703
+            set cryptmethod=blowfish
+        else
+            set cryptmethod=zip
+        endif
     endif
 "}}}
 
@@ -41,6 +43,7 @@
     Plug 'ctrlpvim/ctrlp.vim'               " Full path fuzzy file, buffer, mru, and tags. Finder.
     Plug 'godlygeek/tabular'                " Text filtering and alignment.
     Plug 'vim-scripts/Conque-GDB'           " Adds Gdb debugging to vim.
+    Plug 'ARM9/arm-syntax-vim'              " Syntax highlighting for arm assembly v4-v7.
     call plug#end()
 "}}}
 
@@ -208,7 +211,10 @@
     ""nnoremap <localleader> <plug>(easymotion-prefix)
 "}}}
 " PLUGIN: vim-latex-live-preview{{{
-let g:livepreview_previewer = 'zathura'
+    let g:livepreview_previewer = 'zathura'
+"}}}
+" PLUGIN: arm-syntax-vim{{{
+    autocmd filetype asm set syntax=arm
 "}}}
 
 " FILETYPE: swfit{{{
