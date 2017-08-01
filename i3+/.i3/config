@@ -55,7 +55,7 @@
     bindsym $mod+Shift+space  floating toggle
     bindsym $mod+space        focus mode_toggle
     bindsym $mod+f            fullscreen toggle
-    bindsym $window+bar       split h
+    bindsym $window+Shift+bar split h
     bindsym $window+minus     split v
 #}}}
 # Movement bindings{{{
@@ -167,9 +167,9 @@ exec --no-startup-id feh --bg-scale $wallpaper
 exec xbanish &
 
 hide_edge_borders both
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 0
 gaps inner 20
 gaps outer 30
-smart_gaps on
+#smart_gaps on
 smart_borders on
 #}}}
