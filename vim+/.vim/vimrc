@@ -44,6 +44,8 @@
     Plug 'godlygeek/tabular'                " Text filtering and alignment.
     Plug 'vim-scripts/Conque-GDB'           " Adds Gdb debugging to vim.
     Plug 'ARM9/arm-syntax-vim'              " Syntax highlighting for arm assembly v4-v7.
+    Plug 'tpope/vim-fugitive'               " A git wrapper so awesome, it should be illegal.
+    ""Plug 'yuttie/comfortable-motion.vim'     " Natural scrolling physics. (Issues with urvxt and this plugin working together).
     call plug#end()
 "}}}
 
@@ -51,21 +53,28 @@
     let mapleader="\<Space>"
     let maplocalleader="\<Space>"
 
-    colorscheme brogrammer
 
     " Custom highlight groups{{{
-        highlight Normal guibg=NONE ctermbg=NONE
-        highlight Folded guibg=NONE ctermbg=NONE
-        highlight LineNr guibg=NONE ctermbg=NONE
-        highlight SignColumn guibg=NONE ctermbg=NONE
-        highlight StatusLine guibg=NONE ctermbg=NONE
-        highlight StatusLineNC guibg=NONE ctermbg=NONE
-        highlight NonText guibg=NONE ctermbg=NONE
-        highlight TabLine guibg=NONE ctermbg=NONE
-        " Note that it is cterm/gui instead of ctermbg/guibg.
-        highlight TabLineFill gui=NONE cterm=NONE
-        highlight SpecialKey guibg=NONE ctermbg=NONE
-        highlight VertSplit guibg=NONE ctermbg=NONE
+        if !has("nvim")
+            colorscheme brogrammer
+            highlight Normal       guibg=NONE ctermbg=NONE
+            highlight Folded       guibg=NONE ctermbg=NONE
+            highlight LineNr       guibg=NONE ctermbg=NONE
+            highlight SignColumn   guibg=NONE ctermbg=NONE
+            highlight StatusLine   guibg=NONE ctermbg=NONE
+            highlight StatusLineNC guibg=NONE ctermbg=NONE
+            highlight NonText      guibg=NONE ctermbg=NONE
+            highlight TabLine      guibg=NONE ctermbg=NONE
+            highlight SpecialKey   guibg=NONE ctermbg=NONE
+            highlight VertSplit    guibg=NONE ctermbg=NONE
+            " Note that it is cterm/gui instead of ctermbg/guibg.
+            highlight TabLineFill gui=NONE cterm=NONE
+        endif
+    "}}}
+    " NEOVIM SPECIFIC{{{
+        if has("nvim")
+            tnoremap jk <C-\><C-n>
+        endif
     "}}}
 
     filetype plugin indent on
@@ -178,7 +187,7 @@
 " PLUGIN: nerdtree{{{
     ""let g:NERDTreeDirArrowExpandable = '+'
     ""let g:NERDTreeDirArrowCollapsible = '~'
-    nnoremap <localleader>h :NERDTreeToggle<cr>
+    nnoremap <silent> <localleader>h :NERDTreeToggle<cr>
     let NERDTreeIgnore = ['\.xib$', '\.gif$', '\.png$', '\.jpeg$', '\.jpg$']
 "}}}
 " PLUGIN: nerdcommenter{{{
@@ -190,7 +199,7 @@
     let g:tmux_navigator_save_on_switch = 2
 "}}}
 " PLUGIN: ctrlp{{{
-    nnoremap <localleader>j :CtrlP<CR>
+    nnoremap <silent> <localleader>j :CtrlP<CR>
 "}}}
 " PLUGIN: tabular{{{
 
@@ -215,6 +224,13 @@
 "}}}
 " PLUGIN: arm-syntax-vim{{{
     autocmd filetype asm set syntax=arm
+"}}}
+" PLUGIN: comfortable_motion_vim{{{
+    ""let g:comfortable_motion_no_default_key_mappings = 1
+    ""let g:comfortable_motion_friction = 200.0
+    ""let g:comfortable_motion_air_drag = 4.0
+    ""nnoremap <silent> <C-e> :call comfortable_motion#flick(70)<cr>
+    ""nnoremap <silent> <C-y> :call comfortable_motion#flick(-70)<cr>
 "}}}
 
 " FILETYPE: swfit{{{
