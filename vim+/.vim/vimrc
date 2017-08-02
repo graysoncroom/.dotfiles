@@ -45,7 +45,10 @@
     Plug 'vim-scripts/Conque-GDB'           " Adds Gdb debugging to vim.
     Plug 'ARM9/arm-syntax-vim'              " Syntax highlighting for arm assembly v4-v7.
     Plug 'tpope/vim-fugitive'               " A git wrapper so awesome, it should be illegal.
-    ""Plug 'yuttie/comfortable-motion.vim'     " Natural scrolling physics. (Issues with urvxt and this plugin working together).
+    Plug 'tpope/vim-rhubarb'                " Enables :Gbrowse for vim-fugitive.
+    Plug 'xolox/vim-session'                " :mksession on steroids
+    Plug 'xolox/vim-misc'                   " Required by vim-session.
+    Plug 'mhinz/vim-startify'               " Fancy start screen for Vim.
     call plug#end()
 "}}}
 
@@ -231,6 +234,20 @@
     ""let g:comfortable_motion_air_drag = 4.0
     ""nnoremap <silent> <C-e> :call comfortable_motion#flick(70)<cr>
     ""nnoremap <silent> <C-y> :call comfortable_motion#flick(-70)<cr>
+"}}}
+" PLUGIN: rhubarb{{{
+    nnoremap gh :Gbrowse<cr>
+    vnoremap gh :Gbrowse<cr>
+"}}}
+" PLUGIN: vim-startify{{{
+    let g:startify_session_dir='~/.vim/sessions'
+    let g:startify_custom_header =
+        \ map(split(system('fortune | cowsay -f /usr/share/cows/tux.cow'), '\n'), '" ". v:val')
+    nnoremap <esc><esc> :Startify<cr>
+"}}}
+" PLUGIN: vim-session{{{
+    let g:session_autosave='no'
+    let g:session_autoload='yes'
 "}}}
 
 " FILETYPE: swfit{{{
