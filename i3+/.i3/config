@@ -169,7 +169,7 @@ exec xbanish &
 hide_edge_borders both
 for_window [class="^.*"] border pixel 0
 gaps inner 20
-gaps outer 30
+gaps outer 20
 #smart_gaps on
 smart_borders on
 #}}}
