@@ -1,8 +1,8 @@
 # Source global definitions
 
-[ -f /etc/bashrc ] && . /etc/bashrc
+[ -f /etc/bashrc ]     && . /etc/bashrc
 [ -f ~/.bash_aliases ] && . ~/.bash_aliases
-[ -f ~/.localrc ] && . ~/.localrc
+[ -f ~/.localrc ]      && . ~/.localrc
 #[ -f ~/.Xresources ] && xrdb ~/.Xresources
 
 set -o vi
