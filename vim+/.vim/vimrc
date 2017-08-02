@@ -24,7 +24,6 @@
         endif
     endif
 "}}}
-
 " PLUGIN LIST{{{
     call plug#begin('~/.vim/plugged')
     Plug 'PotatoesMaster/i3-vim-syntax'     " .i3/config file has syntax highlighting
@@ -51,7 +50,6 @@
     Plug 'mhinz/vim-startify'               " Fancy start screen for Vim.
     call plug#end()
 "}}}
-
 " GENERAL{{{
     let mapleader="\<Space>"
     let maplocalleader="\<Space>"
@@ -143,7 +141,6 @@
     set nolist         " Disable the listing of invisible characters (personal preference).
     set wildmenu       " Will display menu of completions in command mode upon user entering a tab.
 "}}}
-
 " TAB SETTINGS {{{
     set shiftwidth=4 " Used by >>, <<, and ==. Also affects how auto-indentation works.
     set tabstop=4    " Changes the width of the tab character.
