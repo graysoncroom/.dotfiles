@@ -117,6 +117,7 @@
 #}}}
 # Mode bindings{{{
     bindsym $window+r mode "resize"
+    bindsym $window+Escape mode "idea"
 #}}}
 # Mode definitions{{{
     mode "resize" {
@@ -146,6 +147,12 @@
         bindsym Return mode "default"
         bindsym Escape mode "default"
     }
+    mode "idea" {
+        bindsym $Window+Escape mode "default"
+
+        bindsym $Window+Shift+Return exec $menu
+        bindsym $Window+f fullscreen toggle
+    }
 #}}}
 # Status bar definitions{{{
     bar {
@@ -165,11 +172,10 @@
 # Setup (should come after all bindings/definitions){{{
 exec --no-startup-id feh --bg-scale $wallpaper
 exec xbanish &
+exec redshift &
 
 hide_edge_borders both
-for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] border pixel 2
 gaps inner 20
 gaps outer 20
-#smart_gaps on
-smart_borders on
 #}}}

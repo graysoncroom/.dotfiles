@@ -138,13 +138,12 @@
     set number         " Show line numbers in the gutter.
     set relativenumber " Show how many lines each line is away from the current line
     set autoindent     " Enable automatic indentation.
-    set nolist         " Disable the listing of invisible characters (personal preference).
+    set list         " Disable the listing of invisible characters (personal preference).
     set wildmenu       " Will display menu of completions in command mode upon user entering a tab.
 "}}}
 " TAB SETTINGS {{{
     set shiftwidth=4 " Used by >>, <<, and ==. Also affects how auto-indentation works.
     set tabstop=4    " Changes the width of the tab character.
-
     set expandtab " Replace tabs with spaces. Comment this line out to use hard tabs.
 "}}}
 
@@ -308,4 +307,12 @@
     autocmd filetype tex nnoremap k gk
     autocmd filetype tex nnoremap gj j
     autocmd filetype tex nnoremap gk k
+"}}}
+" FILETYPE: java{{{
+    autocmd filetype java nnoremap <F6> :!javac <C-r>=expand("%")<CR><CR>:!java <C-r>=expand("%:r")<CR> &<CR>
+    autocmd filetype java nnoremap <F7> :vsplit ~/.vim/JavaImp/JavaImp.txt<CR>
+"}}}
+" FILETYPE: python{{{
+    autocmd filetype python nnoremap <localleader>c :silent w<CR>:silent !clear;pkill <C-r>=expand("%")<CR>;./<C-r>=expand("%")<CR> & sleep 1<CR>:silent !xdotool mousemove 300 500 & xdotool click 1<CR>
+    autocmd filetype python nnoremap <localleader>s mm2GIimport matplotlib.pyplot as plt<CR><esc>`m
 "}}}
