@@ -1,16 +1,19 @@
 URxvt*scrollBar: false
 URxvt*urlLauncher: /bin/firefox
-
 ! run "fc-list" for a list of available fonts
-!URxvt*font: xft:Terminus:pixelsize=11
-URxvt*font: xft:bitstream vera sans mono:pixelsize=14:medium
-URxvt*boldFont: xft:bitstream vera sans mono:pixelsize=14:bold
-URxvt*letterSpace: -2
+URxvt*font: xft:Inconsolata:size=12
+URxvt*boldFont: xft:Inconsolata-Bold:size=12
+URxvt*letterSpace: -1
+! Number of pixels between lines for added readability
+URxvt*lineSpace: 3
 URxvt*depth: 32
 URxvt*background: rgba:0000/0000/0200/c800
 URxvt*transparent: true
+! Darken Background transparency
 URxvt*shading: 30
-
+! Blink window on bell
+Urxvt*visualBell: true
+! Enable <C-Arrow Key> dynamic font resizer
 URxvt.perl-ext-common:  ...,font-size
 URxvt.keysym.C-Up:     perl:font-size:increase
 URxvt.keysym.C-Down:   perl:font-size:decrease
@@ -143,31 +146,31 @@ URxvt.keysym.C-S-Down: perl:font-size:decglobal
 !#define S_base03        #002b36
 !}}}
 ! Google Material Design{{{
-*background 		: #263238
-*foreground 		: #eceff1
+*background : #263238
+*foreground : #eceff1
 
 ! black
-*color0  			: #263238
-*color8  			: #37474f
+*color0  : #263238
+*color8  : #37474f
 ! red
-*color1  			: #ff9800
-*color9  			: #ffa74d
+*color1  : #ff9800
+*color9  : #ffa74d
 ! green
-*color2  			: #8bc34a
-*color10 			: #9ccc65
+*color2  : #8bc34a
+*color10 : #9ccc65
 ! yellow
-*color3  			: #ffc107
-*color11 			: #ffa000
+*color3  : #ffc107
+*color11 : #ffa000
 ! blue
-*color4  			: #03a9f4
-*color12 			: #81d4fa
+*color4  : #03a9f4
+*color12 : #81d4fa
 ! magenta
-*color5  			: #e91e63
-*color13 			: #ad1457
+*color5  : #e91e63
+*color13 : #ad1457
 ! cyan
-*color6  			: #009688
-*color14 			: #26a69a
+*color6  : #009688
+*color14 : #26a69a
 ! white
-*color7  			: #cfd8dc
-*color15 			: #eceff1
+*color7  : #cfd8dc
+*color15 : #eceff1
 !}}}

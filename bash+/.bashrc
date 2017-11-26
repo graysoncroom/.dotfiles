@@ -30,16 +30,20 @@ export COLOR_GRAY='\e[0;30m'
 export COLOR_LIGHT_GRAY='\e[0;37m'
 
 sendemail() {
-	curl --url "smtps://smtp.gmail.com:465" --ssl-reqd --mail-from $gmailuser --mail-rcpt $1 --upload-file $2 --user "$gmailuser:$gmailpass" --insecure;
+    curl --url "smtps://smtp.gmail.com:465" --ssl-reqd --mail-from $gmailuser --mail-rcpt $1 --upload-file $2 --user "$gmailuser:$gmailpass" --insecure;
 }
 
+javarun() {
+    javac "$1.java"
+    java "$1"
+}
 # {sending: true, quotaRemaining: 40, textId: 12345}
 # {sending: false, quotaRemaining: 0, error: 'Out of quota'}
 # https://textbelt.com
 sendtext() {
-	curl http://textbelt.com/text \
-	     --data-urlencode number=$1 \
-	     --data-urlencode message=$2;
+    curl http://textbelt.com/text \
+         --data-urlencode number=$1 \
+         --data-urlencode message=$2;
 }
 
 # make connecting to new networks less painful
@@ -63,3 +67,5 @@ wifi-connect() {
 
 set-normal-ps1
 #archey
+
+export NVIM_LISTEN_ADDRESS=/tmp/neovim/neovim nvim

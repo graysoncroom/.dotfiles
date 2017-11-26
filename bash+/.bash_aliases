@@ -6,6 +6,10 @@ alias ls='ls --color=auto'
 alias swap_control_and_capslock='sudo loadkeys ~/.dotfiles/console-keys+/.keys/swap_control_and_capslock.kmap'
 alias xup='xrdb ~/.Xresources'
 alias pacman-orphan-remove='sudo pacman -Rns $(pacman -Qdtq)'
+alias ghc='stack ghc'
+alias etarun='etlas run 2> /dev/null'
+alias open='xdg-open'
+alias info='info --vi-keys'
 
 # default PS1
 export PS1='[\W]\$ '

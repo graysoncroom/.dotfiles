@@ -1,4 +1,4 @@
-" SETUP{{{
+" SETUP {{{
     set nocompatible " VI is dead. Long live vim (this needs to be the first line in vimrc).
 
     " Use the .vim/views directory to store file folding and local keybinding information about a
@@ -23,8 +23,8 @@
             set cryptmethod=zip
         endif
     endif
-"}}}
-" PLUGIN LIST{{{
+" }}}
+" PLUGIN LIST {{{
     call plug#begin('~/.vim/plugged')
     Plug 'PotatoesMaster/i3-vim-syntax'     " .i3/config file has syntax highlighting
     Plug 'christoomey/vim-tmux-navigator'   " allows for tmux panes and vim splits to work together
@@ -48,35 +48,35 @@
     Plug 'xolox/vim-session'                " :mksession on steroids
     Plug 'xolox/vim-misc'                   " Required by vim-session.
     Plug 'mhinz/vim-startify'               " Fancy start screen for Vim.
+    Plug 'neovimhaskell/haskell-vim'        " Syntax Highlighting and Indentation for Haskell and Cabal
     call plug#end()
-"}}}
-" GENERAL{{{
+" }}}
+" GENERAL {{{
     let mapleader="\<Space>"
     let maplocalleader="\<Space>"
 
-
-    " Custom highlight groups{{{
-        if !has("nvim")
-            colorscheme brogrammer
-            highlight Normal       guibg=NONE ctermbg=NONE
-            highlight Folded       guibg=NONE ctermbg=NONE
-            highlight LineNr       guibg=NONE ctermbg=NONE
-            highlight SignColumn   guibg=NONE ctermbg=NONE
-            highlight StatusLine   guibg=NONE ctermbg=NONE
-            highlight StatusLineNC guibg=NONE ctermbg=NONE
-            highlight NonText      guibg=NONE ctermbg=NONE
-            highlight TabLine      guibg=NONE ctermbg=NONE
-            highlight SpecialKey   guibg=NONE ctermbg=NONE
-            highlight VertSplit    guibg=NONE ctermbg=NONE
-            " Note that it is cterm/gui instead of ctermbg/guibg.
-            highlight TabLineFill gui=NONE cterm=NONE
-        endif
-    "}}}
-    " NEOVIM SPECIFIC{{{
+    " Custom highlight groups {{{
+""        if !has("nvim")
+""            colorscheme brogrammer
+""            highlight Normal       guibg=NONE ctermbg=NONE
+""            highlight Folded       guibg=NONE ctermbg=NONE
+""            highlight LineNr       guibg=NONE ctermbg=NONE
+""            highlight SignColumn   guibg=NONE ctermbg=NONE
+""            highlight StatusLine   guibg=NONE ctermbg=NONE
+""            highlight StatusLineNC guibg=NONE ctermbg=NONE
+""            highlight NonText      guibg=NONE ctermbg=NONE
+""            highlight TabLine      guibg=NONE ctermbg=NONE
+""            highlight SpecialKey   guibg=NONE ctermbg=NONE
+""            highlight VertSplit    guibg=NONE ctermbg=NONE
+""            " Note that it is cterm/gui instead of ctermbg/guibg.
+""            highlight TabLineFill gui=NONE cterm=NONE
+""        endif
+    " }}}
+    " NEOVIM SPECIFIC {{{
         if has("nvim")
             tnoremap jk <C-\><C-n>
         endif
-    "}}}
+    " }}}
 
     filetype plugin indent on
 
@@ -140,14 +140,14 @@
     set autoindent     " Enable automatic indentation.
     set list         " Disable the listing of invisible characters (personal preference).
     set wildmenu       " Will display menu of completions in command mode upon user entering a tab.
-"}}}
+" }}}
 " TAB SETTINGS {{{
     set shiftwidth=4 " Used by >>, <<, and ==. Also affects how auto-indentation works.
     set tabstop=4    " Changes the width of the tab character.
     set expandtab " Replace tabs with spaces. Comment this line out to use hard tabs.
-"}}}
+" }}}
 
-" PLUGIN: javaimp{{{
+" PLUGIN: javaimp {{{
     let g:JavaImpPaths = $HOME . "/.java-source/"
     let g:JavaImpDataDir = $HOME . "/.vim/JavaImp"
 
@@ -160,8 +160,8 @@
 
     " Same as above only instead of opening a new buffer it opens a split.
     autocmd filetype java nnoremap <localleader>is :JavaImpFileSplit<CR>gg/interface\ <C-r>=expand("%:t:r")<CR>\\|class\ <C-r>=expand("%:t:r")<CR><CR>zt
-"}}}
-" PLUGIN: syntastic{{{
+" }}}
+" PLUGIN: syntastic {{{
     let g:syntastic_always_populate_loc_list = 1
     let g:syntastic_auto_loc_list = 1
     let g:syntastic_check_on_open = 1
@@ -170,37 +170,37 @@
     set statusline+=%#warningmsg#
     set statusline+=%{SyntasticStatuslineFlag()}
     set statusline+=%*
-"}}}
-" PLUGIN: airline{{{
+" }}}
+" PLUGIN: airline {{{
     ""let g:airline#extensions#tabline#enabled = 1
-"}}}
-" PLUGIN: vim-gitgutter{{{
+" }}}
+" PLUGIN: vim-gitgutter {{{
     ""let g:gitgutter_override_sign_column_highlight = 0
     ""highlight SignColumn ctermbg=000
-"}}}
-" PLUGIN: vim-slime{{{
+" }}}
+" PLUGIN: vim-slime {{{
     let g:slime_target="tmux" " Use tmux instead of Gnu Screen.
     xmap <localleader><cr> <Plug>SlimeRegionSend
     nmap <localleader><cr> <Plug>SlimeParagraphSend
-"}}}
-" PLUGIN: nerdtree{{{
+" }}}
+" PLUGIN: nerdtree {{{
     ""let g:NERDTreeDirArrowExpandable = '+'
     ""let g:NERDTreeDirArrowCollapsible = '~'
     nnoremap <silent> <localleader>h :NERDTreeToggle<cr>
     let NERDTreeIgnore = ['\.xib$', '\.gif$', '\.png$', '\.jpeg$', '\.jpg$']
-"}}}
-" PLUGIN: nerdcommenter{{{
+" }}}
+" PLUGIN: nerdcommenter {{{
     let g:NERDSpaceDelims = 1
     let g:NERDCommentEmptyLines = 1
     let g:NERDTrimTrailingWhitespace = 1
-"}}}
-" PLUGIN: vim-tmux-navigator{{{
+" }}}
+" PLUGIN: vim-tmux-navigator {{{
     let g:tmux_navigator_save_on_switch = 2
-"}}}
-" PLUGIN: ctrlp{{{
+" }}}
+" PLUGIN: ctrlp {{{
     nnoremap <silent> <localleader>j :CtrlP<CR>
-"}}}
-" PLUGIN: tabular{{{
+" }}}
+" PLUGIN: tabular {{{
 
     nnoremap <localleader><tab><tab> :Tab<cr>
     xnoremap <localleader><tab><tab> :Tab<cr>
@@ -214,32 +214,32 @@
     nnoremap <localleader><tab>= :Tab/=<cr>
     xnoremap <localleader><tab>= :Tab/=<cr>
 " }}}
-" PLUGIN: easymotion{{{
+" PLUGIN: easymotion {{{
     ""let g:EasyMotion_do_mapping = 1 " Disable default easymotion mappings.
     ""nnoremap <localleader> <plug>(easymotion-prefix)
-"}}}
-" PLUGIN: vim-latex-live-preview{{{
+" }}}
+" PLUGIN: vim-latex-live-preview {{{
     let g:livepreview_previewer = 'zathura'
-"}}}
-" PLUGIN: arm-syntax-vim{{{
+" }}}
+" PLUGIN: arm-syntax-vim {{{
     autocmd filetype asm set syntax=arm
-"}}}
-" PLUGIN: comfortable_motion_vim{{{
+" }}}
+" PLUGIN: comfortable_motion_vim {{{
     ""let g:comfortable_motion_no_default_key_mappings = 1
     ""let g:comfortable_motion_friction = 200.0
     ""let g:comfortable_motion_air_drag = 4.0
     ""nnoremap <silent> <C-e> :call comfortable_motion#flick(70)<cr>
     ""nnoremap <silent> <C-y> :call comfortable_motion#flick(-70)<cr>
-"}}}
-" PLUGIN: rhubarb{{{
+" }}}
+" PLUGIN: rhubarb {{{
     nnoremap gh :Gbrowse<cr>
     vnoremap gh :Gbrowse<cr>
-"}}}
-" PLUGIN: vim-startify{{{
+" }}}
+" PLUGIN: vim-startify {{{
     let g:startify_session_dir='~/.vim/sessions'
     let g:startify_custom_header =
         \ map(split(system('fortune | cowsay -f /usr/share/cows/tux.cow'), '\n'), '" ". v:val')
-    " Vim Drill startify header{{{
+    " Vim Drill startify header {{{
         ""let g:startify_custom_header = [
         ""\"                                          .'+,       ",
         ""\"                                         @#####,     ",
@@ -280,39 +280,59 @@
         ""\]
     " }}}
     nnoremap <esc><esc> :Startify<cr>
-"}}}
-" PLUGIN: vim-session{{{
+" }}}
+" PLUGIN: vim-session {{{
     let g:session_autosave='no'
     let g:session_autoload='yes'
-"}}}
+" }}}
+" PLUGIN: haskell-vim {{{
+    let g:haskell_enable_quantification = 1   " enable highlighting of `forall`
+    let g:haskell_enable_recursivedo = 1      " enable highlighting of `mdo` and `rec`
+    let g:haskell_enable_arrowsyntax = 1      " enable highlighting of `proc`
+    let g:haskell_enable_pattern_synonyms = 1 " enable highlighting of `pattern`
+    let g:haskell_enable_typeroles = 1        " enable highlighting of type roles
+    let g:haskell_enable_static_pointers = 1  " enable highlighting of `static`
+    let g:haskell_hackpack = 1                " enable highlighting of backpack keywords
 
-" FILETYPE: swfit{{{
+    let g:haskell_indent_if = 4
+    let g:haskell_indent_case = 4
+    let g:haskell_indent_let = 4
+    let g:haskell_indent_before_where = -2
+    let g:haskell_indent_where = 6
+    let g:haskell_indent_after_bare_where = 2
+    let g:haskell_indent_do = 3
+    let g:haskell_indent_in = 1
+    let g:haskell_indent_guard = 4
+" }}}
+
+" FILETYPE: swift {{{
     autocmd filetype swift nnoremap <localleader>, :.s/,\zs/\r/g<CR>
 " }}}
-" FILETYPE: lisp{{{
+" FILETYPE: lisp {{{
     autocmd filetype lisp set shiftwidth=2
     autocmd filetype lisp set tabstop=2
     autocmd filetype lisp set expandtab
-"}}}
-" FILETYPE: html{{{
+" }}}
+" FILETYPE: html {{{
     autocmd filetype html set wrap
     autocmd filetype html nnoremap j gj
     autocmd filetype html nnoremap k gk
     autocmd filetype html nnoremap gj j
     autocmd filetype html nnoremap gk k
-"}}}
-" FILETYPE: tex{{{
+" }}}
+" FILETYPE: tex {{{
     autocmd filetype tex set wrap
     autocmd filetype tex nnoremap j gj
     autocmd filetype tex nnoremap k gk
     autocmd filetype tex nnoremap gj j
     autocmd filetype tex nnoremap gk k
-"}}}
-" FILETYPE: java{{{
-    autocmd filetype java nnoremap <F6> :!javac <C-r>=expand("%")<CR><CR>:!java <C-r>=expand("%:r")<CR> &<CR>
+" }}}
+" FILETYPE: java {{{
+    autocmd filetype java nnoremap <F6> :!javarun <C-r>=expand("%:r")<CR><CR>
     autocmd filetype java nnoremap <F7> :vsplit ~/.vim/JavaImp/JavaImp.txt<CR>
-"}}}
-" FILETYPE: python{{{
+    autocmd filetype java nnoremap <localleader><tab> gg:r ~/.vim/boilerplates/java<CR>ggdd:s/NAME/<C-r>=expand("%:r")<CR><CR>2Go
+" }}}
+" FILETYPE: python {{{
     autocmd filetype python nnoremap <localleader>c :silent w<CR>:silent !clear;pkill <C-r>=expand("%")<CR>;./<C-r>=expand("%")<CR> & sleep 1<CR>:silent !xdotool mousemove 300 500 & xdotool click 1<CR>
     autocmd filetype python nnoremap <localleader>s mm2GIimport matplotlib.pyplot as plt<CR><esc>`m
-"}}}
+" }}}
