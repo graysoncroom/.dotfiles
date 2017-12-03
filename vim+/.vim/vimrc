@@ -29,7 +29,7 @@
     Plug 'PotatoesMaster/i3-vim-syntax'     " .i3/config file has syntax highlighting
     Plug 'christoomey/vim-tmux-navigator'   " allows for tmux panes and vim splits to work together
     Plug 'easymotion/vim-easymotion'        " allows for Vimperator style navigation
-    Plug 'jpalardy/vim-slime'               " Send text to something like tmux, gnu screen, etc.
+    ""Plug 'jpalardy/vim-slime'               " Send text to something like tmux, gnu screen, etc.
     Plug 'keith/swift.vim'                  " swift source code syntax highlighting
     Plug 'rustushki/JavaImp.vim'            " import java classes a lot easier
     Plug 'scrooloose/nerdcommenter'         " comment things out much easier
@@ -41,20 +41,25 @@
     Plug 'flazz/vim-colorschemes'           " Adds a bunch of colorschemes.
     Plug 'ctrlpvim/ctrlp.vim'               " Full path fuzzy file, buffer, mru, and tags. Finder.
     Plug 'godlygeek/tabular'                " Text filtering and alignment.
-    Plug 'vim-scripts/Conque-GDB'           " Adds Gdb debugging to vim.
+    ""Plug 'vim-scripts/Conque-GDB'           " Adds Gdb debugging to vim.
     Plug 'ARM9/arm-syntax-vim'              " Syntax highlighting for arm assembly v4-v7.
     Plug 'tpope/vim-fugitive'               " A git wrapper so awesome, it should be illegal.
     Plug 'tpope/vim-rhubarb'                " Enables :Gbrowse for vim-fugitive.
-    Plug 'xolox/vim-session'                " :mksession on steroids
+    ""Plug 'xolox/vim-session'                " :mksession on steroids
     Plug 'xolox/vim-misc'                   " Required by vim-session.
-    Plug 'mhinz/vim-startify'               " Fancy start screen for Vim.
+    ""Plug 'mhinz/vim-startify'               " Fancy start screen for Vim.
     Plug 'neovimhaskell/haskell-vim'        " Syntax Highlighting and Indentation for Haskell and Cabal
+    Plug 'tomlion/vim-solidity'             " Syntax Hightlighting for Solidity
+    Plug 'tpope/vim-fireplace'              " Clojure repl support for vim
+    Plug 'guns/vim-clojure-static'          " Clojure syntax highlighting
+    Plug 'guns/vim-clojure-highlight'            " Extra Clojure variable highlighting
     call plug#end()
 " }}}
 " GENERAL {{{
     let mapleader="\<Space>"
     let maplocalleader="\<Space>"
 
+    colorscheme gruvbox
     " Custom highlight groups {{{
 ""        if !has("nvim")
 ""            colorscheme brogrammer
