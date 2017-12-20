@@ -1,5 +1,5 @@
 " SETUP {{{
-    set nocompatible " VI is dead. Long live vim (this needs to be the first line in vimrc).
+    set nocompatible " vim != vi
 
     " Use the .vim/views directory to store file folding and local keybinding information about a
     " file.
@@ -13,6 +13,7 @@
         autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
     endif
 
+    " Encryption settings {{{
     if !has('nvim')
         " To ensure we are always using the strongest possible encryption method available.
         if v:version > 704 || (v:version == 704 && has('patch401'))
@@ -23,46 +24,47 @@
             set cryptmethod=zip
         endif
     endif
+    " }}}
 " }}}
 " PLUGIN LIST {{{
     call plug#begin('~/.vim/plugged')
     Plug 'PotatoesMaster/i3-vim-syntax'     " .i3/config file has syntax highlighting
     Plug 'christoomey/vim-tmux-navigator'   " allows for tmux panes and vim splits to work together
     Plug 'easymotion/vim-easymotion'        " allows for Vimperator style navigation
-    ""Plug 'jpalardy/vim-slime'               " Send text to something like tmux, gnu screen, etc.
+    Plug 'jpalardy/vim-slime'               " Send text to something like tmux, gnu screen, etc.
+    Plug 'kovisoft/slimv'                   " Slime for vim!
     Plug 'keith/swift.vim'                  " swift source code syntax highlighting
-    Plug 'rustushki/JavaImp.vim'            " import java classes a lot easier
-    Plug 'scrooloose/nerdcommenter'         " comment things out much easier
+    ""Plug 'rustushki/JavaImp.vim'            " import java classes a lot easier
+    ""Plug 'scrooloose/nerdcommenter'         " comment things out much easier
     Plug 'scrooloose/nerdtree'              " file system browser
     Plug 'tpope/vim-surround'               " extends vocabulary of vim
     Plug 'vim-syntastic/syntastic'          " checks and shows error messages for a lot of languages
     Plug 'xuhdev/vim-latex-live-preview'    " provides live preview of the output pdf of a latex file
     Plug 'tommcdo/vim-exchange'             " Easy word swapping.
-    Plug 'flazz/vim-colorschemes'           " Adds a bunch of colorschemes.
+    ""Plug 'flazz/vim-colorschemes'           " Adds a bunch of colorschemes.
     Plug 'ctrlpvim/ctrlp.vim'               " Full path fuzzy file, buffer, mru, and tags. Finder.
     Plug 'godlygeek/tabular'                " Text filtering and alignment.
     ""Plug 'vim-scripts/Conque-GDB'           " Adds Gdb debugging to vim.
     Plug 'ARM9/arm-syntax-vim'              " Syntax highlighting for arm assembly v4-v7.
-    Plug 'tpope/vim-fugitive'               " A git wrapper so awesome, it should be illegal.
-    Plug 'tpope/vim-rhubarb'                " Enables :Gbrowse for vim-fugitive.
+    ""Plug 'tpope/vim-fugitive'               " A git wrapper so awesome, it should be illegal.
+    ""Plug 'tpope/vim-rhubarb'                " Enables :Gbrowse for vim-fugitive.
     ""Plug 'xolox/vim-session'                " :mksession on steroids
-    Plug 'xolox/vim-misc'                   " Required by vim-session.
+    ""Plug 'xolox/vim-misc'                   " Required by vim-session.
     ""Plug 'mhinz/vim-startify'               " Fancy start screen for Vim.
     Plug 'neovimhaskell/haskell-vim'        " Syntax Highlighting and Indentation for Haskell and Cabal
     Plug 'tomlion/vim-solidity'             " Syntax Hightlighting for Solidity
-    Plug 'tpope/vim-fireplace'              " Clojure repl support for vim
     Plug 'guns/vim-clojure-static'          " Clojure syntax highlighting
-    Plug 'guns/vim-clojure-highlight'            " Extra Clojure variable highlighting
+    Plug 'guns/vim-clojure-highlight'       " Extra Clojure variable highlighting
+    Plug 'dylanaraps/wal.vim'               " A vim colorscheme for use with pywal.
     call plug#end()
 " }}}
 " GENERAL {{{
     let mapleader="\<Space>"
     let maplocalleader="\<Space>"
 
-    colorscheme gruvbox
+    colorscheme wal
     " Custom highlight groups {{{
 ""        if !has("nvim")
-""            colorscheme brogrammer
 ""            highlight Normal       guibg=NONE ctermbg=NONE
 ""            highlight Folded       guibg=NONE ctermbg=NONE
 ""            highlight LineNr       guibg=NONE ctermbg=NONE

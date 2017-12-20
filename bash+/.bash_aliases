@@ -9,7 +9,8 @@ alias pacman-orphan-remove='sudo pacman -Rns $(pacman -Qdtq)'
 alias ghc='stack ghc'
 alias etarun='etlas run 2> /dev/null'
 alias open='xdg-open'
-alias info='info --vi-keys'
+#alias info='info --vi-keys'
+alias rr='cd ~/.config/ranger'
 
 # default PS1
 export PS1='[\W]\$ '

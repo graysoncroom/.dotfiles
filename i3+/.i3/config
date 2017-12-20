@@ -14,10 +14,8 @@
 #}}}
 
 # Custom application definitions{{{
-    # Key code  | Key name
-    # --------- | -----------
-    # Mod1      | Alt
-    # Mod4      | Window key
+    # Mod1=Alt
+    # Mod4=Window key
 
     set $mod    Mod1
     set $window Mod4
@@ -35,7 +33,12 @@
 
     # Path to desktop wallpaper
     #set $wallpaper ~/.i3/solar-ocean.jpeg
-    set $wallpaper ~/.i3/polygon-mountian.jpeg
+    #set $wallpaper ~/.i3/polygon-mountian.jpeg
+    #set $wallpaper ~/Pictures/wallpapers/blue-mountain.jpg
+    #set $wallpaper ~/Pictures/wallpapers/easy-solar-ocean.jpg
+    #set $wallpaper ~/Pictures/wallpapers/sexy-sydney-lookalike.jpeg
+    set $wallpaper ~/Pictures/wallpapers/desert-light-mountain.png
+
     # Path to screen locking script
     set $lock ~/.i3/lock
 #}}}
@@ -57,6 +60,21 @@
     bindsym $mod+f            fullscreen toggle
     bindsym $window+Shift+bar split h
     bindsym $window+minus     split v
+
+    # Window Layout
+    bindsym $window+s layout stacking
+    bindsym $window+t layout tabbed
+    bindsym $window+p layout toggle split
+    bindsym $window+d layout default
+
+    # Background hot-swapping
+    bindsym $window+1 exec wal -i ~/Pictures/wallpapers/desert-light-mountain.png
+    bindsym $window+2 exec wal -i ~/Pictures/wallpapers/polygon-mountian.jpeg
+    bindsym $window+3 exec wal -i ~/Pictures/wallpapers/solar-ocean.jpg
+    bindsym $window+4 exec wal -i ~/Pictures/wallpapers/solar-ocean-dark.jpg
+    bindsym $window+5 exec wal -i ~/Pictures/wallpapers/eclipse.jpe
+    bindsym $window+6 exec wal -i ~/Pictures/wallpapers/blue-mountain.jpg
+    bindsym $window+7 exec wal -i ~/Pictures/wallpapers/sexy-sydney-lookalike.jpg
 #}}}
 # Movement bindings{{{
     # change focus
@@ -139,11 +157,6 @@
         bindsym o       gaps outer current plus 5
         bindsym Shift+o gaps outer current minus 5
 
-        bindsym s layout stacking
-        bindsym t layout tabbed
-        bindsym p layout toggle split
-        bindsym d layout default
-
         bindsym Return mode "default"
         bindsym Escape mode "default"
     }
@@ -173,9 +186,11 @@
 exec --no-startup-id feh --bg-scale $wallpaper
 exec xbanish &
 exec redshift &
+exec wal -i $wallpaper &
+#exec --no-startup-id $HOME/.config/polybar/launch.sh
 
 hide_edge_borders both
 for_window [class="^.*"] border pixel 1
-gaps inner 20
-gaps outer 20
+gaps inner 0
+gaps outer 12
 #}}}
