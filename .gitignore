@@ -1,9 +1,6 @@
-firefox+/.vimperator/info/*
-firefox+/.vimperator/info/*
-firefox+/.vimperator/info/*
-firefox+/.vimperator/info/*
 vim+/.vim/.netrwhist
 vim+/.vim/JavaImp/*
 vim+/.vim/autoload/*
 vim+/.vim/view/*
 vim+/.vim/plugged/*
+vim+/.vim/sessions/*
