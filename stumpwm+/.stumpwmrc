@@ -23,6 +23,14 @@
 (defmacro launch (program &optional &key from (with-args "-e"))
   `(format nil "exec ~:[~*~a~;~:*~a ~a ~a~]" ,from ,with-args ,program))
 
+;; Formatting
+(setf
+  *startup-message* nil
+  *window-border-style* :thin
+  *message-window-gravity* :center
+  *input-window-gravity* :center
+  *timeout-wait* 3)
+
 ;; Movement
 (define-key *root-map* (kbd "h") "move-focus left")
 (define-key *root-map* (kbd "j") "move-focus down")
@@ -33,6 +41,11 @@
 (define-key *root-map* (kbd "C-j") "move-window down")
 (define-key *root-map* (kbd "C-k") "move-window up")
 (define-key *root-map* (kbd "C-l") "move-window right")
+
+;; Multimedia
+(define-key *root-map* (kbd "XF86AudioLowerVolume") "exec amixer set Master 5%-")
+(define-key *root-map* (kbd "XF86AudioRaiseVolume") "exec amixer set Master 5%+")
+(define-key *root-map* (kbd "XF86AudioMute") "exec amixer set Master toggle")
 
 ;; Application
 (define-key *root-map* (kbd "b") (launch +web-browser+))

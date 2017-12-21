@@ -9,7 +9,7 @@ URxvt*boldFont: xft:Inconsolata-Bold:size=11
 URxvt*letterSpace: -1
 
 ! Number of pixels between lines for added readability
-URxvt*lineSpace: 3
+URxvt*lineSpace: 2
 
 URxvt*depth: 32
 URxvt*background: rgba:0000/0000/0200/c800
