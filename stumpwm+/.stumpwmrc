@@ -4,12 +4,12 @@
 
 (set-prefix-key (kbd "C-SPC"))
 
-(defvar +terminal+        "urxvt")
-(defvar +file-browser+    "ranger")
-(defvar +web-browser+     "firefox")
+(defvar +terminal+ "urxvt")
+(defvar +file-browser+ "ranger")
+(defvar +web-browser+ "firefox")
 (defvar +process-browser+ "htop")
-(defvar +app-menu+        "rofi")
-(defvar +lock-screen+     "~/.i3/lock")
+(defvar +app-menu+ "rofi")
+(defvar +lock-screen+ "~/.i3/lock")
 
 (defvar +wallpaper+ "~/Pictures/wallpapers/desert-light-mountain.png")
 
@@ -34,12 +34,18 @@
 (define-key *root-map* (kbd "C-k") "move-window up")
 (define-key *root-map* (kbd "C-l") "move-window right")
 
-;; General
-(define-key *root-map* (kbd "b")      (launch +web-browser+))
+;; Application
+(define-key *root-map* (kbd "b") (launch +web-browser+))
 (define-key *root-map* (kbd "Delete") (launch +lock-screen+))
-(define-key *root-map* (kbd "RET")    (launch +terminal+))
-(define-key *root-map* (kbd "r")      (launch +file-browser+ :from +terminal+))
-(define-key *root-map* (kbd "!")      (launch (format nil "~a -show run" +app-menu+))
+(define-key *root-map* (kbd "RET") (launch +terminal+))
+(define-key *root-map* (kbd "r") (launch +file-browser+ :from +terminal+))
+(define-key *root-map* (kbd "!") (launch (format nil "~a -show run" +app-menu+)))
+
+;; General
+(define-key *root-map* (kbd "C-f") "fullscreen")
+(define-key *root-map* (kbd "t") "time")
+(define-key *root-map* (kbd "-") "vsplit")
+(define-key *root-map* (kbd "|") "hsplit")
 
 ;; Init
 (run-shell-command "redshift")
