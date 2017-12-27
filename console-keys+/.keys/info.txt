@@ -1,0 +1,25 @@
+    Save your current keyboard layout
+    $ dumpkeys > backup.kmap
+
+    In case something goes wrong you might be able restore your keymap like so
+    $ sudo loadkeys backup.kmap
+
+    If the keyboard is so messed up that you can't even do this then your only option not involving ancient kernel magic is to reboot.
+
+    Run the following command and press the desired key to obtain it's keycode.
+    $ showkey
+
+    Note the previous keycode of the keys by parsing the dumpkeys file.
+    $ less backup.kmap
+
+    Note the keymap line from dumpkeys:
+    $ dumpkeys | head -1
+    keymaps 0-127
+
+    Create a keymap file which switches two keys.
+    keymaps 0-127
+    keycode   1 = CtrlL_Lock
+    keycode  58 = Escape
+
+    Load the keymap:
+    $ sudo loadkeys swap_esc_capslock.kmap

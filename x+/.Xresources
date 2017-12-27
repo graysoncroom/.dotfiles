@@ -16,7 +16,7 @@ URxvt*background: rgba:0000/0000/0200/c800
 URxvt*transparent: true
 
 ! Darken Background transparency
-URxvt*shading: 30
+URxvt*shading: 10
 
 ! Blink window on bell
 Urxvt*visualBell: true

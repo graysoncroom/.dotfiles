@@ -1,9 +1,7 @@
-" Plugins{{{
 set vim-surround
-"}}}
-" Gereral{{{
 set relativenumber
 set number
+
 " easier to switch between vim windows
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -11,4 +9,3 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 inoremap jk <esc>
-"}}}
