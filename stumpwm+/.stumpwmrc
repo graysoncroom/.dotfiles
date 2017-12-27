@@ -3,6 +3,7 @@
 (in-package :stumpwm)
 
 (set-module-dir "~/.stumpwm.d/contrib")
+
 (load-module "swm-gaps")
 
 (require :swank)
@@ -22,15 +23,40 @@
 (defparameter *network-manager* "nmtui")
 (defparameter *wallpaper* "~/.wallpapers/desert-light-mountain.png")
 
-;;; Prompt the user for an interactive command.
+
+;;; Abstraction over boilerplate program execution code.
+(defmacro launch (program &optional &key from (with-args "-e"))
+  `(format nil "exec ~:[~*~a~;~:*~a ~a ~a~]" ,from ,with-args ,program))
+
+;;; courtesy of Peter Seibel
+(defmacro with-gensyms ((&rest names) &body body)
+  `(let ,(loop for n in names collect `(,n (gensym)))
+     ,@body))
+
+(defmacro program-with-layout (name &key (command (string-downcase (string name)))
+                               (props `'(:class ,(string-capitalize command))))
+  (with-gensyms (s w h files-path layout rules)
+    `(defcommand ,name () ()
+       (let* ((,s (current-screen))
+              (,w (prin1-to-string (screen-width ,s)))
+              (,h (prin1-to-string (screen-height ,s)))
+              (,files-path "~/.stumpwm.d/stumpwm-files/")
+              (,layout (concat ,files-path ,command "-layout-" ,w "x" ,h))
+              (,rules (concat ,files-path ,command "-rules")))
+         (gnew ,command)
+         (restore-from-file ,layout)
+         (restore-window-placement-rules ,rules)
+         (run-or-raise ,command ,props)
+         (place-existing-windows)))))
+
+;; Stumpwm Commands
+
 (defcommand colon1 (&optional (initial "")) (:rest)
   (let ((cmd (read-one-line (current-screen) ": " :initial-input initial)))
     (when cmd
       (eval-command cmd t))))
 
-;;; Abstraction over boilerplate program execution code.
-(defmacro launch (program &optional &key from (with-args "-e"))
-  `(format nil "exec ~:[~*~a~;~:*~a ~a ~a~]" ,from ,with-args ,program))
+(program-with-layout gimp)
 
 ;; Formatting
 (setf *startup-message* nil)

@@ -1,0 +1,28 @@
+#S(GDUMP
+   :NUMBER 2
+   :NAME "gimp"
+   :TREE ((#S(FDUMP
+              :NUMBER 0
+              :X 0
+              :Y 0
+              :WIDTH 195
+              :HEIGHT 900
+              :WINDOWS (20971640)
+              :CURRENT 20971640)
+           #S(FDUMP
+              :NUMBER 2
+              :X 195
+              :Y 0
+              :WIDTH 1195
+              :HEIGHT 900
+              :WINDOWS (20971603)
+              :CURRENT 20971603)
+           #S(FDUMP
+              :NUMBER 1
+              :X 1390
+              :Y 0
+              :WIDTH 210
+              :HEIGHT 900
+              :WINDOWS (20971653)
+              :CURRENT 20971653)))
+   :CURRENT 2)
