@@ -8,30 +8,29 @@
 
 (require :swank)
 (swank-loader:init)
-(swank:create-server :port 4004
-                     :style swank:*communication-style*
-                     :dont-close t)
+(defvar *swank-p* nil)
+(unless *swank-p*
+  (swank:create-server :port 4004
+                       :style swank:*communication-style*
+                       :dont-close t)
+  (setf *swank-p* t))
 
 (set-prefix-key (kbd "C-SPC"))
 
-(defparameter *terminal* "urxvt")
-(defparameter *file-browser* "ranger")
-(defparameter *web-browser* "firefox")
+;; Applications
+(defparameter *terminal*        "urxvt")
+(defparameter *file-browser*    "ranger")
+(defparameter *web-browser*     "firefox")
 (defparameter *process-browser* "htop")
-(defparameter *app-menu* "rofi")
-(defparameter *lock-screen* "~/.i3/lock")
+(defparameter *app-menu*        "rofi")
+(defparameter *lock-screen*     "~/.i3/lock")
 (defparameter *network-manager* "nmtui")
-(defparameter *wallpaper* "~/.wallpapers/desert-light-mountain.png")
 
+(defparameter *wallpaper* "~/.wallpapers/desert-light-mountain.png")
 
 ;;; Abstraction over boilerplate program execution code.
 (defmacro launch (program &optional &key from (with-args "-e"))
-  `(format nil "exec ~:[~*~a~;~:*~a ~a ~a~]" ,from ,with-args ,program))
-
-;;; courtesy of Peter Seibel
-(defmacro with-gensyms ((&rest names) &body body)
-  `(let ,(loop for n in names collect `(,n (gensym)))
-     ,@body))
+  `(format nil "exec ~:[~*~A~;~:*~A ~A ~A~]" ,from ,with-args ,program))
 
 (defmacro program-with-layout (name &key (command (string-downcase (string name)))
                                (props `'(:class ,(string-capitalize command))))
@@ -50,58 +49,70 @@
          (place-existing-windows)))))
 
 ;; Stumpwm Commands
-
 (defcommand colon1 (&optional (initial "")) (:rest)
   (let ((cmd (read-one-line (current-screen) ": " :initial-input initial)))
     (when cmd
       (eval-command cmd t))))
 
+(defcommand reload-wal () ()
+  "Run the py-wall command using globally defined wallpaper as an argument."
+  (run-shell-command (format nil "wal -i ~a" *wallpaper*)))
+
 (program-with-layout gimp)
 
-;; Formatting
-(setf *startup-message* nil)
-(setf *window-border-style* :thin)
-(setf *message-window-gravity* :center)
-(setf *input-window-gravity* :center)
-(setf *timeout-wait* 3)
-(setf swm-gaps:*inner-gaps-size* 10)
-(setf swm-gaps:*outer-gaps-size* 20)
+;; Environment Variables
+(setf *startup-message*        nil
+      *window-border-style*    :thin
+      *message-window-gravity* :center
+      *input-window-gravity*   :center
+      *timeout-wait*           3)
+
+(setf swm-gaps:*inner-gaps-size* 10
+      swm-gaps:*outer-gaps-size* 20)
+
+(setf *shell-program* (stumpwm::getenv "SHELL"))
 
 ;; Movement
-(define-key *root-map* (kbd "h") "move-focus left")
-(define-key *root-map* (kbd "j") "move-focus down")
-(define-key *root-map* (kbd "k") "move-focus up")
-(define-key *root-map* (kbd "l") "move-focus right")
-(define-key *root-map* (kbd "C-h") "move-window left")
-(define-key *root-map* (kbd "C-j") "move-window down")
-(define-key *root-map* (kbd "C-k") "move-window up")
-(define-key *root-map* (kbd "C-l") "move-window right")
-
-;; Multimedia
-(define-key *root-map* (kbd "XF86AudioLowerVolume") "exec pactl set-sink-volume 0 +5%")
-(define-key *root-map* (kbd "XF86AudioRaiseVolume") "exec pactl set-sink-volume 0 -5%")
-(define-key *root-map* (kbd "XF86AudioMute") "exec pactl set-sink-mute 0 toggle")
-(define-key *root-map* (kbd "XF86AudioPause") "exec playerctl pause")
-(define-key *root-map* (kbd "XF86AudioPlay") "exec playerctl play")
-(define-key *root-map* (kbd "XF86AudioNext") "exec playerctl next")
-(define-key *root-map* (kbd "XF86AudioPrev") "exec playerctl previous")
-
-;; Application
-(define-key *root-map* (kbd "b") (launch *web-browser*))
-(define-key *root-map* (kbd "Delete") (launch *lock-screen*))
-(define-key *root-map* (kbd "RET") (launch *terminal*))
-(define-key *root-map* (kbd "r") (launch *file-browser* :from *terminal*))
-(define-key *root-map* (kbd "!") (launch (format nil "~a -show run" *app-menu*)))
-(define-key *root-map* (kbd "Menu") (launch *network-manager* :from *terminal*))
-
-;; General
-(define-key *root-map* (kbd "C-f") "fullscreen")
-(define-key *root-map* (kbd "C-g") "toggle-gaps")
-(define-key *root-map* (kbd "t") "time")
-(define-key *root-map* (kbd "-") "vsplit")
-(define-key *root-map* (kbd "|") "hsplit")
+(mapc (lambda (binding) (define-key *root-map* (kbd (car binding)) (cadr binding)))
+      (append
+        `(;; General Bindings
+          ("C-f" "fullscreen")
+          ("C-g" "toggle-gaps")
+          ("t"   "time")
+          ("-"   "vsplit")
+          ("|"   "hsplit")
+          ;; Application Bindings
+          ("b"      ,(launch *web-browser*))
+          ("Delete" ,(launch *lock-screen*))
+          ("RET"    ,(launch *terminal*))
+          ("r"      ,(launch *file-browser* :from *terminal*))
+          ("Menu"   ,(launch *network-manager* :from *terminal*))
+          ("!"      ,(format nil "~A -show run" *app-menu*))
+          ;; Multimedia Bindings
+          ("XF86AudioLowerVolume" "exec pactl set-sink-volume 0 +5%")
+          ("XF86AudioRaiseVolume" "exec pactl set-sink-volume 0 -5%")
+          ("XF86AudioMute"        "exec pactl set-sink-mute 0 toggle")
+          ("XF86AudioPause"       "exec playerctl pause")
+          ("XF86AudioPlay"        "exec playerctl play")
+          ("XF86AudioNext"        "exec playerctl next")
+          ("XF86AudioPrev"        "exec playerctl previous"))
+        ;; Movement Bindings
+        (apply #'append
+               (mapcar (lambda (binding)
+                         (let* ((key (car binding))
+                                (ctrl-key (concatenate 'string "C-" key))
+                                (dir (cadr binding)))
+                           (list
+                             (list key (format nil "move-focus ~A" dir))
+                             (list ctrl-key (format nil "move-window ~A" dir)))))
+                       '(("h" "left")
+                         ("j" "down")
+                         ("k" "up")
+                         ("l" "right"))))))
 
 ;; Init
-(run-shell-command "redshift")
-(run-shell-command (format nil "wal -i ~a" *wallpaper*))
-(run-shell-command "xbanish")
+(mapc #'run-shell-command
+      `("redshift"
+        "xbanish"))
+
+(reload-wal)

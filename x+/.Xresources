@@ -1,15 +1,15 @@
 URxvt*scrollBar: false
 URxvt*urlLauncher: /bin/firefox
-!
+
 !fc-list :: this command will list all available fonts
-URxvt*font: xft:Inconsolata:size=11
-URxvt*boldFont: xft:Inconsolata-Bold:size=11
+URxvt*font: xft:Inconsolata:size=10
+URxvt*boldFont: xft:Inconsolata-Bold:size=10
 
 !spacing between letters relative to default machine spacing
-URxvt*letterSpace: -1
+!URxvt*letterSpace: -1
 
 ! Number of pixels between lines for added readability
-URxvt*lineSpace: 2
+!URxvt*lineSpace: 2
 
 URxvt*depth: 32
 URxvt*background: rgba:0000/0000/0200/c800
