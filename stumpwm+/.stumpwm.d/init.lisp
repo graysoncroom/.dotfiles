@@ -22,10 +22,6 @@
 
 (defparameter *wallpaper* "~/.wallpapers/desert-light-mountain.png")
 
-;;; Abstraction over boilerplate program execution code.
-(defmacro launch (program &optional &key from (with-args "-e"))
-  `(format nil "exec ~:[~*~A~;~:*~A ~A ~A~]" ,from ,with-args ,program))
-
 (defmacro program-with-layout (name &key (command (string-downcase (string name)))
                                (props `'(:class ,(string-capitalize command))))
   (with-gensyms (s w h files-path layout rules)
@@ -112,13 +108,6 @@
           ("-"   "vsplit")
           ("|"   "hsplit")
           ("/"   "fselect")
-          ;; Application Bindings
-          ("b"      ,(launch *web-browser*))
-          ("Delete" ,(launch *lock-screen*))
-          ("RET"    ,(launch *terminal*))
-          ("r"      ,(launch *file-browser* :from *terminal*))
-          ("Menu"   ,(launch *network-manager* :from *terminal*))
-          ("!"      ,(format nil "~A -show run" *app-menu*))
           ;; Multimedia Bindings
           ("XF86AudioRaiseVolume" "vol-up")
           ("XF86AudioLowerVolume" "vol-down")
@@ -139,7 +128,20 @@
                        '(("h" "left")
                          ("j" "down")
                          ("k" "up")
-                         ("l" "right"))))))
+                         ("l" "right"))))
+        ;; Application Bindings
+        (mapcar (lambda (binding)
+                  (destructuring-bind
+                    (key program &optional &key from (with-args "-e")) binding
+                    (list key
+                          (format nil "exec ~:[~*~A~;~:*~A ~A ~A~]" from with-args program))))
+                (list
+                  (list "b"      *web-browser*)
+                  (list "Delete" *lock-screen*)
+                  (list "RET"    *terminal*)
+                  (list "r"      *file-browser* :from *terminal*)
+                  (list "Menu"   *network-manager* :from *terminal*)
+                  (list "!"      "run" :from *app-menu* :with-args "-show")))))
 
 ;; Init
 (add-hook *start-hook* (lambda ()
