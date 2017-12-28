@@ -8,11 +8,6 @@
 
 (require :swank)
 (swank-loader:init)
-(add-hook *start-hook*
-          (lambda ()
-            (swank:create-server :port 4005
-                                 :style swank:*communication-style*
-                                 :dont-close t)))
 
 (set-prefix-key (kbd "C-SPC"))
 
@@ -71,7 +66,8 @@
 
 (setf *shell-program* (stumpwm::getenv "SHELL"))
 
-(setf *mode-line-background-color* "black")
+(setf *mode-line-background-color* "black"
+      *mode-line-foreground-color* "white")
 
 ;; Key Bindings
 (mapc (lambda (binding)
@@ -118,9 +114,11 @@
                          ("l" "right"))))))
 
 ;; Init
-(mapc #'run-shell-command
-      `("redshift"
-        "xbanish"))
-
-(reload-wal)
-(mode-line)
+(add-hook *start-hook* (lambda ()
+                         (mapc #'run-shell-command
+                               '("redshift"
+                                 "xbanish"))
+                         (mode-line)
+                         (swank:create-server :port 4005
+                                              :style swank:*communication-style*
+                                              :dont-close t)))
