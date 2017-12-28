@@ -4,8 +4,5 @@ vim+/.vim/autoload/*
 vim+/.vim/view/*
 vim+/.vim/plugged/*
 vim+/.vim/sessions/*
-emacs+/.emacs.d/elpa/archives/gnu/*
-emacs+/.emacs.d/elpa/gnupg/*
-emacs+/.emacs.d/elpa/rainbow-mode-0.13/*
 emacs+/.emacs.d/elpa/*
 emacs+/.emacs.d/auto-save-list/*
