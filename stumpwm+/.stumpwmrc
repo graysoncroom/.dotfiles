@@ -8,12 +8,11 @@
 
 (require :swank)
 (swank-loader:init)
-(defvar *swank-p* nil)
-(unless *swank-p*
-  (swank:create-server :port 4004
-                       :style swank:*communication-style*
-                       :dont-close t)
-  (setf *swank-p* t))
+(add-hook *start-hook*
+          (lambda ()
+            (swank:create-server :port 4005
+                                 :style swank:*communication-style*
+                                 :dont-close t)))
 
 (set-prefix-key (kbd "C-SPC"))
 
@@ -72,8 +71,15 @@
 
 (setf *shell-program* (stumpwm::getenv "SHELL"))
 
-;; Movement
-(mapc (lambda (binding) (define-key *root-map* (kbd (car binding)) (cadr binding)))
+(setf *mode-line-background-color* "black")
+
+;; Key Bindings
+(mapc (lambda (binding)
+        (define-key (if (search "XF86Audio" (car binding))
+                      *top-map*
+                      *root-map*)
+                    (kbd (car binding))
+                    (cadr binding)))
       (append
         `(;; General Bindings
           ("C-f" "fullscreen")
@@ -81,6 +87,7 @@
           ("t"   "time")
           ("-"   "vsplit")
           ("|"   "hsplit")
+          ("/"   "fselect")
           ;; Application Bindings
           ("b"      ,(launch *web-browser*))
           ("Delete" ,(launch *lock-screen*))
@@ -89,8 +96,8 @@
           ("Menu"   ,(launch *network-manager* :from *terminal*))
           ("!"      ,(format nil "~A -show run" *app-menu*))
           ;; Multimedia Bindings
-          ("XF86AudioLowerVolume" "exec pactl set-sink-volume 0 +5%")
-          ("XF86AudioRaiseVolume" "exec pactl set-sink-volume 0 -5%")
+          ("XF86AudioRaiseVolume" "exec pactl set-sink-volume 0 +5%")
+          ("XF86AudioLowerVolume" "exec pactl set-sink-volume 0 -5%")
           ("XF86AudioMute"        "exec pactl set-sink-mute 0 toggle")
           ("XF86AudioPause"       "exec playerctl pause")
           ("XF86AudioPlay"        "exec playerctl play")
@@ -116,3 +123,4 @@
         "xbanish"))
 
 (reload-wal)
+(mode-line)
