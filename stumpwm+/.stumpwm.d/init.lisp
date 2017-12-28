@@ -49,8 +49,36 @@
       (eval-command cmd t))))
 
 (defcommand reload-wal () ()
-  "Run the py-wall command using globally defined wallpaper as an argument."
+  "Run pywal using *wallpaper* as the image argument."
   (run-shell-command (format nil "wal -i ~a" *wallpaper*)))
+
+(defcommand vol-up () ()
+  "Increase system volume"
+  (run-shell-command "pactl set-sink-volume 0 +5%"))
+
+(defcommand vol-down () ()
+  "Decrease system volume"
+  (run-shell-comand "pactl set-sink-volume 0 -5%"))
+
+(defcommand vol-mute () ()
+  "Toggle mute"
+  (run-shell-command "pactl set-sink-mute 0 toggle"))
+
+(defcommand media-play () ()
+  "Media player 'play' action"
+  (run-shell-command "playerctl play"))
+
+(defcommand media-pause () ()
+  "Media player 'pause' action"
+  (run-shell-command "playerctl pause"))
+
+(defcommand media-next () ()
+  "Media player 'skip to next' action"
+  (run-shell-command "playerctl next"))
+
+(defcommand media-prev () ()
+  "Media player 'skip to previous' action"
+  (run-shell-command "playerctl previous"))
 
 (program-with-layout gimp)
 
@@ -92,13 +120,13 @@
           ("Menu"   ,(launch *network-manager* :from *terminal*))
           ("!"      ,(format nil "~A -show run" *app-menu*))
           ;; Multimedia Bindings
-          ("XF86AudioRaiseVolume" "exec pactl set-sink-volume 0 +5%")
-          ("XF86AudioLowerVolume" "exec pactl set-sink-volume 0 -5%")
-          ("XF86AudioMute"        "exec pactl set-sink-mute 0 toggle")
-          ("XF86AudioPause"       "exec playerctl pause")
-          ("XF86AudioPlay"        "exec playerctl play")
-          ("XF86AudioNext"        "exec playerctl next")
-          ("XF86AudioPrev"        "exec playerctl previous"))
+          ("XF86AudioRaiseVolume" "vol-up")
+          ("XF86AudioLowerVolume" "vol-down")
+          ("XF86AudioMute"        "vol-mute")
+          ("XF86AudioPlay"        "media-play")
+          ("XF86AudioPause"       "media-pause")
+          ("XF86AudioNext"        "media-next")
+          ("XF86AudioPrev"        "media-prev"))
         ;; Movement Bindings
         (apply #'append
                (mapcar (lambda (binding)
@@ -119,6 +147,7 @@
                                '("redshift"
                                  "xbanish"))
                          (mode-line)
+                         (reload-wal)
                          (swank:create-server :port 4005
                                               :style swank:*communication-style*
                                               :dont-close t)))
