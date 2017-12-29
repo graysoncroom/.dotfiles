@@ -54,7 +54,7 @@
 
 (defcommand vol-down () ()
   "Decrease system volume"
-  (run-shell-comand "pactl set-sink-volume 0 -5%"))
+  (run-shell-command "pactl set-sink-volume 0 -5%"))
 
 (defcommand vol-mute () ()
   "Toggle mute"
@@ -135,13 +135,12 @@
                     (key program &optional &key from (with-args "-e")) binding
                     (list key
                           (format nil "exec ~:[~*~A~;~:*~A ~A ~A~]" from with-args program))))
-                (list
-                  (list "b"      *web-browser*)
-                  (list "Delete" *lock-screen*)
-                  (list "RET"    *terminal*)
-                  (list "r"      *file-browser* :from *terminal*)
-                  (list "Menu"   *network-manager* :from *terminal*)
-                  (list "!"      "run" :from *app-menu* :with-args "-show")))))
+                `(("b"      ,*web-browser*)
+                  ("Delete" ,*lock-screen*)
+                  ("RET"    ,*terminal*)
+                  ("r"      ,*file-browser*    :from ,*terminal*)
+                  ("Menu"   ,*network-manager* :from ,*terminal*)
+                  ("!"      "run"              :from ,*app-menu* :with-args "-show")))))
 
 ;; Init
 (add-hook *start-hook* (lambda ()
