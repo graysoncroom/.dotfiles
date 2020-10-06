@@ -41,7 +41,7 @@
     Plug 'vim-syntastic/syntastic'          " checks and shows error messages for a lot of languages
     Plug 'xuhdev/vim-latex-live-preview'    " provides live preview of the output pdf of a latex file
     Plug 'tommcdo/vim-exchange'             " Easy word swapping.
-    ""Plug 'flazz/vim-colorschemes'           " Adds a bunch of colorschemes.
+    Plug 'flazz/vim-colorschemes'           " Adds a bunch of colorschemes.
     Plug 'ctrlpvim/ctrlp.vim'               " Full path fuzzy file, buffer, mru, and tags. Finder.
     Plug 'godlygeek/tabular'                " Text filtering and alignment.
     ""Plug 'vim-scripts/Conque-GDB'           " Adds Gdb debugging to vim.
@@ -56,13 +56,16 @@
     Plug 'guns/vim-clojure-static'          " Clojure syntax highlighting
     Plug 'guns/vim-clojure-highlight'       " Extra Clojure variable highlighting
     Plug 'dylanaraps/wal.vim'               " A vim colorscheme for use with pywal.
+    Plug 'drewtempelmeyer/palenight.vim'    " A vim colorscheme
     call plug#end()
 " }}}
 " GENERAL {{{
     let mapleader="\<Space>"
     let maplocalleader="\<Space>"
 
-    colorscheme wal
+    let g:palenight_terminal_italics=1
+
+    colorscheme palenight
     " Custom highlight groups {{{
 ""        if !has("nvim")
 ""            highlight Normal       guibg=NONE ctermbg=NONE
@@ -84,6 +87,10 @@
             tnoremap jk <C-\><C-n>
         endif
     " }}}
+
+    if (has("termguicolors"))
+        set termguicolors
+    endif
 
     filetype plugin indent on
 
