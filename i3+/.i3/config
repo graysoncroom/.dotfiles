@@ -26,18 +26,18 @@
     set $up k
     set $right l
 
-    set $terminal     urxvt
+    #set $terminal     urxvt
+    set $terminal     xterm
     set $browser      firefox
     set $menu         rofi -show run
     set $file_browser ranger
 
     # Path to desktop wallpaper
-    #set $wallpaper ~/.i3/solar-ocean.jpeg
+    set $wallpaper ~/.i3/solar-ocean.jpeg
     #set $wallpaper ~/.i3/polygon-mountian.jpeg
     #set $wallpaper ~/Pictures/wallpapers/blue-mountain.jpg
     #set $wallpaper ~/Pictures/wallpapers/easy-solar-ocean.jpg
-    #set $wallpaper ~/Pictures/wallpapers/sexy-sydney-lookalike.jpeg
-    set $wallpaper ~/Pictures/wallpapers/desert-light-mountain.png
+    #set $wallpaper ~/Pictures/wallpapers/desert-light-mountain.png
 
     # Path to screen locking script
     set $lock ~/.i3/lock
@@ -46,7 +46,7 @@
     bindsym $mod+b            exec $browser
     bindsym $mod+Delete       exec $lock
     bindsym $mod+Shift+Return exec $menu
-    bindsym $mod+Return       exec $terminal -e tmux
+    bindsym $mod+Return       exec $terminal #-e tmux
     bindsym $mod+r            exec $terminal -e $file_browser
     bindsym $mod+minus        scratchpad show
     bindsym $mod+Shift+minus  move scratchpad
@@ -74,7 +74,6 @@
     bindsym $window+4 exec wal -i ~/Pictures/wallpapers/solar-ocean-dark.jpg
     bindsym $window+5 exec wal -i ~/Pictures/wallpapers/eclipse.jpe
     bindsym $window+6 exec wal -i ~/Pictures/wallpapers/blue-mountain.jpg
-    bindsym $window+7 exec wal -i ~/Pictures/wallpapers/sexy-sydney-lookalike.jpg
 #}}}
 # Movement bindings{{{
     # change focus
@@ -169,24 +168,24 @@
 #}}}
 # Status bar definitions{{{
     bar {
-        status_command i3blocks
-        colors {
-            separator #859900
-            background #002b36
-            statusline #268bd2
-            focused_workspace #fdf6e3 #859900 #fdf6e3
-            active_workspace #fdf6e3 #6c71c4 #fdf6e3
-            inactive_workspace #586e75 #93a1a1 #002b36
-            urgent_workspace #d33682 #d33682 #fdf6e3
-        }
+        status_command i3status
+        #colors {
+        #    separator #859900
+        #    background #002b36
+        #    statusline #268bd2
+        #    focused_workspace #fdf6e3 #859900 #fdf6e3
+        #    active_workspace #fdf6e3 #6c71c4 #fdf6e3
+        #    inactive_workspace #586e75 #93a1a1 #002b36
+        #    urgent_workspace #d33682 #d33682 #fdf6e3
+        #}
     }
 #}}}
 
 # Setup (should come after all bindings/definitions){{{
-exec --no-startup-id feh --bg-scale $wallpaper
-exec xbanish &
-exec redshift &
-exec wal -i $wallpaper &
+#exec --no-startup-id feh --bg-scale $wallpaper
+#exec xbanish &
+#exec redshift &
+#exec wal -i $wallpaper &
 #exec --no-startup-id $HOME/.config/polybar/launch.sh
 
 hide_edge_borders both
