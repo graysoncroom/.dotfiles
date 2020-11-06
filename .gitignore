@@ -6,3 +6,7 @@ vim+/.vim/plugged/*
 vim+/.vim/sessions/*
 emacs+/.emacs.d/elpa/*
 emacs+/.emacs.d/auto-save-list/*
+xmonad+/.xmonad/xmonad-x86_64-linux
+xmonad+/.xmonad/xmonad.o
+xmonad+/.xmonad/xmonad.hi
+xmonad+/.xmonad/xmonad.errors
