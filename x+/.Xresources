@@ -1,22 +1,47 @@
 URxvt*scrollBar: false
-URxvt*urlLauncher: /bin/firefox
+URxvt*urlLauncher: /bin/google-chrome-stable
 
 !fc-list :: this command will list all available fonts
-URxvt*font: xft:Inconsolata:size=10
-URxvt*boldFont: xft:Inconsolata-Bold:size=10
+URxvt*font: xft:Noto Sans Mono:size=7:antialias=true:dpi=149
+URxvt*boldFont: xft:Noto Sans Mono:size=7:antialias=true:dpi=149
 
 !spacing between letters relative to default machine spacing
-!URxvt*letterSpace: -1
+URxvt*letterSpace: -1
 
 ! Number of pixels between lines for added readability
-!URxvt*lineSpace: 2
+URxvt*lineSpace: 2
 
+!URxvt*color0:  #000000 // black
+!URxvt*color1:  #B40000 // red
+!URxvt*color2:  #00AA00 // green
+!URxvt*color3:  #AAAA00 // yellow
+!URxvt*color4:  #5555AA // blue
+!URxvt*color5:  #AA00AA // magenta
+!URxvt*color6:  #00AAAA // cyan
+!URxvt*color7:  #AAAAAA // white
+!URxvt*color8:  #555555 // black (now and below: bright)
+!URxvt*color9:  #FF0000 // red
+!URxvt*color10: #00FF00 // green
+!URxvt*color11: #FFFF00 // yellow
+!URxvt*color12: #6464FF // blue
+!URxvt*color13: #FF00FF // magenta
+!URxvt*color14: #00FFFF // cyan
+!URxvt*color15: #FFFFFF // white
+
+! Note about transparency:
+! If you enable [both], the fake transparency takes the
+! precedence over the real transparency...
+! - https://ctkarch.org/documentation/tutorials/tuto.php?page=urxvt-transpa.xml&en
+
+! Real Transparency (using composite manager)
 URxvt*depth: 32
+URxvt*foreground: white
 URxvt*background: rgba:0000/0000/0200/c800
-URxvt*transparent: true
 
-! Darken Background transparency
-URxvt*shading: 10
+! Fake transparency (copy wallpaper to terminal background)
+!URxvt*transparent: true
+!Darken Background transparency (still under the category of fake transparency)
+!URxvt*shading: 10
 
 ! Blink window on bell
 Urxvt*visualBell: true

@@ -5,10 +5,29 @@
 [ -f ~/.localrc ]      && . ~/.localrc
 #[ -f ~/.Xresources ] && xrdb ~/.Xresources
 
-set -o vi
+# This will prevent you from accidentally destroying the
+# content of an already existing file when redirecting
+# output with >filename. Note that you can always
+# force overwriting with >|filename.
+set -o noclobber
+set -o vi # The terminal will be in vi mode
+
+# If set, Bash checks the window size after each command and
+# updates LINES and COLUMNS if necessary.
+# default: on
+shopt -s checkwinsize
+
+# Allow inline comments in interactive shell
+# default: on
+shopt -s interactive_comments
+
+# Paths are an implicit cd to path
+# default: off
+shopt -s autocd
 
 export EDITOR="vim"
 export VISUAL="vim"
+export BROWSER="google-chrome-stable"
 
 # Color exports
 export COLOR_NC='\e[0m' # No Color
@@ -29,43 +48,50 @@ export COLOR_YELLOW='\e[1;33m'
 export COLOR_GRAY='\e[0;30m'
 export COLOR_LIGHT_GRAY='\e[0;37m'
 
+extract() { # {{{
+    if [ -f $1 ]; then
+        case $1 in
+            *.tar.bz2) tar xvjf $1                              ;;
+            *.tar.gz)  tar xvzf $1                              ;;
+            *.bz2)     bunzip2 $1                               ;;
+            *.rar)     unrar x $1                               ;;
+            *.gz)      gunzip $1                                ;;
+            *.tar)     tar xvf $1                               ;;
+            *.tbz2)    tar xvjf $1                              ;;
+            *.tgz)     tar xvzf $1                              ;;
+            *.zip)     unzip $1                                 ;;
+            *.Z)       uncompress $1                            ;;
+            *.7z)      7z x $1                                  ;;
+            *)         echo "don't know how to extract '$1'..." ;;
+        esac
+    else
+        echo "'$1' is not a valid file!"
+    fi
+} # }}}
+
 sendemail() {
     curl --url "smtps://smtp.gmail.com:465" --ssl-reqd --mail-from $gmailuser --mail-rcpt $1 --upload-file $2 --user "$gmailuser:$gmailpass" --insecure;
 }
 
-javarun() {
-    javac "$1.java"
-    java "$1"
-}
-# {sending: true, quotaRemaining: 40, textId: 12345}
-# {sending: false, quotaRemaining: 0, error: 'Out of quota'}
-# https://textbelt.com
-sendtext() {
-    curl http://textbelt.com/text \
-         --data-urlencode number=$1 \
-         --data-urlencode message=$2;
+get-hex() {
+    echo $1 | hexdump -C
 }
 
-# make connecting to new networks less painful
-# $wifiPassDir should be set in ~/.localrc
-# will only work after you connect to the network once in kde the first time
-# the name of the file must be the name generated after that first use when you
-# run the command 'nmcli c' with a suffix of '-PASSWORD'
-# when you run the function use the name of the network without the suffix specified by
-# the file it gets the password from.
-# follow the format of the other -PASSWORD files when you create new one
-wifi-connect() {
-  if [[ $1 == '' ]]; then
-    echo "Enter name of network as specified by the command of 'nmcli connect'"
-    echo "Usage: wifi-connect [name of network]"
-  else
-    sudo nmcli c up $1 passwd-file $wifiPassDir/$1-PASSWORD
-    passwdFile=''
-    networkName=''
-  fi
-}
+set-prompt() { # {{{
+    # default
+    #export PS1='[\W]\$ '
 
-set-normal-ps1
-#archey
+    # ascii arrow
+    #export PS1=$'[\[\e[01;36m\]\W\[\e[0m\]] -> '
 
-export NVIM_LISTEN_ADDRESS=/tmp/neovim/neovim nvim
+    # unicode arrow
+    #export PS1=$'[\[\e[01;36m\]\W\[\e[0m\]] \xe2\x86\x92 '
+
+    # unicode lambda
+    export PS1=$'[\[\e[01;36m\]\W\[\e[0m\]] \[\e[1;91m\]\xce\xbb\[\e[0m\] '
+} # }}}
+set-prompt
+
+# archey
+
+#export NVIM_LISTEN_ADDRESS=/tmp/neovim/neovim nvim
