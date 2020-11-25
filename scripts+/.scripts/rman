@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+random_number=$RANDOM
+program_count=$(man -k . | wc -l)
+
+program_number=$((random_number % program_count))
+
+program=$(man -k . | awk "NR == $program_number {print \$1}")
+
+man "$program"
