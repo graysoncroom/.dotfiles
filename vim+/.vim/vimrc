@@ -66,30 +66,37 @@
     let g:palenight_terminal_italics=1
 
     colorscheme palenight
-    " Custom highlight groups {{{
-""        if !has("nvim")
-""            highlight Normal       guibg=NONE ctermbg=NONE
-""            highlight Folded       guibg=NONE ctermbg=NONE
-""            highlight LineNr       guibg=NONE ctermbg=NONE
-""            highlight SignColumn   guibg=NONE ctermbg=NONE
-""            highlight StatusLine   guibg=NONE ctermbg=NONE
-""            highlight StatusLineNC guibg=NONE ctermbg=NONE
-""            highlight NonText      guibg=NONE ctermbg=NONE
-""            highlight TabLine      guibg=NONE ctermbg=NONE
-""            highlight SpecialKey   guibg=NONE ctermbg=NONE
-""            highlight VertSplit    guibg=NONE ctermbg=NONE
-""            " Note that it is cterm/gui instead of ctermbg/guibg.
-""            highlight TabLineFill gui=NONE cterm=NONE
-""        endif
-    " }}}
+    if !has("nvim")
+        highlight Normal       guibg=NONE ctermbg=NONE
+        highlight Folded       guibg=NONE ctermbg=NONE
+        highlight LineNr       guibg=NONE ctermbg=NONE
+        highlight SignColumn   guibg=NONE ctermbg=NONE
+        highlight StatusLine   guibg=NONE ctermbg=NONE
+        highlight StatusLineNC guibg=NONE ctermbg=NONE
+        highlight NonText      guibg=NONE ctermbg=NONE
+        highlight TabLine      guibg=NONE ctermbg=NONE
+        highlight SpecialKey   guibg=NONE ctermbg=NONE
+        highlight VertSplit    guibg=NONE ctermbg=NONE
+        " Note that it is cterm/gui instead of ctermbg/guibg.
+        highlight TabLineFill gui=NONE cterm=NONE
+    endif
     " NEOVIM SPECIFIC {{{
         if has("nvim")
-            tnoremap jk <C-\><C-n>
+            ""tnoremap jk <C-\><C-n>
         endif
     " }}}
 
     if (has("termguicolors"))
-        ""set termguicolors
+        set t_8f=[38;2;%lu;%lu;%lum        " set foreground color
+        set t_8b=[48;2;%lu;%lu;%lum        " set background color
+        "set termguicolors " Enable GUI colors for the to get truecolor
+    endif
+
+    if &term =~ '256color'
+        " disable Background Color Erase (BCE) so that color schemes
+        " render properly when inside 256-color tmux and GNU screen.
+        " see also https://sunaku.github.io/vim-256color-bce.html
+        set t_ut=
     endif
 
     filetype plugin indent on
@@ -98,7 +105,12 @@
     nnoremap <c-j> <c-w><c-j>
     nnoremap <c-k> <c-w><c-k>
     nnoremap <c-l> <c-w><c-l>
-    inoremap jk <esc>
+    ""inoremap jk <esc>
+
+    " Remove the ability to exit insert mode with <esc>
+    " I am doing this as I am trying to get used to the
+    " default CTRL-[ as I try to stop using jk
+    nnoremap <esc> <nop>
 
     nnoremap + :bnext<cr>
     nnoremap - :bprevious<cr>
@@ -111,6 +123,10 @@
 
     " Remove all trailing whitespace before writing to file.
     autocmd BufWritePre * %s/\s\+$//e
+
+    " TODO: restructure all my bindings as
+    " function keys are stupid and I never
+    " remember them anyways
 
     " Toggle external paste mode.
     nnoremap <F1> :set paste!<cr>
@@ -130,10 +146,25 @@
     " Save to a read only file
     nnoremap <F12> :w !sudo tee %<cr>
 
-    nnoremap <localleader>* mp:r ~/.vim/boilerplates/comment<cr>'pdd=5j
+    " Insert comment boilerplate
+    " algo:
+    " create mark p
+    " read in comment boilerplate
+    " goto mark p and delete line
+    " reindent 5 lines down
+    " goto second occurance of keyword date
+    " delete work
+    " read in date
+    " join line and reformat
+    " insert * and a space
+    " add 2 spaces after date
+    " goto second occurance of keyword description (backwards)
+    " change inside work as to put the user in a position to write a description
+    " TODO: make it so that it doesn't rely on formmating of boilerplate
+    nnoremap <localleader>* mp:r ~/.vim/boilerplates/comment<cr>'pdd=5j/DATE<cr>ndawk:r! date +\%m/\%d/\%Y<cr>J==i* <esc>2Wi  <esc>?Description<cr>nciw
 
     set shell=bash                 " Make sure the shell is bash on every system.
-    set backspace=indent,eol,start " Vim backspace acts like a normal text editor's backspace.
+    "set backspace=indent,eol,start " Vim backspace acts like a normal text editor's backspace.
     set listchars=tab:>.           " Visual representation of certain characters when list is set.
     set viewoptions-=options       " Views will not save keymappings (only preserve buffer folds).
     set foldmethod=marker          " Enable folding triggered by markers
@@ -141,7 +172,7 @@
     set undolevels=10000           " Set the number of undo levels vim will record.
     set bg=dark                    " Background colors should be either light or dark
     set encoding=utf-8             " File encoding will be in unicode.
-    set t_Co=256                   " Enable 256-color mode.
+    "set t_Co=256                   " Enable 256-color mode.
     ""set colorcolumn=+1             " Column is after the set text width.
 
     set nowrap         " By default do not wrap text

@@ -44,7 +44,8 @@ import Graphics.X11.ExtraTypes.XF86
 
     -- My Symbols{{{
 
-myTerminal    = "urxvt"
+--myTerminal    = "urxvt"
+myTerminal    = "st"
 myFileBrowser = "ranger"
 myTextEditor  = "vim"
 myMenu        = "dmenu"
@@ -62,6 +63,8 @@ launchWrapper name = myTerminal ++ " -e " ++ name
 
 tty1CheckWrapper cmd =
     "[ -n \"$XDG_VTNR\" ] && [ \"$XDG_VTNR\" -eq 1 ] && " ++ cmd
+
+commandExistsWrapper cmd = printf "[ -f /usr/bin/%s ] && %s" cmd
     -- }}}
 
     -- My Hooks{{{
@@ -75,6 +78,7 @@ myStartupHook = do
     unsafeSpawn $ "killall redshift"
     unsafeSpawn $ daemonWrapper "xcompmgr" "-c"
     unsafeSpawn $ daemonWrapper "redshift" ""
+    unsafeSpawn $ (commandExistsWrapper "xsetroot") ++ " -cursor_name left_ptr"
 
 -- $ spacingRaw False (Border 20 20 20 20) True (Border 15 15 15 15) True
 myLayoutHook  = avoidStruts $ layoutHook def
@@ -89,7 +93,7 @@ main = do
         { manageHook      = myManageHook <+> manageHook def
         , layoutHook      = myLayoutHook
         , startupHook     = myStartupHook <+> startupHook def
-        , terminal        = launchWrapper "tmux"
+        , terminal        = myTerminal --launchWrapper "tmux"
         , modMask         = myModMask
         , borderWidth     = myBorderWidth
         --, normalBorderColor  = "#2p2d3e"
@@ -110,7 +114,7 @@ main = do
       [ ((myModMask,               xK_r),           unsafeSpawn $ launchWrapper myFileBrowser)
       , ((myModMask,               xK_b),           unsafeSpawn myWebBrowser)
       , ((myModMask,               xF86XK_Launch1), unsafeSpawn "killall xcompmgr; xsetroot;")
-      , ((myModMask,               xK_Return),      unsafeSpawn $ launchWrapper "tmux")
+      , ((myModMask,               xK_Return),      unsafeSpawn $ myTerminal) --launchWrapper "tmux")
       , ((myModMask .|. shiftMask, xK_Return),      unsafeSpawn $ "$(ls /usr/bin | " ++ myMenu ++ ")")
       , ((myModMask,               xK_grave),       scratchpadSpawnActionTerminal $ myTerminal ++ " -name scratchpad -e tmux")
       ] --`additionalMouseBindings` []

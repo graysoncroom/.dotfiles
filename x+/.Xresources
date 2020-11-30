@@ -11,6 +11,11 @@ URxvt*letterSpace: -1
 ! Number of pixels between lines for added readability
 URxvt*lineSpace: 2
 
+! Remove CTRL-shift i.e. disable "keycap picture insert"
+! and "basic IOS 14755" mode
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
 !URxvt*color0:  #000000 // black
 !URxvt*color1:  #B40000 // red
 !URxvt*color2:  #00AA00 // green
