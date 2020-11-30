@@ -25,6 +25,8 @@ shopt -s interactive_comments
 # default: off
 #shopt -s autocd
 
+eval "$(thefuck --alias)"
+
 export PATH="$HOME/.scripts:$PATH"
 #export MANPATH="/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/lib/jvm/default/man"
 
