@@ -25,6 +25,7 @@ alias grep='grep --color=auto'
 # Git
 alias gs='git status'
 alias gcs='clear; git status'
+alias gd='git diff'
 
 # Tools
 alias bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E "state|to\ full|percentage"'
