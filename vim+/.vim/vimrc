@@ -67,18 +67,18 @@
 
     colorscheme palenight
     if !has("nvim")
-        highlight Normal       guibg=NONE ctermbg=NONE
-        highlight Folded       guibg=NONE ctermbg=NONE
-        highlight LineNr       guibg=NONE ctermbg=NONE
-        highlight SignColumn   guibg=NONE ctermbg=NONE
-        highlight StatusLine   guibg=NONE ctermbg=NONE
-        highlight StatusLineNC guibg=NONE ctermbg=NONE
-        highlight NonText      guibg=NONE ctermbg=NONE
-        highlight TabLine      guibg=NONE ctermbg=NONE
-        highlight SpecialKey   guibg=NONE ctermbg=NONE
-        highlight VertSplit    guibg=NONE ctermbg=NONE
-        " Note that it is cterm/gui instead of ctermbg/guibg.
-        highlight TabLineFill gui=NONE cterm=NONE
+        ""highlight Normal       guibg=NONE ctermbg=NONE
+        ""highlight Folded       guibg=NONE ctermbg=NONE
+        ""highlight LineNr       guibg=NONE ctermbg=NONE
+        ""highlight SignColumn   guibg=NONE ctermbg=NONE
+        ""highlight StatusLine   guibg=NONE ctermbg=NONE
+        ""highlight StatusLineNC guibg=NONE ctermbg=NONE
+        ""highlight NonText      guibg=NONE ctermbg=NONE
+        ""highlight TabLine      guibg=NONE ctermbg=NONE
+        ""highlight SpecialKey   guibg=NONE ctermbg=NONE
+        ""highlight VertSplit    guibg=NONE ctermbg=NONE
+        """ Note that it is cterm/gui instead of ctermbg/guibg.
+        ""highlight TabLineFill gui=NONE cterm=NONE
     endif
     " NEOVIM SPECIFIC {{{
         if has("nvim")
@@ -163,8 +163,11 @@
     " TODO: make it so that it doesn't rely on formmating of boilerplate
     nnoremap <localleader>* mp:r ~/.vim/boilerplates/comment<cr>'pdd=5j/DATE<cr>ndawk:r! date +\%m/\%d/\%Y<cr>J==i* <esc>2Wi  <esc>?Description<cr>nciw
 
+    nnoremap <localleader>ev :vsplit<CR>
+    nnoremap <localleader>es :split<CR>
+
     set shell=bash                 " Make sure the shell is bash on every system.
-    "set backspace=indent,eol,start " Vim backspace acts like a normal text editor's backspace.
+    set backspace=indent,eol,start " Vim backspace acts like a normal text editor's backspace.
     set listchars=tab:>.           " Visual representation of certain characters when list is set.
     set viewoptions-=options       " Views will not save keymappings (only preserve buffer folds).
     set foldmethod=marker          " Enable folding triggered by markers
@@ -172,7 +175,7 @@
     set undolevels=10000           " Set the number of undo levels vim will record.
     set bg=dark                    " Background colors should be either light or dark
     set encoding=utf-8             " File encoding will be in unicode.
-    "set t_Co=256                   " Enable 256-color mode.
+    set t_Co=256                   " Enable 256-color mode.
     ""set colorcolumn=+1             " Column is after the set text width.
 
     set nowrap         " By default do not wrap text
@@ -186,7 +189,7 @@
     set number         " Show line numbers in the gutter.
     set relativenumber " Show how many lines each line is away from the current line
     set autoindent     " Enable automatic indentation.
-    set list         " Disable the listing of invisible characters (personal preference).
+    set list           " listing of invisible characters (personal preference).
     set wildmenu       " Will display menu of completions in command mode upon user entering a tab.
 " }}}
 " TAB SETTINGS {{{
@@ -378,7 +381,7 @@
 " FILETYPE: java {{{
     autocmd filetype java nnoremap <F6> :!javarun <C-r>=expand("%:r")<CR><CR>
     autocmd filetype java nnoremap <F7> :vsplit ~/.vim/JavaImp/JavaImp.txt<CR>
-    autocmd filetype java nnoremap <localleader><tab> gg:r ~/.vim/boilerplates/java<CR>ggdd:s/NAME/<C-r>=expand("%:r")<CR><CR>2Go
+    autocmd filetype java nnoremap <localleader>bj gg:r ~/.vim/boilerplates/java<CR>ggdd:s/NAME/<C-r>=expand("%:r")<CR><CR>2Go
 " }}}
 " FILETYPE: python {{{
     autocmd filetype python nnoremap <localleader>c :silent w<CR>:silent !clear;pkill <C-r>=expand("%")<CR>;./<C-r>=expand("%")<CR> & sleep 1<CR>:silent !xdotool mousemove 300 500 & xdotool click 1<CR>
