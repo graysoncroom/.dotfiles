@@ -1,389 +1,182 @@
-" SETUP {{{
-    set nocompatible " vim != vi
+set nocompatible
 
-    " Use the .vim/views directory to store file folding and local keybinding information about a
-    " file.
-    ""autocmd bufwinleave * if expand("%") != "" | mkview | endif
-    ""autocmd bufwinenter * if expand("%") != "" | loadview | endif
+" This will install the plugin manager if it is not already installed.
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-    " This will install the plugin manager if it is not already installed.
-    if empty(glob('~/.vim/autoload/plug.vim'))
-        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-            \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-    endif
+call plug#begin('~/.vim/plugged')
 
-    " Encryption settings {{{
-    if !has('nvim')
-        " To ensure we are always using the strongest possible encryption method available.
-        if v:version > 704 || (v:version == 704 && has('patch401'))
-            set cryptmethod=blowfish2
-        elseif v:version >=703
-            set cryptmethod=blowfish
-        else
-            set cryptmethod=zip
-        endif
-    endif
-    " }}}
-" }}}
-" PLUGIN LIST {{{
-    call plug#begin('~/.vim/plugged')
-    Plug 'PotatoesMaster/i3-vim-syntax'     " .i3/config file has syntax highlighting
-    Plug 'christoomey/vim-tmux-navigator'   " allows for tmux panes and vim splits to work together
-    Plug 'easymotion/vim-easymotion'        " allows for Vimperator style navigation
-    Plug 'jpalardy/vim-slime'               " Send text to something like tmux, gnu screen, etc.
-    Plug 'kovisoft/slimv'                   " Slime for vim!
-    Plug 'keith/swift.vim'                  " swift source code syntax highlighting
-    ""Plug 'rustushki/JavaImp.vim'            " import java classes a lot easier
-    ""Plug 'scrooloose/nerdcommenter'         " comment things out much easier
-    Plug 'scrooloose/nerdtree'              " file system browser
-    Plug 'tpope/vim-surround'               " extends vocabulary of vim
-    Plug 'vim-syntastic/syntastic'          " checks and shows error messages for a lot of languages
-    Plug 'xuhdev/vim-latex-live-preview'    " provides live preview of the output pdf of a latex file
-    Plug 'tommcdo/vim-exchange'             " Easy word swapping.
-    Plug 'flazz/vim-colorschemes'           " Adds a bunch of colorschemes.
-    Plug 'ctrlpvim/ctrlp.vim'               " Full path fuzzy file, buffer, mru, and tags. Finder.
-    Plug 'godlygeek/tabular'                " Text filtering and alignment.
-    ""Plug 'vim-scripts/Conque-GDB'           " Adds Gdb debugging to vim.
-    Plug 'ARM9/arm-syntax-vim'              " Syntax highlighting for arm assembly v4-v7.
-    ""Plug 'tpope/vim-fugitive'               " A git wrapper so awesome, it should be illegal.
-    ""Plug 'tpope/vim-rhubarb'                " Enables :Gbrowse for vim-fugitive.
-    ""Plug 'xolox/vim-session'                " :mksession on steroids
-    ""Plug 'xolox/vim-misc'                   " Required by vim-session.
-    ""Plug 'mhinz/vim-startify'               " Fancy start screen for Vim.
-    Plug 'neovimhaskell/haskell-vim'        " Syntax Highlighting and Indentation for Haskell and Cabal
-    Plug 'tomlion/vim-solidity'             " Syntax Hightlighting for Solidity
-    Plug 'guns/vim-clojure-static'          " Clojure syntax highlighting
-    Plug 'guns/vim-clojure-highlight'       " Extra Clojure variable highlighting
-    Plug 'dylanaraps/wal.vim'               " A vim colorscheme for use with pywal.
-    Plug 'drewtempelmeyer/palenight.vim'    " A vim colorscheme
-    call plug#end()
-" }}}
-" GENERAL {{{
-    let mapleader="\<Space>"
-    let maplocalleader="\<Space>"
+Plug 'christoomey/vim-tmux-navigator'  
+Plug 'vim-airline/vim-airline'
+Plug 'drewtempelmeyer/palenight.vim'    
+Plug 'rakr/vim-one'
+Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
+Plug 'humanoid-colors/vim-humanoid-colorscheme'
 
-    let g:palenight_terminal_italics=1
+" Requires code-minimap to work
+Plug 'wfxr/minimap.vim'
 
+call plug#end()
+
+let mapleader="\<Space>"
+let maplocalleader="\<Space>"
+
+let g:palenight_terminal_italics=1
+let g:one_allow_italics=1
+let g:airline_theme='one'
+let g:minimap_auto_start=0
+let g:tmux_navigator_save_on_switch=2
+let g:livepreview_previewer='zathura'
+let g:Hexokinase_highlighters=['backgroundfull']
+
+" ==== True Color ====
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+set t_Co=256
+set termguicolors
+if &term =~ '256color'
+    set t_ut=
+endif
+
+if has("termguicolors")
+    colorscheme one
+else
     colorscheme palenight
-    if !has("nvim")
-        ""highlight Normal       guibg=NONE ctermbg=NONE
-        ""highlight Folded       guibg=NONE ctermbg=NONE
-        ""highlight LineNr       guibg=NONE ctermbg=NONE
-        ""highlight SignColumn   guibg=NONE ctermbg=NONE
-        ""highlight StatusLine   guibg=NONE ctermbg=NONE
-        ""highlight StatusLineNC guibg=NONE ctermbg=NONE
-        ""highlight NonText      guibg=NONE ctermbg=NONE
-        ""highlight TabLine      guibg=NONE ctermbg=NONE
-        ""highlight SpecialKey   guibg=NONE ctermbg=NONE
-        ""highlight VertSplit    guibg=NONE ctermbg=NONE
-        """ Note that it is cterm/gui instead of ctermbg/guibg.
-        ""highlight TabLineFill gui=NONE cterm=NONE
-    endif
-    " NEOVIM SPECIFIC {{{
-        if has("nvim")
-            ""tnoremap jk <C-\><C-n>
-        endif
-    " }}}
+endif
 
-    if (has("termguicolors"))
-        set t_8f=[38;2;%lu;%lu;%lum        " set foreground color
-        set t_8b=[48;2;%lu;%lu;%lum        " set background color
-        "set termguicolors " Enable GUI colors for the to get truecolor
-    endif
+highlight Normal guibg=NONE ctermbg=NONE
 
-    if &term =~ '256color'
-        " disable Background Color Erase (BCE) so that color schemes
-        " render properly when inside 256-color tmux and GNU screen.
-        " see also https://sunaku.github.io/vim-256color-bce.html
-        set t_ut=
-    endif
+filetype plugin indent on
 
-    filetype plugin indent on
+nnoremap Y y$
 
-    nnoremap <c-h> <c-w><c-h>
-    nnoremap <c-j> <c-w><c-j>
-    nnoremap <c-k> <c-w><c-k>
-    nnoremap <c-l> <c-w><c-l>
-    ""inoremap jk <esc>
+nnoremap <localleader>v :vsplit<CR>
+nnoremap <localleader>s :split<CR>
+nnoremap <localleader>m :MinimapToggle<CR>
+nnoremap <localleader>c :HexokinaseToggle<CR>
 
-    " Remove the ability to exit insert mode with <esc>
-    " I am doing this as I am trying to get used to the
-    " default CTRL-[ as I try to stop using jk
-    nnoremap <esc> <nop>
+" ==== General ====
+set shell=bash
+set background=dark
+set listchars=tab:>.  " Visual representation of certain characters when list is set.
+set list              " listing of invisible characters (personal preference).
+set undolevels=100000 " Set the number of undo levels vim will record.
+set encoding=utf-8    " File encoding will be in unicode.
+set ttimeoutlen=0     " key code delay (see timeoutlen for mapping delays)
+set cursorline        " highlight line cursor is on
 
-    nnoremap + :bnext<cr>
-    nnoremap - :bprevious<cr>
+" ==== Line Numbers ====
+set number         " Show line numbers in the gutter.
+set relativenumber " Show how many lines each line is away from the current line
 
-    " Yank to the end of the line.
-    nnoremap Y y$
+" ==== Default Indentation ====
+set autoindent   " Enable automatic indentation.
+set shiftwidth=4 " Used by >>, <<, and ==. Also affects how auto-indentation works.
+set tabstop=4    " Changes the width of the tab character.
+set expandtab    " Replace tabs with spaces. Comment this line out to use hard tabs.
 
-    " Make VIM transparent
-    "autocmd vimenter * highlight Normal ctermbg=NONE
+" ==== Folding ====
+set foldenable
+set foldmethod=marker
 
-    " Remove all trailing whitespace before writing to file.
-    autocmd BufWritePre * %s/\s\+$//e
+" ==== File Specific Indentation ====
+autocmd filetype lisp set shiftwidth=2
+autocmd filetype lisp set tabstop=2
+autocmd filetype lisp set expandtab
 
-    " TODO: restructure all my bindings as
-    " function keys are stupid and I never
-    " remember them anyways
+autocmd filetype c set tabstop=4
+autocmd filetype c set noexpandtab
 
-    " Toggle external paste mode.
-    nnoremap <F1> :set paste!<cr>
+" ==== Boilerplates ====
+autocmd filetype java nnoremap <localleader>b gg:r ~/.vim/boilerplates/java<CR>ggdd:s/NAME/<C-r>=expand("%:r")<CR><CR>2Go
+autocmd filetype c    nnoremap <localleader>b gg:r ~/.vim/boilerplates/c<CR>ggdd/{<CR>o
+autocmd filetype html nnoremap <localleader>b gg:r ~/.vim/boilerplates/html<CR>ggdd/<title><CR>f>a<C-r>=expand("%:r")<CR><esc>/<body><CR>o
 
-    " Toggle spell checking
-    nnoremap <F2> :set spell! spelllang=en_us<cr>
+" Corporate Comment Boilerplate
+nnoremap <localleader>* mp:r ~/.vim/boilerplates/comment<cr>'pdd=5j/DATE<cr>dawk:r! date +\%m/\%d/\%Y<cr>J==i* <esc>2Wi  <esc>?Description<cr>nciw
 
-    " Toggle line wrapping.
-    nnoremap <F3> :set wrap!<cr>
-
-    " Toggle search highlighting
-    nnoremap <F4> :set hlsearch!<cr>
-
-    " Toggle syntastic error checking
-    nnoremap <F5> :SyntasticToggleMode<cr>
-
-    " Save to a read only file
-    nnoremap <F12> :w !sudo tee %<cr>
-
-    " Insert comment boilerplate
-    " algo:
-    " create mark p
-    " read in comment boilerplate
-    " goto mark p and delete line
-    " reindent 5 lines down
-    " goto second occurance of keyword date
-    " delete work
-    " read in date
-    " join line and reformat
-    " insert * and a space
-    " add 2 spaces after date
-    " goto second occurance of keyword description (backwards)
-    " change inside work as to put the user in a position to write a description
-    " TODO: make it so that it doesn't rely on formmating of boilerplate
-    nnoremap <localleader>* mp:r ~/.vim/boilerplates/comment<cr>'pdd=5j/DATE<cr>ndawk:r! date +\%m/\%d/\%Y<cr>J==i* <esc>2Wi  <esc>?Description<cr>nciw
-
-    nnoremap <localleader>ev :vsplit<CR>
-    nnoremap <localleader>es :split<CR>
-
-    set shell=bash                 " Make sure the shell is bash on every system.
-    set backspace=indent,eol,start " Vim backspace acts like a normal text editor's backspace.
-    set listchars=tab:>.           " Visual representation of certain characters when list is set.
-    set viewoptions-=options       " Views will not save keymappings (only preserve buffer folds).
-    set foldmethod=marker          " Enable folding triggered by markers
-    ""set textwidth=100              " Break line at the 100th column.
-    set undolevels=10000           " Set the number of undo levels vim will record.
-    set bg=dark                    " Background colors should be either light or dark
-    set encoding=utf-8             " File encoding will be in unicode.
-    set t_Co=256                   " Enable 256-color mode.
-    ""set colorcolumn=+1             " Column is after the set text width.
-
-    set nowrap         " By default do not wrap text
-    set nocursorline   " Do not highlight the current cursor row (line).
-    set ignorecase     " Ignore case of text you search for.
-    set nocursorcolumn " Do not highlight the cursor current column
-    set splitbelow     " All horizontal splits will default to below current screen.
-    set splitright     " All vertical splits will default to the right of the current screen.
-    set incsearch      " Search for patterns as you type them in.
-    set nohlsearch     " Do not highlight search patterns.
-    set number         " Show line numbers in the gutter.
-    set relativenumber " Show how many lines each line is away from the current line
-    set autoindent     " Enable automatic indentation.
-    set list           " listing of invisible characters (personal preference).
-    set wildmenu       " Will display menu of completions in command mode upon user entering a tab.
-" }}}
-" TAB SETTINGS {{{
-    set shiftwidth=4 " Used by >>, <<, and ==. Also affects how auto-indentation works.
-    set tabstop=4    " Changes the width of the tab character.
-    set expandtab " Replace tabs with spaces. Comment this line out to use hard tabs.
-" }}}
-
-" PLUGIN: javaimp {{{
-    let g:JavaImpPaths = $HOME . "/.java-source/"
-    let g:JavaImpDataDir = $HOME . "/.vim/JavaImp"
-
-    " Import the Class under cursor.
-    autocmd filetype java nnoremap <localleader>ii :JavaImpSilent<CR>
-
-    " Open the java source code file in a new buffer, put the cursor on the first line of class
-    " definition, and move current line to the top of the screen.
-    autocmd filetype java nnoremap <localleader>iv :JavaImpFile<CR>gg/interface\ <C-r>=expand("%:t:r")<CR>\\|class\ <C-r>=expand("%:t:r")<CR><CR>zt
-
-    " Same as above only instead of opening a new buffer it opens a split.
-    autocmd filetype java nnoremap <localleader>is :JavaImpFileSplit<CR>gg/interface\ <C-r>=expand("%:t:r")<CR>\\|class\ <C-r>=expand("%:t:r")<CR><CR>zt
-" }}}
-" PLUGIN: syntastic {{{
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
-    let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
-" }}}
-" PLUGIN: airline {{{
-    ""let g:airline#extensions#tabline#enabled = 1
-" }}}
-" PLUGIN: vim-gitgutter {{{
-    ""let g:gitgutter_override_sign_column_highlight = 0
-    ""highlight SignColumn ctermbg=000
-" }}}
-" PLUGIN: vim-slime {{{
-    let g:slime_target="tmux" " Use tmux instead of Gnu Screen.
-    xmap <localleader><cr> <Plug>SlimeRegionSend
-    nmap <localleader><cr> <Plug>SlimeParagraphSend
-" }}}
-" PLUGIN: nerdtree {{{
-    ""let g:NERDTreeDirArrowExpandable = '+'
-    ""let g:NERDTreeDirArrowCollapsible = '~'
-    nnoremap <silent> <localleader>h :NERDTreeToggle<cr>
-    let NERDTreeIgnore = ['\.xib$', '\.gif$', '\.png$', '\.jpeg$', '\.jpg$']
-" }}}
-" PLUGIN: nerdcommenter {{{
-    let g:NERDSpaceDelims = 1
-    let g:NERDCommentEmptyLines = 1
-    let g:NERDTrimTrailingWhitespace = 1
-" }}}
-" PLUGIN: vim-tmux-navigator {{{
-    let g:tmux_navigator_save_on_switch = 2
-" }}}
-" PLUGIN: ctrlp {{{
-    nnoremap <silent> <localleader>j :CtrlP<CR>
-" }}}
-" PLUGIN: tabular {{{
-
-    nnoremap <localleader><tab><tab> :Tab<cr>
-    xnoremap <localleader><tab><tab> :Tab<cr>
-
-    nnoremap <localleader><tab><bar> :Tab/<bar><cr>
-    xnoremap <localleader><tab><bar> :Tab/<bar><cr>
-
-    nnoremap <localleader><tab>: :Tab/:<cr>
-    xnoremap <localleader><tab>: :Tab/:<cr>
-
-    nnoremap <localleader><tab>= :Tab/=<cr>
-    xnoremap <localleader><tab>= :Tab/=<cr>
-" }}}
-" PLUGIN: easymotion {{{
-    ""let g:EasyMotion_do_mapping = 1 " Disable default easymotion mappings.
-    ""nnoremap <localleader> <plug>(easymotion-prefix)
-" }}}
-" PLUGIN: vim-latex-live-preview {{{
-    let g:livepreview_previewer = 'zathura'
-" }}}
-" PLUGIN: arm-syntax-vim {{{
-    autocmd filetype asm set syntax=arm
-" }}}
-" PLUGIN: comfortable_motion_vim {{{
-    ""let g:comfortable_motion_no_default_key_mappings = 1
-    ""let g:comfortable_motion_friction = 200.0
-    ""let g:comfortable_motion_air_drag = 4.0
-    ""nnoremap <silent> <C-e> :call comfortable_motion#flick(70)<cr>
-    ""nnoremap <silent> <C-y> :call comfortable_motion#flick(-70)<cr>
-" }}}
-" PLUGIN: rhubarb {{{
-    nnoremap gh :Gbrowse<cr>
-    vnoremap gh :Gbrowse<cr>
-" }}}
-" PLUGIN: vim-startify {{{
-    let g:startify_session_dir='~/.vim/sessions'
-    let g:startify_custom_header =
-        \ map(split(system('fortune | cowsay -f /usr/share/cows/tux.cow'), '\n'), '" ". v:val')
-    " Vim Drill startify header {{{
-        let g:startify_custom_header = [
-        \"                                          .'+,       ",
-        \"                                         @#####,     ",
-        \"                                        #######@     ",
-        \"          VIM - Vi IMproved            .'++'+###     ",
-        \"                                       ;'+''++##,    ",
-        \"    Help poor children in Uganda!      +++#'++##,    ",
-        \"                                       '+;;#'+#++    ",
-        \"                                       +#'#+++#++    ",
-        \"                                       ++++;+###.    ",
-        \"                                       '#'+++##'     ",
-        \"                                       ;:;++++#'     ",
-        \"                                        ++++##+,     ",
-        \"                    . .,:,:,`           #+##:.,,     ",
-        \"          ``..,`.'#;@++++++++#+`       ;,#;.,::,:    ",
-        \"    +'++:;'':;;+;,:+';VIM;;''++;      ,::,::,::,.    ",
-        \"                  `+#+'''';;'+##     .::,:,:,,,,,,   ",
-        \"                   #'+#++':::+++     ,,,:,,,,,,:,;   ",
-        \"                   '++#@+#+''++##   :,,:,:,,,,,,,,   ",
-        \"                    ;#++:   #+++##  :,,:::,,,,,,,,   ",
-        \"                    +'++#    `#;++#;::::,,,,,,,,,,   ",
-        \"                    #++''#   :+#+'+@;::,,,,,,,,,,,   ",
-        \"                    #++'''+  .#++'+;::,,,,,,,,,,,,   ",
-        \"                    ;@#++''+  @#++@:::,,,,,,,,,,,:   ",
-        \"                       ##++'++;'##,:,,,,,,,,,,:,,'   ",
-        \"                         #++'++##'::,,,,,,,,,,,,,:   ",
-        \"                          ,#+'++':::,,,,,,,,,,:,.    ",
-        \"                            @#'++#;:,,,,,,,,,,,,;    ",
-        \"                             @+''+++::,,,,,,,,,:     ",
-        \"                              #++''+#,,,,,,,:,:;     ",
-        \"                              :'+++++#:,,,,,,,,      ",
-        \"                              ::,##+++#.,,,::,,      ",
-        \"                              ,::,##++'#:,,,,,`      ",
-        \"                              '';;:,+#'':::,::       ",
-        \"                             `:;;;';:,:::::,:        ",
-        \"                             ;'';;;;:,:,:::::        ",
-        \"                             ''';;;;',:,:::+         ",
-        \]
-    " }}}
-    nnoremap <esc><esc> :Startify<cr>
-" }}}
-" PLUGIN: vim-session {{{
-    let g:session_autosave='no'
-    let g:session_autoload='yes'
-" }}}
-" PLUGIN: haskell-vim {{{
-    let g:haskell_enable_quantification = 1   " enable highlighting of `forall`
-    let g:haskell_enable_recursivedo = 1      " enable highlighting of `mdo` and `rec`
-    let g:haskell_enable_arrowsyntax = 1      " enable highlighting of `proc`
-    let g:haskell_enable_pattern_synonyms = 1 " enable highlighting of `pattern`
-    let g:haskell_enable_typeroles = 1        " enable highlighting of type roles
-    let g:haskell_enable_static_pointers = 1  " enable highlighting of `static`
-    let g:haskell_hackpack = 1                " enable highlighting of backpack keywords
-
-    let g:haskell_indent_if = 4
-    let g:haskell_indent_case = 4
-    let g:haskell_indent_let = 4
-    let g:haskell_indent_before_where = -2
-    let g:haskell_indent_where = 6
-    let g:haskell_indent_after_bare_where = 2
-    let g:haskell_indent_do = 3
-    let g:haskell_indent_in = 1
-    let g:haskell_indent_guard = 4
+" ==== Status Line ==== {{{
+"set laststatus=2
+"set statusline=
+"set statusline+=%2*
+"set statusline+=%{StatuslineMode()}
+"set statusline+=%1*
+"set statusline+=\ 
+"set statusline+=<
+"set statusline+=<
+"set statusline+=\ 
+"set statusline+=%f
+"set statusline+=\ 
+"set statusline+=>
+"set statusline+=>
+"set statusline+=%=
+"set statusline+=%m
+"set statusline+=%h
+"set statusline+=%r
+"set statusline+=\ 
+"set statusline+=%3*
+"set statusline+=%{b:gitbranch}
+"set statusline+=%1*
+"set statusline+=\ 
+"set statusline+=%4*
+"set statusline+=%F
+"set statusline+=:
+"set statusline+=:
+"set statusline+=%5*
+"set statusline+=%l
+"set statusline+=/
+"set statusline+=%L
+"set statusline+=%1*
+"set statusline+=|
+"set statusline+=%y
+"hi User2 ctermbg=lightgreen ctermfg=black guibg=lightgreen guifg=black
+"hi User1 ctermbg=black ctermfg=white guibg=black guifg=white
+"hi User3 ctermbg=black ctermfg=lightblue guibg=black guifg=lightblue
+"hi User4 ctermbg=black ctermfg=lightgreen guibg=black guifg=lightgreen
+"hi User5 ctermbg=black ctermfg=magenta guibg=black guifg=magenta
+"
+"function! StatuslineMode()
+"    let l:mode=mode()
+"    if l:mode==#"n"
+"        return "NORMAL"
+"    elseif l:mode==?"v"
+"        return "VISUAL"
+"    elseif l:mode==#"i"
+"        return "INSERT"
+"    elseif l:mode==#"R"
+"        return "REPLACE"
+"    elseif l:mode==?"s"
+"        return "SELECT"
+"    elseif l:mode==#"t"
+"        return "TERMINAL"
+"    elseif l:mode==#"c"
+"        return "COMMAND"
+"    elseif l:mode==#"!"
+"        return "SHELL"
+"    endif
+"endfunction
+"
+"function! StatuslineGitBranch()
+"    let b:gitbranch=""
+"    if &modifiable
+"        try
+"            let l:dir=expand('%:p:h')
+"            let l:gitrevparse = system("git -C ".l:dir." rev-parse --abbrev-ref HEAD")
+"            if !v:shell_error
+"                let b:gitbranch="(".substitute(l:gitrevparse, '\n', '', 'g').") "
+"            endif
+"        catch
+"        endtry
+"    endif
+"endfunction
+"
+"augroup GetGitBranch
+"    autocmd!
+"    autocmd VimEnter,WinEnter,BufEnter * call StatuslineGitBranch()
+"augroup END
 " }}}
 
-" FILETYPE: swift {{{
-    autocmd filetype swift nnoremap <localleader>, :.s/,\zs/\r/g<CR>
-" }}}
-" FILETYPE: lisp {{{
-    autocmd filetype lisp set shiftwidth=2
-    autocmd filetype lisp set tabstop=2
-    autocmd filetype lisp set expandtab
-" }}}
-" FILETYPE: html {{{
-    autocmd filetype html set wrap
-    autocmd filetype html nnoremap j gj
-    autocmd filetype html nnoremap k gk
-    autocmd filetype html nnoremap gj j
-    autocmd filetype html nnoremap gk k
-" }}}
-" FILETYPE: tex {{{
-    autocmd filetype tex set wrap
-    autocmd filetype tex nnoremap j gj
-    autocmd filetype tex nnoremap k gk
-    autocmd filetype tex nnoremap gj j
-    autocmd filetype tex nnoremap gk k
-" }}}
-" FILETYPE: java {{{
-    autocmd filetype java nnoremap <F6> :!javarun <C-r>=expand("%:r")<CR><CR>
-    autocmd filetype java nnoremap <F7> :vsplit ~/.vim/JavaImp/JavaImp.txt<CR>
-    autocmd filetype java nnoremap <localleader>bj gg:r ~/.vim/boilerplates/java<CR>ggdd:s/NAME/<C-r>=expand("%:r")<CR><CR>2Go
-" }}}
-" FILETYPE: python {{{
-    autocmd filetype python nnoremap <localleader>c :silent w<CR>:silent !clear;pkill <C-r>=expand("%")<CR>;./<C-r>=expand("%")<CR> & sleep 1<CR>:silent !xdotool mousemove 300 500 & xdotool click 1<CR>
-    autocmd filetype python nnoremap <localleader>s mm2GIimport matplotlib.pyplot as plt<CR><esc>`m
-" }}}
+" vim:foldmethod=marker:foldlevel=0

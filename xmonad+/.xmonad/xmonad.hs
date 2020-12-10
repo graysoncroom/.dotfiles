@@ -114,7 +114,7 @@ main = do
       [ ((myModMask,               xK_r),           unsafeSpawn $ launchWrapper myFileBrowser)
       , ((myModMask,               xK_b),           unsafeSpawn myWebBrowser)
       , ((myModMask,               xF86XK_Launch1), unsafeSpawn "killall xcompmgr; xsetroot;")
-      , ((myModMask,               xK_Return),      unsafeSpawn $ myTerminal) --launchWrapper "tmux")
+      , ((myModMask,               xK_Return),      unsafeSpawn $ launchWrapper "tmux")
       , ((myModMask .|. shiftMask, xK_Return),      unsafeSpawn $ "$(ls /usr/bin | " ++ myMenu ++ ")")
       , ((myModMask,               xK_grave),       scratchpadSpawnActionTerminal $ myTerminal ++ " -name scratchpad -e tmux")
       ] --`additionalMouseBindings` []

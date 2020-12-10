@@ -27,7 +27,7 @@
     set $right l
 
     #set $terminal     urxvt
-    set $terminal     xterm
+    set $terminal     st
     set $browser      firefox
     set $menu         rofi -show run
     set $file_browser ranger
@@ -46,7 +46,7 @@
     bindsym $mod+b            exec $browser
     bindsym $mod+Delete       exec $lock
     bindsym $mod+Shift+Return exec $menu
-    bindsym $mod+Return       exec $terminal #-e tmux
+    bindsym $mod+Return       exec $terminal -e tmux
     bindsym $mod+r            exec $terminal -e $file_browser
     bindsym $mod+minus        scratchpad show
     bindsym $mod+Shift+minus  move scratchpad
@@ -182,14 +182,14 @@
 #}}}
 
 # Setup (should come after all bindings/definitions){{{
-#exec --no-startup-id feh --bg-scale $wallpaper
-#exec xbanish &
-#exec redshift &
+exec --no-startup-id feh --bg-scale $wallpaper
+exec xbanish &
+exec redshift &
 #exec wal -i $wallpaper &
 #exec --no-startup-id $HOME/.config/polybar/launch.sh
 
 hide_edge_borders both
 for_window [class="^.*"] border pixel 1
-gaps inner 0
-gaps outer 12
+gaps inner 20
+gaps outer 15
 #}}}

@@ -17,6 +17,13 @@ alias open='xdg-open'
 alias info='info --vi-keys'
 alias xmonaderr='cat ~/.xmonad/xmonad.errors | less'
 alias xmonadconf='vim ~/.xmonad/xmonad.hs'
+alias stconf='vim ~/Development/tools/st/config.h'
+alias streload='cd ~/Development/tools/st && sudo make clean install && cd -'
+alias herbconf='vim ~/.config/herbstluftwm/autostart'
+alias hc='herbstclient'
+
+# Copy/Paste
+alias copy='xclip -sel clip'
 
 # Color
 alias ls='ls --color=auto'
@@ -28,4 +35,4 @@ alias gcs='clear; git status'
 alias gd='git diff'
 
 # Tools
-alias bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E "state|to\ full|percentage"'
+alias bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E "state|to\ full|percentage|capacity"'

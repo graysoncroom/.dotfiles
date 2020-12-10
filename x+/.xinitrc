@@ -12,6 +12,8 @@
 
 #[ -f /usr/bin/xsetroot ] && xsetroot -cursor_name left_ptr
 
-exec xmonad
+#exec xmonad
 #exec dwm
 #exec firefox
+#exec i3
+exec herbstluftwm --locked

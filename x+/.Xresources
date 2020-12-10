@@ -5,6 +5,9 @@ URxvt*urlLauncher: /bin/google-chrome-stable
 URxvt*font: xft:Noto Sans Mono:size=8:antialias=true:dpi=149
 URxvt*boldFont: xft:Noto Sans Mono:size=8:antialias=true:dpi=149
 
+xterm*font: xft:Noto Sans Mono:size=8:antialias=true:dpi=149
+xterm*boldFont: xft:Noto Sans Mono:size=8:antialias=true:dpi=149
+
 !spacing between letters relative to default machine spacing
 URxvt*letterSpace: -1
 
