@@ -30,7 +30,7 @@ xsetroot -cursor_name left_ptr &
 [ $(pgrep redshift | wc -l) -eq 0 ] && redshift &
 [ $(pgrep xbanish | wc -l) -eq 0 ]  && xbanish &
 
-feh --no-fehbg --bg-fill "${Wallpapers[1]}" &
+feh --no-fehbg --bg-fill "${Wallpapers[0]}" &
 # use your $TERMINAL with xterm as fallback:
 # "${TERMINAL:-xterm}"
 hc keybind $Mod-Shift-q      quit
