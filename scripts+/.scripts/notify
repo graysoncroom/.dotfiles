@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+(
+
+herbstclient split top 0.2
+herbstclient focus up
+herbstclient spawn xterm -e "echo $1; herbstclient focus down; read && herbstclient close_and_remove"
+) &
