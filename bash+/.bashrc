@@ -1,8 +1,8 @@
 # Source global definitions
 
-[ -f /etc/bashrc ]     && . /etc/bashrc
-[ -f ~/.bash_aliases ] && . ~/.bash_aliases
-[ -f ~/.localrc ]      && . ~/.localrc
+[ -f /etc/bashrc ]     && source /etc/bashrc
+[ -f ~/.bash_aliases ] && source ~/.bash_aliases
+[ -f ~/.localrc ]      && source ~/.localrc
 
 herbstcompletionfile=/usr/share/bash-completion/completions/herbstclient
 [ -f "$herstcompletionfile" ] && . "$herstcompletionfile" 
@@ -25,7 +25,7 @@ shopt -s interactive_comments
 # default: off
 #shopt -s autocd
 
-eval "$(thefuck --alias)"
+#eval "$(thefuck --alias)"
 
 export PATH="$HOME/.scripts:$PATH"
 #export MANPATH="/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/lib/jvm/default/man"
@@ -82,6 +82,10 @@ sendemail() {
 
 get-hex() {
     echo "$1" | hexdump -C
+}
+ 
+fzf() {
+    fzf --preview='head -$LINES {}' --bind 'ctrl-j:down,ctrl-k:up'
 }
 
 # default
