@@ -54,7 +54,7 @@ export TERMINAL="st"
 #export COLOR_GRAY='\e[0;30m'
 #export COLOR_LIGHT_GRAY='\e[0;37m'
 
-extract() { # {{{
+function extract { # {{{
     extract_fail_msg="don't know how to extract '$1'..." 
     if [ -f "$1" ]; then
         case "$1" in
@@ -76,15 +76,15 @@ extract() { # {{{
     fi
 } # }}}
 
-sendemail() {
+function sendemail {
     curl --url "smtps://smtp.gmail.com:465" --ssl-reqd --mail-from $gmailuser --mail-rcpt $1 --upload-file $2 --user "$gmailuser:$gmailpass" --insecure;
 }
 
-get-hex() {
+function get-hex {
     echo "$1" | hexdump -C
 }
  
-fzf() {
+function fzf {
     fzf --preview='head -$LINES {}' --bind 'ctrl-j:down,ctrl-k:up'
 }
 
