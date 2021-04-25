@@ -27,7 +27,7 @@ shopt -s interactive_comments
 
 #eval "$(thefuck --alias)"
 
-export PATH="$HOME/.scripts:$PATH"
+export PATH="$HOME/.scripts:$HOME/bin:$PATH"
 #export MANPATH="/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/lib/jvm/default/man"
 
 export EDITOR="vim"
