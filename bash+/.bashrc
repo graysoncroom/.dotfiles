@@ -34,6 +34,8 @@ export EDITOR="vim"
 export VISUAL="vim"
 export BROWSER="google-chrome-stable"
 export TERMINAL="st"
+#export FZF_DEFAULT_OPTS="--ansi --preview='head -$LINES {}' --bind 'ctrl-j:down,ctrl-k:up'"
+export FZF_DEFAULT_OPTS="--preview='bat --color=always {}' --bind 'ctrl-j:down,ctrl-k:up,ctrl-a:select-all,ctrl-d:deselect-all'"
 
 # Color exports
 #export COLOR_NC='\e[0m' # No Color
@@ -82,10 +84,6 @@ function sendemail {
 
 function get-hex {
     echo "$1" | hexdump -C
-}
- 
-function fzf {
-    fzf --preview='head -$LINES {}' --bind 'ctrl-j:down,ctrl-k:up'
 }
 
 # default

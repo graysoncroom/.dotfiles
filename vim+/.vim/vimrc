@@ -7,43 +7,110 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" ==== Custom Procedures ==== {{{
+"stolen from https://vi.stackexchange.com/questions/10988/toggle-explorer-window
+"changed a couple things
+let g:netrwIsOpen=0
+function! ToggleNetrw()
+    if g:netrwIsOpen
+        " bufnr("$") is the largest buffer number that you could normally see with :ls
+        let i = bufnr("$")
+        while i >= 1
+            if getbufvar(i, "&filetype") == "netrw"
+                "bwipeout replaced with bdelete so I can keep marks :)
+                silent exe "bdelete " . i 
+            endif
+            let i-=1
+        endwhile
+        let g:netrwIsOpen=0
+    else
+        let g:netrwIsOpen=1
+        "vsplit left top into netrw, having it take 25% of the screen
+        silent 20Vexplore
+    endif
+endfunction
+
+let g:quickFixListIsOpen=0
+function! ToggleQuickFixList()
+    if g:quickFixListIsOpen
+        let i = bufnr("$")
+        while i >= 1
+            if getbufvar(i, "&filetype") == "qf"
+                silent exe "cclose"
+            endif
+            let i-=1
+        endwhile
+        let g:quickFixListIsOpen=0
+    else
+        let g:quickFixListIsOpen=1
+        silent exe "copen"
+    endif
+endfunction
+
+function! ToggleColorscheme()
+    if g:colors_name == "one"
+        silent colorscheme palenight
+        silent set notermguicolors
+    else
+        silent colorscheme one
+        silent set termguicolors
+    endif
+endfunction
+nnoremap <silent> <localleader>c :call ToggleColorscheme()<CR>
+
+function! s:build_quickfix_list(lines)
+    call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+endfunction
+
+"}}}
+
+" ==== Plugins ==== {{{
 call plug#begin('~/.vim/plugged')
 
-Plug 'christoomey/vim-tmux-navigator'  
+""Plug 'christoomey/vim-tmux-navigator'  
 Plug 'vim-airline/vim-airline'
-Plug 'drewtempelmeyer/palenight.vim'    
-Plug 'rakr/vim-one'
-"Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
-Plug 'humanoid-colors/vim-humanoid-colorscheme'
+""Plug 'drewtempelmeyer/palenight.vim'    
+""Plug 'rakr/vim-one'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'morhetz/gruvbox'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+""Plug 'tomasiser/vim-code-dark'
+""Plug 'tomasr/molokai'
+""Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
+""Plug 'humanoid-colors/vim-humanoid-colorscheme'
 
 " Requires code-minimap to work
 "Plug 'wfxr/minimap.vim'
 
 call plug#end()
+"}}}
 
 let mapleader="\<Space>"
 let maplocalleader="\<Space>"
 
 let g:palenight_terminal_italics=1
 let g:one_allow_italics=1
-let g:airline_theme='one'
+let g:airline_theme='gruvbox'
 let g:minimap_auto_start=0
 let g:tmux_navigator_save_on_switch=2
 let g:livepreview_previewer='zathura'
 let g:Hexokinase_highlighters=['backgroundfull']
+
 "stolen from https://stackoverflow.com/questions/8730702/how-do-i-configure-vimrc-so-that-line-numbers-display-in-netrw-in-vim
 "forces netrw to start with nu (number) and rnu (relativenumber) set
 let g:netrw_bufsettings='noma nomod nu rnu nobl nowrap ro' 
+
 "check out https://shapeshed.com/vim-netrw/
-"sets the netrw layout
-" thin => 0, long => 1, wide => 2, tree => 3
-let g:netrw_liststyle=3
-"adds/removes the banner
-"remove => 0, add => 1
-let g:netrw_banner=0
-"changes how files are opened from netrw
-"new split => 1, new vsplit => 2, new tab => 3, previous window => 4
-let g:netrw_browse_split = 4
+let g:netrw_liststyle=0 " thin => 0, long => 1, wide => 2, tree => 3
+let g:netrw_banner=0 "remove => 0, add => 1
+let g:netrw_browse_split = 4 "new split => 1, new vsplit => 2, new tab => 3, previous window => 4
+
+let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
+let g:fzf_action = {
+    \ 'ctrl-q': function('s:build_quickfix_list'),
+    \ 'ctrl-t': 'tab split',
+    \ 'ctrl-s': 'split',
+    \ 'ctrl-v': 'vsplit' }
 
 " ==== True Color ====
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
@@ -53,59 +120,50 @@ set termguicolors
 if &term =~ '256color'
     set t_ut=
 endif
-if has("termguicolors")
-    colorscheme one
-else
-    colorscheme palenight
-endif
-highlight Normal guibg=NONE ctermbg=NONE
+colorscheme gruvbox
+""if has("termguicolors")
+""    colorscheme one
+""else
+""    colorscheme palenight
+""endif
+"highlight Normal guibg=NONE ctermbg=NONE
 
 filetype plugin indent on
-
-" ==== Custom Procedures ====
-"stolen from https://vi.stackexchange.com/questions/10988/toggle-explorer-window
-let g:netrwIsOpen=0
-
-function! ToggleNetrw()
-    if g:netrwIsOpen
-        let i = bufnr("$")
-        while (i >= 1)
-            if (getbufvar(i, "&filetype") == "netrw")
-                silent exe "bwipeout " . i 
-            endif
-            let i-=1
-        endwhile
-        let g:netrwIsOpen=0
-    else
-        let g:netrwIsOpen=1
-        silent 25Vexplore
-    endif
-endfunction
 
 " ==== General Remaps ====
 nnoremap Y y$
 "insert single character before current character
 "stolen from xxc3nsoredxx
-nnoremap <localleader>i i_<esc>r
-""nnoremap <localleader>v :vsplit<CR>
-""nnoremap <localleader>s :split<CR>
-""nnoremap <localleader>m :MinimapToggle<CR>
-""nnoremap <localleader>c :HexokinaseToggle<CR>
-nnoremap <silent> <localleader>h :call ToggleNetrw()<CR>
+nnoremap <leader>i i_<esc>r
+
+nnoremap <leader>s :source ~/.vimrc<CR>
+""nnoremap <localleader><localleader>l <Plug>NetrwRefresh
+""nnoremap <C-l> <C-w><C-l>
+nnoremap <silent> <leader>h :call ToggleNetrw()<CR>
+""nnoremap <silent> <leader>f :FZF<CR>
+nnoremap <silent> <leader>k :cprev<CR>
+nnoremap <silent> <leader>j :cnext<CR>
+nnoremap <silent> <leader>q :call ToggleQuickFixList()<CR>
+""nnoremap <silent> <leader>fs :below terminal fzf<CR>
+""nnoremap <silent> <leader>fg yy:open <C-r>=expand("<cfile>")<CR><CR>
+nnoremap <silent> <leader>ff :!fzf > .fzf_temp_output<CR>:r .fzf_temp_output<CR>:!rm .fzf_temp_output<CR>:d x<CR>:vsplit <C-r>x<backspace><CR>
+
 " stolen from xxc3nsoredxx
 " Opens and closes the following: { " (
-inoremap { {<CR>}<esc>O
-inoremap " ""<esc>i
-inoremap ( ()<esc>i
+""inoremap { {<CR>}<esc>O
+""inoremap " ""<esc>i
+""inoremap ( ()<esc>i
 
 " ==== Filetype Remaps ====
+
 " <localleader>; to insert semi-colon at the end of line without moving cursor
 " TODO: make this work for all langs I use that delimit statements with a
 " semi-colon
-autocmd filetype c nnoremap <localleader>; mm$a;<esc>`m
+autocmd filetype c nnoremap <leader>; mmA;<esc>`m
+
 " <localleader>p to do a standard c++ print statement
 " TODO: Make a print statement mapping for all langs I use
-autocmd filetype cpp nnoremap <localleader>p ostd::cout<space><<<space>""<space><<<space>std::endl;<esc>F"i
+autocmd filetype cpp nnoremap <leader>p ostd::cout<space><<<space>""<space><<<space>std::endl;<esc>F"i
 
 " ==== General ====
 set shell=bash
@@ -116,7 +174,17 @@ set undolevels=100000 " Set the number of undo levels vim will record.
 set encoding=utf-8    " File encoding will be in unicode.
 set ttimeoutlen=0     " key code delay (see timeoutlen for mapping delays) TODO: why is this here?
 set cursorline        " highlight line cursor is on
-set noeb              " turn off terminal bell noise
+set noerrorbells      " turn off terminal bell noise
+set hidden            " Buffers can be kept "hidden" which means we don't need to save before leaving one
+set nowrap            " Don't wrap text!
+set colorcolumn=100   " Draw a ruler on specified column number
+set scrolloff=8       " Keeps the cursor closer to the middle when scrolling (vim default: 5)
+set noshowmode        " We don't need mode b/c airline does this for us
+
+" ==== Searching ====
+set nohlsearch        " Don't keep the searched item highlighted after we press enter
+set ignorecase        " The case of normal letters is ignored in searches. 
+set smartcase         " Causes ignorecase to only ignore case of lowercase characters
 
 " ==== Line Numbers ====
 set number         " Show line numbers in the gutter.
@@ -127,6 +195,7 @@ set autoindent   " Enable automatic indentation.
 set shiftwidth=4 " Used by >>, <<, and ==. Also affects how auto-indentation works.
 set tabstop=4    " Changes the width of the tab character.
 set expandtab    " Replace tabs with spaces. Comment this line out to use hard tabs.
+set smarttab     " Allows you to backspace on softtabs (awesome!)
 
 " ==== Folding ====
 set foldenable
@@ -141,9 +210,9 @@ autocmd filetype c set tabstop=4
 autocmd filetype c set noexpandtab
 
 " ==== Boilerplates ====
-autocmd filetype java nnoremap <localleader>b gg:r ~/.vim/boilerplates/java<CR>ggdd:s/NAME/<C-r>=expand("%:r")<CR><CR>2Go
-autocmd filetype c    nnoremap <localleader>b gg:r ~/.vim/boilerplates/c<CR>ggdd/{<CR>o
-autocmd filetype html nnoremap <localleader>b gg:r ~/.vim/boilerplates/html<CR>ggdd/<title><CR>f>a<C-r>=expand("%:r")<CR><esc>/<body><CR>o
+autocmd filetype java nnoremap <leader>b gg:r ~/.vim/boilerplates/java<CR>ggdd:s/NAME/<C-r>=expand("%:r")<CR><CR>2Go
+autocmd filetype c    nnoremap <leader>b gg:r ~/.vim/boilerplates/c<CR>ggdd/{<CR>o
+autocmd filetype html nnoremap <leader>b gg:r ~/.vim/boilerplates/html<CR>ggdd/<title><CR>f>a<C-r>=expand("%:r")<CR><esc>/<body><CR>o
 
 " Corporate Comment Boilerplate
 nnoremap <localleader>* mp:r ~/.vim/boilerplates/comment<cr>'pdd=5j/DATE<cr>dawk:r! date +\%m/\%d/\%Y<cr>J==i* <esc>2Wi  <esc>?Description<cr>nciw
