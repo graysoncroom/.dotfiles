@@ -47,6 +47,18 @@ function! ToggleQuickFixList()
     endif
 endfunction
 
+" When using `dd` in a quickfixlist, remove the item on current line from
+" quickfixlist.
+function! RemoveFromQFL()
+    let curr_line = line('.') - 1
+    let qflist = getqflist()
+    call remove(qflist, curr_line)
+    call setqflist(qflist, 'r')
+    execute curr_line + 1 . "cfirst"
+    :copen
+endfunction!
+autocmd FileType qf nnoremap <buffer> dd :call RemoveFromQFL()<CR>
+
 function! ToggleColorscheme()
     if g:colors_name == "one"
         silent colorscheme palenight
@@ -73,7 +85,8 @@ Plug 'vim-airline/vim-airline'
 ""Plug 'rakr/vim-one'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'morhetz/gruvbox'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'leafgarland/typescript-vim'
+""Plug 'neoclide/coc.nvim', {'branch': 'release'}
 ""Plug 'tomasiser/vim-code-dark'
 ""Plug 'tomasr/molokai'
 ""Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
@@ -101,7 +114,7 @@ let g:Hexokinase_highlighters=['backgroundfull']
 let g:netrw_bufsettings='noma nomod nu rnu nobl nowrap ro' 
 
 "check out https://shapeshed.com/vim-netrw/
-let g:netrw_liststyle=0 " thin => 0, long => 1, wide => 2, tree => 3
+let g:netrw_liststyle=3 " thin => 0, long => 1, wide => 2, tree => 3
 let g:netrw_banner=0 "remove => 0, add => 1
 let g:netrw_browse_split = 4 "new split => 1, new vsplit => 2, new tab => 3, previous window => 4
 
@@ -144,9 +157,10 @@ nnoremap <silent> <leader>h :call ToggleNetrw()<CR>
 nnoremap <silent> <leader>k :cprev<CR>
 nnoremap <silent> <leader>j :cnext<CR>
 nnoremap <silent> <leader>q :call ToggleQuickFixList()<CR>
+nnoremap <silent> <leader>ff :FZF<CR>
 ""nnoremap <silent> <leader>fs :below terminal fzf<CR>
 ""nnoremap <silent> <leader>fg yy:open <C-r>=expand("<cfile>")<CR><CR>
-nnoremap <silent> <leader>ff :!fzf > .fzf_temp_output<CR>:r .fzf_temp_output<CR>:!rm .fzf_temp_output<CR>:d x<CR>:vsplit <C-r>x<backspace><CR>
+""nnoremap <silent> <leader>ff :!fzf > .fzf_temp_output<CR>:r .fzf_temp_output<CR>:!rm .fzf_temp_output<CR>:d x<CR>:vsplit <C-r>x<backspace><CR>
 
 " stolen from xxc3nsoredxx
 " Opens and closes the following: { " (

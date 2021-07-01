@@ -2,13 +2,14 @@
 	name = Grayson Croom
 	email = grayson.croom@gmail.com
 [push]
-	; for git 1.8
 	default = simple
 [core]
 	editor = vim
 	excludesfile = /home/gcroom/.gitignore
 	quotepath = false
 	pager = less -RS
+[gc]
+    reflogExpire = never
 [diff]
 	tool = vimdiff
 [merge]
